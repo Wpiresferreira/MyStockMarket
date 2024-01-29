@@ -1,7 +1,7 @@
 package com.example.myapplication;
 
 import android.app.Activity;
-import android.graphics.Color;
+import android.icu.text.DecimalFormat;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -302,30 +302,28 @@ public class MainActivity extends AppCompatActivity {
         totalBalance = 0;
         setContentView(R.layout.activity_main);
         button1 = findViewById(R.id.button1);
-        textView = findViewById(R.id.textView2);
-        textView6 = findViewById(R.id.textView6);
-        textView7 = findViewById(R.id.textView7);
-        textView17 = findViewById(R.id.textView17);
-        textView31 = findViewById(R.id.textView31);
+        textView17 = findViewById(R.id.tv_myCash);
+        textView31 = findViewById(R.id.tv_myTotalBalance);
 
         panel = new ArrayList<>();
-        panel.add(findViewById(R.id.textView18));
-        panel.add(findViewById(R.id.textView19));
-        panel.add(findViewById(R.id.textView20));
-        panel.add(findViewById(R.id.textView21));
-        panel.add(findViewById(R.id.textView22));
-        panel.add(findViewById(R.id.textView25));
-        panel.add(findViewById(R.id.textView27));
-        panel.add(findViewById(R.id.textView28));
-        panel.add(findViewById(R.id.textView29));
-        panel.add(findViewById(R.id.textView30));
+        panel.add(findViewById(R.id.tv_myStock1));
+        panel.add(findViewById(R.id.tv_myStock2));
+        panel.add(findViewById(R.id.tv_myStock3));
+        panel.add(findViewById(R.id.tv_myStock4));
+        panel.add(findViewById(R.id.tv_myStock5));
+        panel.add(findViewById(R.id.tv_myStock6));
+        panel.add(findViewById(R.id.tv_myStock7));
+        panel.add(findViewById(R.id.tv_myStock8));
+        panel.add(findViewById(R.id.tv_myStock9));
+        panel.add(findViewById(R.id.tv_myStock10));
         generateWallet();
-        updateQuote(view);
     }
 
     private void generateWallet() {
         LinearLayout my_root = findViewById(R.id.linearLayoutWallet);
-        textView17.setText("Cash $" + loggedUser.customerCash.balance);
+
+        String cashBalance = new DecimalFormat("US$ #,##0.00").format(loggedUser.customerCash.balance);
+        textView17.setText("Cash  " + cashBalance);
 
         totalBalance += loggedUser.customerCash.balance;
 
@@ -342,40 +340,13 @@ public class MainActivity extends AppCompatActivity {
                         Float c = (float) response.getDouble("c");
                         //Float dp = (float) response.getDouble("dp");
 
-                        panel.get(loggedUser.customerListStock.indexOf(stock)).setText(stock.balance + " x " + stock.symbol + "  Price : " + c + " = " + stock.balance * c);
+                        String stockQuote = new DecimalFormat("US$ #,##0.00").format(c);
+                        String stockQuoteTotal = new DecimalFormat("US$ #,##0.00").format(c * stock.balance);
+
+                        panel.get(loggedUser.customerListStock.indexOf(stock)).setText(stock.balance + " x " + stock.symbol + "  Price : " + stockQuote + " = " + stockQuoteTotal);
                         totalBalance += stock.balance * c;
-                        textView31.setText("$ " + totalBalance);
-
-                        myQuote.symbol = stock.symbol;
-                        myQuote.currentPrice = (float) response.getDouble("c");
-                        myQuote.change = (float) response.getDouble("d");
-                        myQuote.percentChange = (float) response.getDouble("dp");
-                        myQuote.highPriceOfTheDay = (float) response.getDouble("h");
-                        myQuote.lowPriceOfTheDay = (float) response.getDouble("l");
-                        myQuote.openPriceOfTheDay = (float) response.getDouble("o");
-                        myQuote.previousClosePrice = (float) response.getDouble("pc");
-
-//                        if (dp > 0) {
-//                            textView.setBackgroundColor(Color.BLUE);
-//                            textView6.setBackgroundColor(Color.BLUE);
-//                            textView7.setBackgroundColor(Color.BLUE);
-//
-//                        } else if (dp < 0) {
-//                            textView.setBackgroundColor(Color.RED);
-//                            textView6.setBackgroundColor(Color.RED);
-//                            textView7.setBackgroundColor(Color.RED);
-//                        } else {
-//                            textView.setBackgroundColor(Color.BLACK);
-//                            textView6.setBackgroundColor(Color.BLACK);
-//                            textView7.setBackgroundColor(Color.BLACK);
-//                        }
-//                        textView.setText("BTC-USD");
-//                        textView6.setText(c.toString());
-//                        textView7.setText(dp.toString() + "%");
-
-                        myQuote.currentPrice = c;
-                        //myQuote.percentChange = dp;
-
+                        String formatTotalBalance = new DecimalFormat("US$ #,##0.00").format(totalBalance);
+                        textView31.setText(formatTotalBalance);
 
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
@@ -391,73 +362,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         }
-
-
-//        List<TextView> myStocks = new ArrayList<>();
-//        for (Stock stock : loggedUser.customerListStock) {
-//
-//            TextView stockBox = new TextView(this);
-//            getQuote(stock.symbol);
-//            stockBox.setText(stock.description + " " + stock.balance + " x " + stock.symbol + " Quote: " + String.valueOf(myQuote.currentPrice));
-//
-//            stockBox.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-//            myStocks.add(stockBox);
-//        }
-//        for (int i = 0; i < myStocks.size(); i++) {
-//            my_root.addView(myStocks.get(i));
-//        }
     }
 
 
-    public void updateQuote(View view) {
-
-
-        String url = "https://finnhub.io/api/v1/quote?symbol=BTC-USD&token=cmo6he1r01qj3mal97u0cmo6he1r01qj3mal97ug";
-
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    Float c = (float) response.getDouble("c");
-                    Float dp = (float) response.getDouble("dp");
-                    myQuote.currentPrice = c;
-
-                    if (dp > 0) {
-                        textView.setBackgroundColor(Color.BLUE);
-                        textView6.setBackgroundColor(Color.BLUE);
-                        textView7.setBackgroundColor(Color.BLUE);
-
-                    } else if (dp < 0) {
-                        textView.setBackgroundColor(Color.RED);
-                        textView6.setBackgroundColor(Color.RED);
-                        textView7.setBackgroundColor(Color.RED);
-                    } else {
-                        textView.setBackgroundColor(Color.BLACK);
-                        textView6.setBackgroundColor(Color.BLACK);
-                        textView7.setBackgroundColor(Color.BLACK);
-                    }
-                    textView.setText("BTC-USD");
-                    textView6.setText(c.toString());
-                    textView7.setText(dp + "%");
-
-                    myQuote.currentPrice = c;
-                    myQuote.percentChange = dp;
-
-
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
-        Volley.newRequestQueue(this).add(request);
-
-
-    }
 
     public void ButtonClick(View view) {
         button1.setText("Fui Clicado!");

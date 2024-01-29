@@ -1,3 +1,6 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Simulator Stock</string>
+    <string name="updateQuotes">Update Quotes</string>
+    <string name="goToMarket">Go to market</string>
+    <string name="myWallet">My Wallet</string>
 </resources>

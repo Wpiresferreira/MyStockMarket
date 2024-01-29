@@ -5,10 +5,14 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="414dp"
-        android:layout_height="365dp"
-        android:layout_marginTop="230dp"
+        android:layout_width="0dp"
+        android:layout_height="214dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginEnd="30dp"
         android:orientation="vertical"
+        android:padding="3dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -17,42 +21,54 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="goOrder"
-            android:text="TextView" />
+            android:padding="3dp"
+            android:text="TextView"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/textView9"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:padding="3dp"
+            android:text="TextView"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/textView10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:padding="3dp"
+            android:text="TextView"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/textView11"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:padding="3dp"
+            android:text="TextView"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/textView12"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:padding="3dp"
+            android:text="TextView"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/textView13"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:padding="3dp"
+            android:text="TextView"
+            android:textSize="20sp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="409dp"
-        android:layout_height="134dp"
+        android:layout_height="102dp"
         android:layout_marginStart="1dp"
         android:layout_marginBottom="1dp"
         android:orientation="horizontal"
@@ -65,13 +81,18 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="goMainScreen"
-            android:text="My Wallet" />
+            android:text="My Wallet"
+            style="?android:attr/buttonBarButtonStyle"
+            android:textSize="24sp"/>
 
         <Button
             android:id="@+id/button4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Button" />
+            android:onClick="goToMarket"
+            android:text="Button"
+            style="?android:attr/buttonBarButtonStyle"
+            android:textSize="24sp"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
