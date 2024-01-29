@@ -1,7 +1,9 @@
 package com.example.myapplication;
 
+
 public class StockQuote {
 
+    String symbol;
     float currentPrice;
     float change;
     float percentChange;

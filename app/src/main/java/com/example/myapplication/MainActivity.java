@@ -1,10 +1,13 @@
 package com.example.myapplication;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -21,13 +24,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
 
-    TextView textView, textView6, textView7, textView8, textView9, textView10, textView11, textView12, textView17, textView31, textViewBalance;
+    TextView textView, textView6, textView7, textView17, textView31, textView24, textView26, textView33, textViewOrder;
     Button button1, buttonLogin, buttonCancel;
     List<Stock> allStocks;
     Customer loggedUser;
@@ -35,13 +39,21 @@ public class MainActivity extends AppCompatActivity {
     float totalBalance;
     List<TextView> panel;
     List<TextView> panelMarket;
+
+    EditText editTextNumber;
     private CountDownTimer timer;
 
+    int countRefresh;
+
     int count;
+
+    Activity activityMarket;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("'Date\n'dd-MM-yyyy '\n\nand\n\nTime\n'HH:mm:ss z");
 
 
         //testing();
@@ -52,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
     private void testing() {
         setContentView(R.layout.activity_testing);
 
-        LinearLayout my_root = (LinearLayout) findViewById(R.id.linearLayoutMain);
+        LinearLayout my_root = findViewById(R.id.linearLayoutMain);
 
         TextView title = new TextView(this);
 
@@ -69,10 +81,9 @@ public class MainActivity extends AppCompatActivity {
         my_root.addView(stockLine);
 
 
-
     }
 
-    public void testingGetQuote(String symbol){
+    public void testingGetQuote(String symbol) {
 
         String url = "https://finnhub.io/api/v1/quote?symbol=GOOG&token=cmo6he1r01qj3mal97u0cmo6he1r01qj3mal97ug";
 
@@ -81,14 +92,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    myQuote.currentPrice  = (float) response.getDouble("c");
+                    myQuote.currentPrice = (float) response.getDouble("c");
                     myQuote.percentChange = (float) response.getDouble("dp");
-
-
-
-
-
-
 
 
                 } catch (JSONException e) {
@@ -103,7 +108,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         Volley.newRequestQueue(this).add(request);
-
 
 
     }
@@ -140,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
         myStock3.description = "Apple Inc.";
 
         List<Stock> myCustomerListStock = new ArrayList<>();
-        myCustomerListStock.add(myStock);
+//        myCustomerListStock.add(myStock);
         myCustomerListStock.add(myStock1);
         myCustomerListStock.add(myStock2);
 
@@ -171,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(JSONArray response) {
                 try {
-                    for (int i = 0; i< response.length(); i++){
+                    for (int i = 0; i < response.length(); i++) {
                         Stock stock = new Stock();
                         JSONObject objectInArray = response.getJSONObject(i);
                         stock.currency = objectInArray.getString("currency");
@@ -196,8 +200,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void goToMarket(View view){
+    public void goToMarket(View view) {
         setContentView(R.layout.activity_market);
+        activityMarket = this;
 
         panelMarket = new ArrayList<>();
         panelMarket.add(findViewById(R.id.textView8));
@@ -205,30 +210,29 @@ public class MainActivity extends AppCompatActivity {
         panelMarket.add(findViewById(R.id.textView10));
         panelMarket.add(findViewById(R.id.textView11));
         panelMarket.add(findViewById(R.id.textView12));
+        panelMarket.add(findViewById(R.id.textView13));
 
         generateMarket();
         timer = new CountDownTimer(5000, 20) {
 
             @Override
             public void onTick(long millisUntilFinished) {
-                try{
-                }catch(Exception e){
+                try {
+                } catch (Exception e) {
                     throw new RuntimeException();
                 }
             }
 
             @Override
             public void onFinish() {
-                try{
+                try {
                     generateMarket();
-                }catch(Exception e){
+                } catch (Exception e) {
                     throw new RuntimeException();
                 }
             }
         }.start();
-
-
-
+        //timer.start();
 
 
     }
@@ -236,22 +240,24 @@ public class MainActivity extends AppCompatActivity {
     private void generateMarket() {
         count = 0;
 
-        for (Stock stock : loggedUser.customerStockView) {
+        if (this == activityMarket) {
 
-            String url = "https://finnhub.io/api/v1/quote?symbol=" +
-                    stock.symbol +
-                    "&token=cmo6he1r01qj3mal97u0cmo6he1r01qj3mal97ug";
+            for (Stock stock : loggedUser.customerStockView) {
 
-            JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject response) {
-                    try {
-                        Float c = (float) response.getDouble("c");
-                        //Float dp = (float) response.getDouble("dp");
+                String url = "https://finnhub.io/api/v1/quote?symbol=" +
+                        stock.symbol +
+                        "&token=cmo6he1r01qj3mal97u0cmo6he1r01qj3mal97ug";
 
-                        panelMarket.get(count).setText(stock.symbol + "  Price : " + c );
+                JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            Float c = (float) response.getDouble("c");
+                            //Float dp = (float) response.getDouble("dp");
 
-                        count++;
+                            panelMarket.get(loggedUser.customerStockView.indexOf(stock)).setText(stock.symbol + "  Price : " + c);
+
+                            count++;
 //                        if (dp > 0) {
 //                            textView.setBackgroundColor(Color.BLUE);
 //                            textView6.setBackgroundColor(Color.BLUE);
@@ -270,28 +276,30 @@ public class MainActivity extends AppCompatActivity {
 //                        textView6.setText(c.toString());
 //                        textView7.setText(dp.toString() + "%");
 
-                        myQuote.currentPrice = c;
-                        //myQuote.percentChange = dp;
+                            myQuote.currentPrice = c;
+                            //myQuote.percentChange = dp;
 
 
-                    } catch (JSONException e) {
-                        throw new RuntimeException(e);
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
 
-                }
-            });
-            Volley.newRequestQueue(this).add(request);
+                    }
+                });
+                Volley.newRequestQueue(this).add(request);
 
 
+            }
         }
 
-        }
+    }
 
     public void goMainScreen(View view) {
+        totalBalance = 0;
         setContentView(R.layout.activity_main);
         button1 = findViewById(R.id.button1);
         textView = findViewById(R.id.textView2);
@@ -316,14 +324,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void generateWallet() {
-        LinearLayout my_root = (LinearLayout) findViewById(R.id.linearLayoutWallet);
+        LinearLayout my_root = findViewById(R.id.linearLayoutWallet);
         textView17.setText("Cash $" + loggedUser.customerCash.balance);
 
         totalBalance += loggedUser.customerCash.balance;
 
-        count = 0;
-
-        for (Stock stock : loggedUser.customerListStock){
+        for (Stock stock : loggedUser.customerListStock) {
 
             String url = "https://finnhub.io/api/v1/quote?symbol=" +
                     stock.symbol +
@@ -336,11 +342,19 @@ public class MainActivity extends AppCompatActivity {
                         Float c = (float) response.getDouble("c");
                         //Float dp = (float) response.getDouble("dp");
 
-                        panel.get(count).setText(stock.balance+ " x " + stock.symbol  + "  Price : " + c + " = " + stock.balance * c);
+                        panel.get(loggedUser.customerListStock.indexOf(stock)).setText(stock.balance + " x " + stock.symbol + "  Price : " + c + " = " + stock.balance * c);
                         totalBalance += stock.balance * c;
-                        textView31.setText("$ "+ totalBalance);
+                        textView31.setText("$ " + totalBalance);
 
-                        count++;
+                        myQuote.symbol = stock.symbol;
+                        myQuote.currentPrice = (float) response.getDouble("c");
+                        myQuote.change = (float) response.getDouble("d");
+                        myQuote.percentChange = (float) response.getDouble("dp");
+                        myQuote.highPriceOfTheDay = (float) response.getDouble("h");
+                        myQuote.lowPriceOfTheDay = (float) response.getDouble("l");
+                        myQuote.openPriceOfTheDay = (float) response.getDouble("o");
+                        myQuote.previousClosePrice = (float) response.getDouble("pc");
+
 //                        if (dp > 0) {
 //                            textView.setBackgroundColor(Color.BLUE);
 //                            textView6.setBackgroundColor(Color.BLUE);
@@ -361,7 +375,6 @@ public class MainActivity extends AppCompatActivity {
 
                         myQuote.currentPrice = c;
                         //myQuote.percentChange = dp;
-
 
 
                     } catch (JSONException e) {
@@ -425,11 +438,10 @@ public class MainActivity extends AppCompatActivity {
                     }
                     textView.setText("BTC-USD");
                     textView6.setText(c.toString());
-                    textView7.setText(dp.toString() + "%");
+                    textView7.setText(dp + "%");
 
                     myQuote.currentPrice = c;
                     myQuote.percentChange = dp;
-
 
 
                 } catch (JSONException e) {
@@ -479,7 +491,6 @@ public class MainActivity extends AppCompatActivity {
         Volley.newRequestQueue(this).add(request);
 
 
-
 //        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 //            @Override
 //            public void onResponse(JSONObject response) {
@@ -507,4 +518,111 @@ public class MainActivity extends AppCompatActivity {
         //return result;
     }
 
+    public void goOrder(View view) {
+        setContentView(R.layout.activity_order);
+
+        TextView textViewClicked = (TextView) view;
+        String symbol = textViewClicked.getText().toString();
+
+        Log.d("TAG", symbol);
+        textView24 = findViewById(R.id.textView24);
+        textView24.setText(symbol);
+
+
+        String url = "https://finnhub.io/api/v1/quote?symbol=" +
+                "GOOG" + //stock.symbol +
+                "&token=cmo6he1r01qj3mal97u0cmo6he1r01qj3mal97ug";
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    Float c = (float) response.getDouble("c");
+                    textView26 = findViewById(R.id.textView26);
+                    textView26.setText(String.valueOf(c));
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        Volley.newRequestQueue(this).add(request);
+
+
+    }
+
+    public void buy(View view) {
+        editTextNumber = findViewById(R.id.editTextNumber);
+        Button b = findViewById(R.id.button9);
+        TextView textView33 = findViewById(R.id.textView33);
+
+
+        float totalPrice = Float.parseFloat(textView26.getText().toString()) * Float.parseFloat(editTextNumber.getText().toString());
+
+        if (totalPrice > loggedUser.customerCash.balance) {
+            textView33.setText("Insuficient funds");
+        } else {
+            loggedUser.customerCash.balance -= totalPrice;
+            boolean hasThisStock = false;
+
+            for (Stock stock : loggedUser.customerListStock) {
+                if (stock.symbol == "GOOG") {
+                    hasThisStock = true;
+                    break;
+                }
+            }
+
+            if (hasThisStock) {
+                for (Stock stock : loggedUser.customerListStock) {
+                    if (stock.symbol == "GOOG") {
+                        stock.balance += Integer.parseInt(editTextNumber.getText().toString());
+                        break;
+                    }
+                }
+            } else {
+                Stock newStock = new Stock();
+                newStock.balance = Integer.parseInt(editTextNumber.getText().toString());
+                newStock.symbol = "GOOG";
+                loggedUser.customerListStock.add(newStock);
+
+            }
+            goToMarket(view);
+        }
+        b.setText(String.valueOf(totalPrice));//Log.d("Just Testing", symbol);
+
+
+    }
+
+    public void sell(View view) {
+        editTextNumber = findViewById(R.id.editTextNumber);
+        TextView textView33 = findViewById(R.id.textView33);
+
+        boolean hasEnoughStock;
+
+        for (Stock stock : loggedUser.customerListStock) {
+            if (stock.symbol == "GOOG" && stock.balance >= Integer.parseInt(editTextNumber.getText().toString())) {
+                loggedUser.customerCash.balance += Integer.parseInt(editTextNumber.getText().toString()) * Float.parseFloat(textView26.getText().toString());
+                for (Stock stockToSell : loggedUser.customerListStock) {
+                    if (stockToSell.symbol == "GOOG") {
+                        stockToSell.balance -= Integer.parseInt(editTextNumber.getText().toString());
+                        if (stockToSell.balance == 0) {
+                            loggedUser.customerListStock.remove(stockToSell);
+                        }
+
+                    }
+                }
+            }
+        }
+
+
+        goToMarket(view);
+    }
+    //b.setText(String.valueOf(totalPrice));//Log.d("Just Testing", symbol);
+
+
 }
+
