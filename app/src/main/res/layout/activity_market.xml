@@ -29,6 +29,7 @@
             android:id="@+id/textView9"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="goOrder"
             android:padding="3dp"
             android:text="TextView"
             android:textSize="20sp" />
@@ -37,6 +38,7 @@
             android:id="@+id/textView10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="goOrder"
             android:padding="3dp"
             android:text="TextView"
             android:textSize="20sp" />
@@ -45,6 +47,7 @@
             android:id="@+id/textView11"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="goOrder"
             android:padding="3dp"
             android:text="TextView"
             android:textSize="20sp" />
@@ -53,6 +56,7 @@
             android:id="@+id/textView12"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="goOrder"
             android:padding="3dp"
             android:text="TextView"
             android:textSize="20sp" />
@@ -61,6 +65,7 @@
             android:id="@+id/textView13"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="goOrder"
             android:padding="3dp"
             android:text="TextView"
             android:textSize="20sp" />
@@ -87,12 +92,12 @@
 
         <Button
             android:id="@+id/button4"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="goToMarket"
-            android:text="Button"
-            style="?android:attr/buttonBarButtonStyle"
-            android:textSize="24sp"/>
+            android:text="@string/refreshQuotes"
+            android:textSize="24sp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

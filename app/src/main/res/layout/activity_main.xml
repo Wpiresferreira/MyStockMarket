@@ -1,167 +1,345 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/textView1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:background="@color/white">
 
-    <LinearLayout
-        android:id="@+id/linearLayoutWallet"
-        android:layout_width="0dp"
-        android:layout_height="214dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="200dp"
-        android:layout_marginEnd="30dp"
-        android:orientation="vertical"
-        android:padding="3dp"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/tv_myCash"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="3dp"
-            android:textSize="20sp" />
+            android:layout_marginBottom="-200dp"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_myStock1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="3dp"
-            android:textSize="20sp" />
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="240dp"
+                android:layout_height="240dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="40dp"
+                android:src="@drawable/b_investor_logo"
+                android:contentDescription="@string/logo_description" />
 
-        <TextView
-            android:id="@+id/tv_myStock2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="3dp"
-            android:textSize="20sp" />
+            <FrameLayout
+                android:layout_width="280dp"
+                android:layout_height="66dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/box_with_corner">
 
-        <TextView
-            android:id="@+id/tv_myStock3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="3dp"
-            android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/tv_myStock4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="3dp"
-            android:textSize="20sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:background="@color/material_dynamic_neutral90"
+                    android:fontFamily="@font/poppins_bold"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="@string/username" />
 
-        <TextView
-            android:id="@+id/tv_myStock5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="3dp"
-            android:textSize="20sp" />
+                <EditText
+                    android:id="@+id/editTextUsernameInput"
+                    android:layout_width="220dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="16dp"
+                    android:autofillHints="emailAddress"
+                    android:background="@null"
+                    android:ems="10"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="bottom"
+                    android:hint="@string/emailHint"
+                    android:inputType="textEmailAddress"
+                    android:minHeight="48dp"
+                    android:paddingBottom="5dp"
+                    android:textColor="@color/material_dynamic_primary0"
+                    android:textColorHint="@color/material_dynamic_primary40"
+                    android:textSize="14sp" />
 
-        <TextView
-            android:id="@+id/tv_myStock6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="3dp"
-            android:textSize="20sp" />
+            </FrameLayout>
 
-        <TextView
-            android:id="@+id/tv_myStock7"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="3dp"
-            android:textSize="20sp" />
+            <FrameLayout
+                android:layout_width="280dp"
+                android:layout_height="66dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/box_with_corner">
 
-        <TextView
-            android:id="@+id/tv_myStock8"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="3dp"
-            android:textSize="20sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:background="@color/material_dynamic_neutral90"
+                    android:fontFamily="@font/poppins_bold"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="@string/password" />
 
-        <TextView
-            android:id="@+id/tv_myStock9"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center_horizontal"
-            android:padding="3dp"
-            android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/eyePassword"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="230dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/material_dynamic_neutral90"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:fontFamily="@font/fontawesome"
+                    android:gravity="center"
+                    android:onClick="toggleVisibilityPassword"
+                    android:text="@string/icon_closed_eye" />
 
-        <TextView
-            android:id="@+id/tv_myStock10"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="3dp"
-            android:textSize="20sp" />
-    </LinearLayout>
+                <EditText
+                    android:id="@+id/editTextPasswordInput"
+                    android:layout_width="220dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="16dp"
+                    android:height="48dp"
+                    android:autofillHints="password"
+                    android:background="@null"
+                    android:ems="10"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="bottom"
+                    android:hint="@string/passwordHint"
+                    android:inputType="textPassword"
+                    android:minHeight="48dp"
+                    android:paddingBottom="5dp"
+                    android:textColor="@color/material_dynamic_primary0"
+                    android:textColorHint="@color/material_dynamic_primary40"
+                    android:textSize="14sp" />
 
-    <TextView
-        android:id="@+id/tv_myTotalBalance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="20dp"
-        android:textSize="36sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+            </FrameLayout>
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:background="#3F51B5"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_default="percent"
-        app:layout_constraintWidth_min="wrap">
+            <Button
+                android:id="@+id/button_signIn"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/material_dynamic_primary40"
+                android:fontFamily="@font/poppins_bold"
+                android:onClick="doLogin"
+                android:text="@string/sign_in"
+                app:cornerRadius="6dp" />
 
-        <TextView
-            android:id="@+id/tv_titleWallet"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center|center_vertical"
-            android:text="@string/myWallet"
-            android:textAlignment="gravity"
-            android:textColor="#FFFFFF"
-            android:textSize="24sp" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/textView_goSignup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/poppins_italic"
+                android:minWidth="280dp"
+                android:minHeight="48dp"
+                android:onClick="goSignup"
+                android:text="@string/don_t_you_have_an_account_yet"
+                android:textColor="@color/material_dynamic_primary10" />
 
-    <LinearLayout
-        android:layout_width="409dp"
-        android:layout_height="102dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginBottom="1dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+            <androidx.legacy.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="240dp" />
 
-        <Button
-            android:id="@+id/button1"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="goMainScreen"
-            android:text="@string/updateQuotes"
-            android:textSize="24sp" />
-
-        <Button
-            android:id="@+id/buttonGoToMarket"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="goToMarket"
-            android:text="@string/goToMarket"
-            android:textSize="24sp" />
-    </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+
+
+
+
+<!--    <?xml version="1.0" encoding="utf-8"?>-->
+<!--<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--xmlns:tools="http://schemas.android.com/tools"-->
+<!--android:id="@+id/textView1"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="match_parent"-->
+<!--tools:context=".MainActivity">-->
+
+<!--<LinearLayout-->
+<!--    android:id="@+id/linearLayoutWallet"-->
+<!--    android:layout_width="0dp"-->
+<!--    android:layout_height="214dp"-->
+<!--    android:layout_marginStart="30dp"-->
+<!--    android:layout_marginTop="200dp"-->
+<!--    android:layout_marginEnd="30dp"-->
+<!--    android:orientation="vertical"-->
+<!--    android:padding="3dp"-->
+<!--    app:layout_constraintEnd_toEndOf="parent"-->
+<!--    app:layout_constraintStart_toStartOf="parent"-->
+<!--    app:layout_constraintTop_toTopOf="parent">-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/tv_myCash"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:padding="3dp"-->
+<!--        android:textSize="20sp" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/tv_myStock1"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:onClick="goOrder"-->
+<!--        android:padding="3dp"-->
+<!--        android:textSize="20sp" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/tv_myStock2"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:onClick="goOrder"-->
+<!--        android:padding="3dp"-->
+<!--        android:textSize="20sp" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/tv_myStock3"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:onClick="goOrder"-->
+<!--        android:padding="3dp"-->
+<!--        android:textSize="20sp" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/tv_myStock4"-->
+<!--        android:layout_width="match_parent"-->
+
+<!--        android:layout_height="wrap_content"-->
+<!--            android:onClick="goOrder"-->
+<!--            android:padding="3dp"-->
+<!--            android:textSize="20sp" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/tv_myStock5"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:onClick="goOrder"-->
+<!--            android:padding="3dp"-->
+<!--            android:textSize="20sp" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/tv_myStock6"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:onClick="goOrder"-->
+<!--            android:padding="3dp"-->
+<!--            android:textSize="20sp" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/tv_myStock7"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:onClick="goOrder"-->
+<!--            android:padding="3dp"-->
+<!--            android:textSize="20sp" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/tv_myStock8"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:onClick="goOrder"-->
+<!--            android:padding="3dp"-->
+<!--            android:textSize="20sp" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/tv_myStock9"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center_horizontal"-->
+<!--            android:gravity="center_horizontal"-->
+<!--            android:onClick="goOrder"-->
+<!--            android:padding="3dp"-->
+<!--            android:textSize="20sp" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/tv_myStock10"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:onClick="goOrder"-->
+<!--            android:padding="3dp"-->
+<!--            android:textSize="20sp" />-->
+<!--    </LinearLayout>-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/tv_myTotalBalance"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="20dp"-->
+<!--        android:layout_marginTop="50dp"-->
+<!--        android:layout_marginEnd="20dp"-->
+<!--        android:textSize="36sp"-->
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />-->
+
+<!--    <LinearLayout-->
+<!--        android:id="@+id/linearLayout"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:background="#3F51B5"-->
+<!--        android:orientation="horizontal"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintWidth_default="percent"-->
+<!--        app:layout_constraintWidth_min="wrap">-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/tv_titleWallet"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_weight="1"-->
+<!--            android:gravity="center|center_vertical"-->
+<!--            android:text="@string/myWallet"-->
+<!--            android:textAlignment="gravity"-->
+<!--            android:textColor="#FFFFFF"-->
+<!--            android:textSize="24sp" />-->
+<!--    </LinearLayout>-->
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="409dp"-->
+<!--        android:layout_height="102dp"-->
+<!--        android:layout_marginStart="1dp"-->
+<!--        android:layout_marginBottom="1dp"-->
+<!--        android:orientation="horizontal"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent">-->
+
+<!--        <Button-->
+<!--            android:id="@+id/button1"-->
+<!--            style="?android:attr/buttonBarButtonStyle"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:onClick="goMainScreen"-->
+<!--            android:text="@string/updateQuotes"-->
+<!--            android:textSize="24sp" />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/buttonGoToMarket"-->
+<!--            style="?android:attr/buttonBarButtonStyle"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:onClick="goToMarket"-->
+<!--            android:text="@string/goToMarket"-->
+<!--            android:textSize="24sp" />-->
+<!--    </LinearLayout>-->
+
+<!--</androidx.constraintlayout.widget.ConstraintLayout>-->

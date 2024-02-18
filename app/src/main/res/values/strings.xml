@@ -1,6 +1,29 @@
 <resources>
     <string name="app_name">Simulator Stock</string>
-    <string name="updateQuotes">Update Quotes</string>
+    <string name="updateQuotes">Refresh Quotes</string>
     <string name="goToMarket">Go to market</string>
     <string name="myWallet">My Wallet</string>
+    <string name="refreshQuotes">Refresh quotes</string>
+    <string name="icon_open_eye">&#xf06e;</string>
+    <string name="icon_watchlist">&#xf201;</string>
+    <string name="icon_closed_eye">&#xf070;</string>
+    <string name="portfolio">&#xf200;</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="don_t_you_have_an_account_yet">Don\'t you have an account yet? \n<u>Click here to SIGN UP</u></string>
+    <string name="logo_description">B Investor Logo</string>
+    <string name="emailHint">email@email.com</string>
+    <string name="passwordHint">*******</string>
+    <string name="sign_in">Sign In</string>
+    <string name="already_registered">Already registered? \n<u>Click here to SIGN IN</u></string>
+    <string name="sign_up">Sign Up</string>
+    <string name="portfolioIcon">Portfolio</string>
+    <string name="watchlist">Watchlist</string>
+    <string name="icon_transaction">&#xf0ec;</string>
+    <string name="transaction">Transaction</string>
+    <string name="iconProfile">&#xf2be;</string>
+    <string name="profile">Prrofile</string>
+    <string name="icon_up"><![CDATA[&#xf077;]]></string>
+    <string name="icon_down"><![CDATA[&#xf078;]]></string>
+    <string name="icon_stable"><![CDATA[&#xf068;]]></string>
 </resources>

@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="64dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="-200dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="290dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="40dp"
+                android:contentDescription="@string/logo_description"
+                android:src="@drawable/b_investor_logo2" />
+
+            <TextView
+                android:layout_width="280dp"
+                android:layout_height="66dp"
+                android:layout_gravity="center"
+                android:fontFamily="@font/poppins_bold"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="Sign Up"
+                android:textColor="@color/material_dynamic_primary10"
+                android:textSize="30sp" />
+            />
+
+            <!--First Name-->
+            <FrameLayout
+                android:layout_width="280dp"
+                android:layout_height="66dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/box_with_corner">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:background="@color/material_dynamic_neutral90"
+                    android:fontFamily="@font/poppins_bold"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="First Name" />
+
+                <EditText
+                    android:id="@+id/editTextFirstNameInput"
+                    android:layout_width="220dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="16dp"
+                    android:autofillHints="FirstName"
+                    android:background="@null"
+                    android:ems="10"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="bottom"
+                    android:hint="First Name"
+                    android:inputType="textAutoComplete"
+                    android:minHeight="48dp"
+                    android:paddingBottom="5dp"
+                    android:textColor="@color/material_dynamic_primary0"
+                    android:textColorHint="@color/material_dynamic_primary40"
+                    android:textSize="14sp" />
+            <!--First Name-->
+            </FrameLayout>
+
+            <!--Last Name-->
+            <FrameLayout
+                android:layout_width="280dp"
+                android:layout_height="66dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/box_with_corner">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:background="@color/material_dynamic_neutral90"
+                    android:fontFamily="@font/poppins_bold"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="Last Name" />
+
+                <EditText
+                    android:id="@+id/editTextLastNameInput"
+                    android:layout_width="220dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="16dp"
+                    android:autofillHints="LastName"
+                    android:background="@null"
+                    android:ems="10"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="bottom"
+                    android:hint="Last Name"
+                    android:inputType="textAutoComplete"
+                    android:minHeight="48dp"
+                    android:paddingBottom="5dp"
+                    android:textColor="@color/material_dynamic_primary10"
+                    android:textColorHint="@color/material_dynamic_primary40"
+                    android:textSize="14sp" />
+
+
+            </FrameLayout>
+
+            <!--Birthday-->
+            <FrameLayout
+                android:layout_width="280dp"
+                android:layout_height="66dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/box_with_corner">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:background="@color/material_dynamic_neutral90"
+                    android:fontFamily="@font/poppins_bold"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="Birthday" />
+
+                <EditText
+                    android:id="@+id/editTextBirthdayInput"
+                    android:layout_width="220dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="16dp"
+                    android:autofillHints="birthday"
+                    android:background="@null"
+                    android:ems="10"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="bottom"
+                    android:hint="date"
+                    android:inputType="text"
+                    android:minHeight="48dp"
+                    android:paddingBottom="5dp"
+                    android:textColor="@color/material_dynamic_primary0"
+                    android:textColorHint="@color/material_dynamic_primary40"
+                    android:textSize="14sp" />
+            </FrameLayout>
+
+            <!--Phone Number-->
+            <FrameLayout
+                android:layout_width="280dp"
+                android:layout_height="66dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/box_with_corner">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:background="@color/material_dynamic_neutral90"
+                    android:fontFamily="@font/poppins_bold"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="Phone number" />
+
+                <EditText
+                    android:id="@+id/editTextPhoneNumberInput"
+                    android:layout_width="220dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="16dp"
+                    android:autofillHints="phone"
+                    android:background="@null"
+                    android:ems="10"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="bottom"
+                    android:hint="phone number"
+                    android:inputType="phone"
+                    android:minHeight="48dp"
+                    android:paddingBottom="5dp"
+                    android:textColor="@color/material_dynamic_primary0"
+                    android:textColorHint="@color/material_dynamic_primary40"
+                    android:textSize="14sp" />
+            </FrameLayout>
+
+            <!--Initial Cash-->
+            <FrameLayout
+                android:layout_width="280dp"
+                android:layout_height="66dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/box_with_corner">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:background="@color/material_dynamic_neutral90"
+                    android:fontFamily="@font/poppins_bold"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="Initial Cash" />
+
+                <EditText
+                    android:id="@+id/editTextInitialCashInput"
+                    android:layout_width="220dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="16dp"
+                    android:autofillHints="none"
+                    android:background="@null"
+                    android:ems="10"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="bottom"
+                    android:hint="10,000.00"
+                    android:inputType="numberDecimal"
+                    android:minHeight="48dp"
+                    android:paddingBottom="5dp"
+                    android:textColor="@color/material_dynamic_primary0"
+                    android:textColorHint="@color/material_dynamic_primary40"
+                    android:textSize="14sp" />
+
+            </FrameLayout>
+
+            <!--Email / Username-->
+            <FrameLayout
+                android:layout_width="280dp"
+                android:layout_height="66dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/box_with_corner">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:background="@color/material_dynamic_neutral90"
+                    android:fontFamily="@font/poppins_bold"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="Email / Username" />
+
+                <EditText
+                    android:id="@+id/editTextEmailUsernameInput"
+                    android:layout_width="220dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="16dp"
+                    android:autofillHints="emailAddress"
+                    android:background="@null"
+                    android:ems="10"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="bottom"
+                    android:hint="@string/emailHint"
+                    android:inputType="textEmailAddress"
+                    android:minHeight="48dp"
+                    android:paddingBottom="5dp"
+                    android:textColor="@color/material_dynamic_primary0"
+                    android:textColorHint="@color/material_dynamic_primary40"
+                    android:textSize="14sp" />
+
+            </FrameLayout>
+
+            <!--Password-->
+            <FrameLayout
+                android:layout_width="280dp"
+                android:layout_height="66dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/box_with_corner">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:background="@color/material_dynamic_neutral90"
+                    android:fontFamily="@font/poppins_bold"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="@string/password" />
+
+                <TextView
+                    android:id="@+id/eyeNewPassword"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="230dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/material_dynamic_neutral90"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:fontFamily="@font/fontawesome"
+                    android:gravity="center"
+                    android:onClick="toggleVisibilityReTypeNewPassword"
+                    android:text="@string/icon_closed_eye" />
+
+                <EditText
+                    android:id="@+id/editTextNewPasswordInput"
+                    android:layout_width="220dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="16dp"
+                    android:height="48dp"
+                    android:autofillHints="password"
+                    android:background="@null"
+                    android:ems="10"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="bottom"
+                    android:hint="@string/passwordHint"
+                    android:inputType="textPassword"
+                    android:minHeight="48dp"
+                    android:paddingBottom="5dp"
+                    android:textColor="@color/material_dynamic_primary0"
+                    android:textColorHint="@color/material_dynamic_primary40"
+                    android:textSize="14sp" />
+
+            </FrameLayout>
+
+            <!--Re-type Password-->
+            <FrameLayout
+                android:layout_width="280dp"
+                android:layout_height="66dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/box_with_corner">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:background="@color/material_dynamic_neutral90"
+                    android:fontFamily="@font/poppins_bold"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="Re-type Password" />
+
+                <TextView
+                    android:id="@+id/eyeReTypeNewPassword"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="230dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/material_dynamic_neutral90"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:fontFamily="@font/fontawesome"
+                    android:gravity="center"
+                    android:onClick="toggleVisibilityReTypeNewPassword"
+                    android:text="@string/icon_closed_eye" />
+
+                <EditText
+                    android:id="@+id/editTextRetypeNewPasswordInput"
+                    android:layout_width="220dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="16dp"
+                    android:height="48dp"
+                    android:autofillHints="re-type password"
+                    android:background="@null"
+                    android:ems="10"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="bottom"
+                    android:hint="@string/passwordHint"
+                    android:inputType="textPassword"
+                    android:minHeight="48dp"
+                    android:paddingBottom="5dp"
+                    android:textColor="@color/material_dynamic_primary0"
+                    android:textColorHint="@color/material_dynamic_primary40"
+                    android:textSize="14sp" />
+
+            </FrameLayout>
+
+            <Button
+                android:id="@+id/button_signUp"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/material_dynamic_primary40"
+                android:fontFamily="@font/poppins_bold"
+                android:text="@string/sign_up"
+                app:cornerRadius="6dp" />
+
+            <TextView
+                android:id="@+id/textView_goSignIn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/poppins_italic"
+                android:minWidth="280dp"
+                android:minHeight="48dp"
+                android:onClick="goSignIn"
+                android:text="@string/already_registered"
+                android:textColor="@color/material_dynamic_primary10" />
+
+            <androidx.legacy.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="240dp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

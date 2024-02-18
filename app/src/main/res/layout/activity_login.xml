@@ -16,7 +16,9 @@
             android:layout_height="179dp"
             android:gravity="center"
             android:text="OurBank"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textSize="48sp"
+            android:textStyle="bold|italic" />
     </LinearLayout>
 
     <TableLayout
@@ -52,12 +54,13 @@
                         android:textAlignment="textEnd" />
 
                     <EditText
-                        android:id="@+id/editTextText"
+                        android:id="@+id/et_Username"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="10"
+                        android:hint="username"
                         android:inputType="text"
-                        android:text="Name" />
+                        android:textColorHint="@color/material_dynamic_neutral70" />
                 </TableRow>
 
                 <TableRow
@@ -72,11 +75,13 @@
                         android:textAlignment="textEnd" />
 
                     <EditText
-                        android:id="@+id/editTextTextPassword"
+                        android:id="@+id/et_Password"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="10"
-                        android:inputType="textPassword" />
+                        android:hint="password"
+                        android:inputType="textPassword"
+                        android:textColorHint="@color/material_dynamic_neutral80" />
                 </TableRow>
             </TableLayout>
 
@@ -84,7 +89,13 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent"
+            android:paddingStart="20sp"
+            android:paddingLeft="20sp"
+            android:paddingTop="20sp"
+            android:paddingEnd="20sp"
+            android:paddingRight="20sp"
+            android:paddingBottom="20sp">
 
             <TableLayout
                 android:layout_width="match_parent"
@@ -99,7 +110,7 @@
                         android:id="@+id/button3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Button" />
+                        android:text="Sign Up" />
 
                     <Space
                         android:layout_width="20dp"
@@ -114,6 +125,22 @@
                 </TableRow>
             </TableLayout>
 
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="50sp"
+            android:layout_marginTop="50sp"
+            android:layout_marginRight="50sp">
+
+            <TextView
+                android:id="@+id/tv_LoginError"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:textColor="#B43C3C" />
         </TableRow>
     </TableLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:fontFamily="@font/poppins_bold"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:text="Profile"
+                android:textColor="@color/material_dynamic_primary20"
+                android:textSize="36sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:background="@color/material_dynamic_primary40"
+                android:orientation="horizontal"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:layout_weight="1"
+                android:background="@color/material_dynamic_primary40"
+                android:orientation="horizontal"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="120dp"
+        android:background="@color/material_dynamic_primary40"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/button11"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="2dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/white"
+                android:insetLeft="1dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:onClick="goPortfolio"
+                android:paddingLeft="0dp"
+                android:paddingTop="42dp"
+                android:paddingRight="0dp"
+                android:paddingBottom="0dp"
+                android:text="@string/portfolioIcon"
+                android:textColor="@color/material_dynamic_primary40"
+                app:cornerRadius="0dp" />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/fontawesome"
+                android:gravity="center_horizontal"
+                android:onClick="goPortfolio"
+                android:text="@string/portfolio"
+                android:textColor="@color/material_dynamic_primary40"
+                android:textSize="40sp" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/button12"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="2dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/white"
+                android:insetLeft="1dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:onClick="goWatchList"
+                android:paddingLeft="0dp"
+                android:paddingTop="42dp"
+                android:paddingRight="0dp"
+                android:paddingBottom="0dp"
+                android:text="@string/watchlist"
+                android:textColor="@color/material_dynamic_primary40"
+                app:cornerRadius="0dp" />
+
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/fontawesome"
+                android:gravity="center_horizontal"
+                android:onClick="goWatchList"
+                android:text="@string/icon_watchlist"
+                android:textColor="@color/material_dynamic_primary40"
+                android:textSize="40sp" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/button13"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="2dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/white"
+                android:insetLeft="1dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:onClick="goTransactions"
+                android:paddingLeft="0dp"
+                android:paddingTop="42dp"
+                android:paddingRight="0dp"
+                android:paddingBottom="0dp"
+                android:text="@string/transaction"
+                android:textColor="@color/material_dynamic_primary40"
+                app:cornerRadius="0dp" />
+
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/fontawesome"
+                android:gravity="center_horizontal"
+                android:onClick="goTransactions"
+                android:text="@string/icon_transaction"
+                android:textColor="@color/material_dynamic_primary40"
+                android:textSize="40sp" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/button10"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="2dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/white"
+                android:insetLeft="1dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:paddingLeft="0dp"
+                android:paddingTop="42dp"
+                android:paddingRight="0dp"
+                android:paddingBottom="0dp"
+                android:text="@string/profile"
+                android:textColor="@color/material_dynamic_primary40"
+                app:cornerRadius="0dp" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/fontawesome"
+                android:gravity="center_horizontal"
+                android:text="@string/iconProfile"
+                android:textColor="@color/material_dynamic_primary40"
+                android:textSize="40sp" />
+        </FrameLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
