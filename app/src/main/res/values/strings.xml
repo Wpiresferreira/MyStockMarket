@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Simulator Stock</string>
+    <string name="app_name">Be Investor</string>
     <string name="updateQuotes">Refresh Quotes</string>
     <string name="goToMarket">Go to market</string>
     <string name="myWallet">My Wallet</string>
@@ -22,7 +22,7 @@
     <string name="icon_transaction">&#xf0ec;</string>
     <string name="transaction">Transaction</string>
     <string name="iconProfile">&#xf2be;</string>
-    <string name="profile">Prrofile</string>
+    <string name="profile">Profile</string>
     <string name="icon_up"><![CDATA[&#xf077;]]></string>
     <string name="icon_down"><![CDATA[&#xf078;]]></string>
     <string name="icon_stable"><![CDATA[&#xf068;]]></string>
