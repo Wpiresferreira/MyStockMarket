@@ -4,11 +4,14 @@ package com.example.myapplication;
 public class StockQuote {
 
     String symbol;
-    float currentPrice;
-    float change;
-    float percentChange;
-    float highPriceOfTheDay;
-    float lowPriceOfTheDay;
-    float openPriceOfTheDay;
-    float previousClosePrice;
+    String name;
+    String imageURL;
+    int shares;
+    double currentPrice;
+    double change;
+    double percentChange;
+    double highPriceOfTheDay;
+    double lowPriceOfTheDay;
+    double openPriceOfTheDay;
+    double previousClosePrice;
 }

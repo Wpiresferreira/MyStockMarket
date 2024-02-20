@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         editTextPasswordInput = findViewById(R.id.editTextPasswordInput);
         textView_goSignup = findViewById(R.id.textView_goSignup);
 
-        controller = new Controller();
+        //controller = new Controller();
     }
 
     public void toggleVisibilityPassword(View view) {
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         Cash myCash = new Cash();
-        myCash.balance = 10000;
+        myCash.balance = 123456.78;
 
         Stock myStock = new Stock();
         myStock.balance = 25;
@@ -74,6 +74,10 @@ public class MainActivity extends AppCompatActivity {
         myStock2.symbol = "BTC-USD";
         myStock2.description = "Bitcoin USD";
 
+        Stock myStock4 = new Stock();
+        myStock4.balance = 5;
+        myStock4.symbol = "GE";
+
         Stock myStock3 = new Stock();
         myStock3.symbol = "AAPL";
         myStock3.description = "Apple Inc.";
@@ -82,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
         myCustomerListStock.add(myStock);
         myCustomerListStock.add(myStock1);
         myCustomerListStock.add(myStock2);
+        myCustomerListStock.add(myStock4);
 
         List<Stock> myCustomerListMarket = new ArrayList<>();
         myCustomerListMarket.add(myStock);
@@ -89,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         myCustomerListMarket.add(myStock2);
         myCustomerListMarket.add(myStock3);
 
-        controller.loggedUser = new Customer("Wagner", "w", "w", myCash, myCustomerListStock, myCustomerListMarket);
+        Controller.loggedUser = new Customer("Wagner", "w", "w", myCash, myCustomerListStock, myCustomerListMarket);
 
         //loadStockSymbols();
 

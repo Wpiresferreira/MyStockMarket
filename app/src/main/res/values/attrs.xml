@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="VisualStock">
+        <attr name="stockSymbol" format="string" />
+        <attr name="stockDescription" format="string"/>
+        <attr name="stockValue" format="string"/>
+        <attr name="stockShares" format="string"/>
+        <attr name="stockLast" format="string"/>
+        <attr name="stockChangePercent" format="string"/>
+    </declare-styleable>
+</resources>
