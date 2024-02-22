@@ -1,25 +1,29 @@
 package com.example.myapplication;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.text.method.HideReturnsTransformationMethod;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.myapplication.databinding.ActivityMainBinding;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-
     TextView textView_eye_password, textView_goSignup;
     EditText editTextUsernameInput, editTextPasswordInput;
+    CheckBox checkBox_Remember_Me;
     Controller controller;
-
-
+    SharedPreferences sharedPref;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,8 +33,32 @@ public class MainActivity extends AppCompatActivity {
         editTextUsernameInput = findViewById(R.id.editTextUsernameInput);
         editTextPasswordInput = findViewById(R.id.editTextPasswordInput);
         textView_goSignup = findViewById(R.id.textView_goSignup);
+        checkBox_Remember_Me = findViewById(R.id.checkBox_Remember_Me);
+        checkBox_Remember_Me.setChecked(true);
+        sharedPref = getSharedPreferences(
+                getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+
+        editTextUsernameInput.setText(sharedPref.getString("username", ""));
 
         //controller = new Controller();
+    }
+
+    private void SaveRememberUser(){
+        if (checkBox_Remember_Me.isChecked()){
+            String username = String.valueOf(editTextUsernameInput.getText());
+            sharedPref = getSharedPreferences(
+                    getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString("username", username);
+            editor.apply();
+        }else{
+            sharedPref = getSharedPreferences(
+                    getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString("username", "");
+            editor.apply();
+
+        }
     }
 
     public void toggleVisibilityPassword(View view) {
@@ -48,9 +76,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void doLogin(View view) {
         // TODO
+        SaveRememberUser();
         // This method will check Username and Password and if they match...
         // Update loggedUser and change the page.
-        if(!editTextUsernameInput.getText().toString().equals("w") || !editTextPasswordInput.getText().toString().equals("w")){
+        if(!editTextUsernameInput.getText().toString().equals("wagner_pires@icloud.com") || !editTextPasswordInput.getText().toString().equals("w")){
             //tv_LoginError.setText("Check Username/Password");
             return;
         }

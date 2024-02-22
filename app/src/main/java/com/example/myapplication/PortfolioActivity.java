@@ -17,6 +17,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -276,7 +277,7 @@ public class PortfolioActivity extends AppCompatActivity {
 
     }
 
-    private void getDescription(StockQuote stockQuote) {
+    private void getDescription(@NonNull StockQuote stockQuote) {
 
 
         /// GET PROFILE

@@ -7,6 +7,7 @@
     android:background="@color/white">
 
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -14,6 +15,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
+            android:id="@+id/containerWatchList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -31,24 +33,38 @@
                 android:textColor="@color/material_dynamic_primary20"
                 android:textSize="36sp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_weight="1"
-                android:background="@color/material_dynamic_primary40"
-                android:orientation="horizontal"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="64dp"
-                android:layout_weight="1"
-                android:background="@color/material_dynamic_primary40"
-                android:orientation="horizontal"/>
-
         </LinearLayout>
     </ScrollView>
 
     <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="360dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="550dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+            android:id="@+id/editText_StockToAdd"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="text"
+            android:text="Name" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="addStock"
+            android:text="Add" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="0dp"
         android:layout_height="120dp"
         android:background="@color/material_dynamic_primary40"
