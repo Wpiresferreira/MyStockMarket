@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -36,6 +37,7 @@ import org.w3c.dom.Text;
 
 import java.net.SocketTimeoutException;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class WatchListActivity extends AppCompatActivity {
 
@@ -68,13 +70,34 @@ public class WatchListActivity extends AppCompatActivity {
 
     public void addStock(View view){
 
+        String textInserted = editText_StockToAdd.getText().toString().toUpperCase();
+        //Check if the stock is in the S&P500
+        if (!Controller.companies.contains(textInserted)){
+            Toast.makeText(this, "Symbol not found", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
+        //Check if the stock already exist in the list
+        for(Stock stock: Controller.loggedUser.customerStockView){
+            if (Objects.equals(stock.symbol, textInserted)){
+                Toast.makeText(this, "Symbol is already listed", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
+
+        // Check the size of the list
+        if(Controller.loggedUser.customerStockView.size() >=10){
+            Toast.makeText(this, "Max size Watchlist is 10 stocks", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Insert the stock to list and create a box, and update the screen
         Stock newStock = new Stock();
-        newStock.symbol = editText_StockToAdd.getText().toString().toUpperCase();
+        newStock.symbol = textInserted;
         Controller.loggedUser.customerStockView.add(newStock);
 
         StockQuote newStockQuote = new StockQuote();
-        newStockQuote.symbol = editText_StockToAdd.getText().toString().toUpperCase();
+        newStockQuote.symbol = textInserted;
         createBoxes(newStockQuote);
         updateQuotes(newStockQuote);
 

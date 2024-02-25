@@ -52,12 +52,16 @@ public class PortfolioActivity extends AppCompatActivity {
         textView_Cash = findViewById(R.id.textView_Cash);
         textView_TotalBalance = findViewById(R.id.textView_TotalBalance);
         containerPortfolio = findViewById(R.id.containerPortfolio);
-        buildScreen();
+        buildTheScreen();
     }
 
-    private void buildScreen() {
+    private void buildTheScreen() {
 
-        textView_Cash.setText(Controller.getCurrency(Controller.loggedUser.customerCash.balance));
+        try {
+            textView_Cash.setText(numberFormatCurrency.format(Controller.loggedUser.customerCash.balance));
+        }catch (Exception e){
+            textView_Cash.setText("unavailable");
+        }
         totalBalance =Controller.loggedUser.customerCash.balance;
 
         for (Stock stock : Controller.loggedUser.customerListStock) {
@@ -83,8 +87,11 @@ public class PortfolioActivity extends AppCompatActivity {
                 try {
                     int profitColor;
                     stockQuote.currentPrice =  response.getDouble("c");
-                    stockQuote.percentChange = response.getDouble("dp");
-
+                    try {
+                        stockQuote.percentChange = response.getDouble("dp");
+                    }catch(Exception e){
+                        stockQuote.percentChange = 0;
+                    }
 
                     textView_StockCurrent = findViewById(myTextBoxIds.get("current"+stockQuote.symbol));
                     textView_StockCurrent.setText(String.valueOf(numberFormatCurrency.format(stockQuote.currentPrice)));
@@ -280,11 +287,11 @@ public class PortfolioActivity extends AppCompatActivity {
     private void getDescription(@NonNull StockQuote stockQuote) {
 
 
-        /// GET PROFILE
+        /// GET PROFILE  //  Name
+
         String url = "https://finnhub.io/api/v1/stock/profile2?symbol=" +
                 stockQuote.symbol +
                 "&token=cmo6he1r01qj3mal97u0cmo6he1r01qj3mal97ug";
-
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {

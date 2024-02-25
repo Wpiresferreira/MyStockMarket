@@ -6,32 +6,46 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <ScrollView
-        android:id="@+id/scrollView2"
+    <LinearLayout
+        android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:fontFamily="@font/poppins_bold"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:text="WatchList"
+            android:textColor="@color/material_dynamic_primary20"
+            android:textSize="36sp" />
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="400dp"
+        android:layout_height="447dp"
+        android:layout_marginTop="160dp"
+        android:fadeScrollbars="false"
+        android:verticalScrollbarPosition="right"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/linearLayout4">
 
         <LinearLayout
             android:id="@+id/containerWatchList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/textView17"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:fontFamily="@font/poppins_bold"
-                android:paddingTop="15dp"
-                android:paddingBottom="15dp"
-                android:text="WatchList"
-                android:textColor="@color/material_dynamic_primary20"
-                android:textSize="36sp" />
 
         </LinearLayout>
     </ScrollView>
@@ -40,7 +54,7 @@
         android:id="@+id/linearLayout"
         android:layout_width="360dp"
         android:layout_height="59dp"
-        android:layout_marginTop="550dp"
+        android:layout_marginTop="80dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,23 +62,21 @@
 
         <EditText
             android:id="@+id/editText_StockToAdd"
-            android:layout_width="80dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="text"
-            android:text="Name" />
+            android:hint="symbol"
+            android:inputType="text" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:onClick="addStock"
-            android:text="Add" />
+            android:text="Add"
+            android:backgroundTint="@color/material_dynamic_primary40"
+            app:cornerRadius="5dp" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout2"
         android:layout_width="0dp"
         android:layout_height="120dp"
         android:background="@color/material_dynamic_primary40"
@@ -224,5 +236,6 @@
         </FrameLayout>
 
     </LinearLayout>
+    android:id="@+id/linearLayout2"
 
 </androidx.constraintlayout.widget.ConstraintLayout>

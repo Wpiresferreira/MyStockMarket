@@ -6,4 +6,14 @@ public class Stock {
     String symbol;
     int balance;
 
+    public Stock(){
+
+    }
+
+    public Stock(String newSymbol, int newBalance){
+        symbol = newSymbol;
+        balance = newBalance;
+
+    }
+
 }
