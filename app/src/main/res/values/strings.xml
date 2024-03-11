@@ -25,5 +25,8 @@
     <string name="profile">Profile</string>
     <string name="preference_file_key">com.example.myapplication.PREFERENCE_FILE_KEY</string>
     <string name="icon_trash">&#xf056;</string>
+    <string name="error_login">Invalid Username/Password</string>
+    <string name="user_not_found">User not found</string>
+    <string name="unavailable">unavailable</string>
 
 </resources>

@@ -4,17 +4,13 @@ import static com.example.myapplication.R.drawable.box_with_corner;
 
 import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.ColorFilter;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.icu.text.NumberFormat;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -33,9 +29,7 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
-import java.net.SocketTimeoutException;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -59,7 +53,7 @@ public class WatchListActivity extends AppCompatActivity {
     }
 
     private void buildScreen() {
-        for (Stock stock : Controller.loggedUser.customerStockView) {
+        for (Stock stock : Controller.loggedUser.stocksInWatchlist) {
             StockQuote stockQuote = new StockQuote();
             stockQuote.symbol = stock.symbol;
 
@@ -78,7 +72,7 @@ public class WatchListActivity extends AppCompatActivity {
         }
 
         //Check if the stock already exist in the list
-        for(Stock stock: Controller.loggedUser.customerStockView){
+        for(Stock stock: Controller.loggedUser.stocksInWatchlist){
             if (Objects.equals(stock.symbol, textInserted)){
                 Toast.makeText(this, "Symbol is already listed", Toast.LENGTH_SHORT).show();
                 return;
@@ -86,7 +80,7 @@ public class WatchListActivity extends AppCompatActivity {
         }
 
         // Check the size of the list
-        if(Controller.loggedUser.customerStockView.size() >=10){
+        if(Controller.loggedUser.stocksInWatchlist.size() >=10){
             Toast.makeText(this, "Max size Watchlist is 10 stocks", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -94,7 +88,7 @@ public class WatchListActivity extends AppCompatActivity {
         // Insert the stock to list and create a box, and update the screen
         Stock newStock = new Stock();
         newStock.symbol = textInserted;
-        Controller.loggedUser.customerStockView.add(newStock);
+        Controller.loggedUser.stocksInWatchlist.add(newStock);
 
         StockQuote newStockQuote = new StockQuote();
         newStockQuote.symbol = textInserted;

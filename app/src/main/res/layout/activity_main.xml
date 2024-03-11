@@ -176,6 +176,16 @@
                 android:text="@string/don_t_you_have_an_account_yet"
                 android:textColor="@color/material_dynamic_primary10" />
 
+            <TextView
+                android:id="@+id/textView_ErrorMessage"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/poppins_semibolditalic"
+                android:text="ErrorMessage"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="18sp" />
+
             <androidx.legacy.widget.Space
                 android:layout_width="match_parent"
                 android:layout_height="240dp" />

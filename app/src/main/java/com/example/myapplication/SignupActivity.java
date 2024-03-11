@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -12,7 +14,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class SignupActivity extends AppCompatActivity {
-    TextView eyeNewPassword, eyeReTypeNewPassword;
+    SharedPreferences sharedPref;
+    TextView eyeNewPassword, eyeReTypeNewPassword, textView_ErrorMessage;
     EditText editTextInitialCashInput, editTextEmailUsernameInput,
             editTextNewPasswordInput, editTextRetypeNewPasswordInput;
 
@@ -25,7 +28,9 @@ public class SignupActivity extends AppCompatActivity {
         eyeReTypeNewPassword = findViewById(R.id.eyeReTypeNewPassword);
         editTextNewPasswordInput = findViewById(R.id.editTextNewPasswordInput);
         editTextRetypeNewPasswordInput = findViewById(R.id.editTextRetypeNewPasswordInput);
-
+        editTextEmailUsernameInput = findViewById(R.id.editTextEmailUsernameInput);
+        editTextInitialCashInput = findViewById(R.id.editTextInitialCashInput);
+        textView_ErrorMessage = findViewById(R.id.textView_ErrorMessage);
     }
 
     public void toggleVisibilityReTypeNewPassword(View view) {
@@ -40,7 +45,54 @@ public class SignupActivity extends AppCompatActivity {
             editTextRetypeNewPasswordInput.setSelection(editTextRetypeNewPasswordInput.getText().length());
         }
     }
+
+    public void toggleVisibilityTypeNewPassword(View view) {
+
+        if (eyeNewPassword.getText() == getApplicationContext().getResources().getString(R.string.icon_open_eye)) {
+            eyeNewPassword.setText(getApplicationContext().getResources().getString(R.string.icon_closed_eye));
+            editTextNewPasswordInput.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            editTextNewPasswordInput.setSelection(editTextNewPasswordInput.getText().length());
+        } else {
+            eyeNewPassword.setText(getApplicationContext().getResources().getString(R.string.icon_open_eye));
+            editTextNewPasswordInput.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            editTextNewPasswordInput.setSelection(editTextNewPasswordInput.getText().length());
+        }
+    }
     public void goSignIn(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);    }
+
+    public void doSignup(View view){
+        String username = String.valueOf(editTextEmailUsernameInput.getText());
+        String password = String.valueOf(editTextNewPasswordInput.getText());
+        String retypePassword = String.valueOf(editTextRetypeNewPasswordInput.getText());
+        String initialCashBalance = String.valueOf(editTextInitialCashInput.getText());
+        sharedPref = getSharedPreferences(
+                "com.example.myapplication."+username, Context.MODE_PRIVATE);
+
+        // Check Password and retype Password
+        if(!password.equals(retypePassword)){
+            textView_ErrorMessage.setText("Those passwords didn’t match. Try again.");
+            return;
+        }
+
+        // Check if User is already registered
+        if(!sharedPref.getString("username", "").equals("")){
+            textView_ErrorMessage.setText("User already registered");
+            return;
+        }
+
+        if(!Controller.isValidUsername(username)){
+            textView_ErrorMessage.setText("Invalid username. Use a valid email");
+            return;
+        }
+
+        Customer newCustomer = new Customer();
+
+
+
+        goSignIn(view);
+    }
+
+
 }

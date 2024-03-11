@@ -1,8 +1,12 @@
 package com.example.myapplication;
 
-public class Stock {
-    String currency;
-    String description;
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
+public class Stock implements Parcelable {
+
     String symbol;
     int balance;
 
@@ -16,4 +20,31 @@ public class Stock {
 
     }
 
+    protected Stock(Parcel in) {
+        symbol = in.readString();
+        balance = in.readInt();
+    }
+
+    public static final Creator<Stock> CREATOR = new Creator<Stock>() {
+        @Override
+        public Stock createFromParcel(Parcel in) {
+            return new Stock(in);
+        }
+
+        @Override
+        public Stock[] newArray(int size) {
+            return new Stock[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeString(symbol);
+        dest.writeInt(balance);
+    }
 }

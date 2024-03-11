@@ -1,35 +1,41 @@
 package com.example.myapplication;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.text.method.HideReturnsTransformationMethod;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.myapplication.databinding.ActivityMainBinding;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView textView_eye_password, textView_goSignup;
+    TextView textView_eye_password, textView_goSignup, textViewErrorMessage;
     EditText editTextUsernameInput, editTextPasswordInput;
     CheckBox checkBox_Remember_Me;
-    Controller controller;
     SharedPreferences sharedPref;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        initialize();
+
+        //Customer newCustomer = Controller.createTestUser();
+
+    }
+
+    private void initialize() {
         textView_eye_password = findViewById(R.id.eyePassword);
+        textViewErrorMessage = findViewById(R.id.textView_ErrorMessage);
+        textViewErrorMessage.setVisibility(View.INVISIBLE);
         editTextUsernameInput = findViewById(R.id.editTextUsernameInput);
         editTextPasswordInput = findViewById(R.id.editTextPasswordInput);
         textView_goSignup = findViewById(R.id.textView_goSignup);
@@ -37,25 +43,22 @@ public class MainActivity extends AppCompatActivity {
         checkBox_Remember_Me.setChecked(true);
         sharedPref = getSharedPreferences(
                 getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-
-        editTextUsernameInput.setText(sharedPref.getString("username", ""));
-
-        //controller = new Controller();
+        editTextUsernameInput.setText(sharedPref.getString("usernameRemember", ""));
     }
 
-    private void SaveRememberUser(){
-        if (checkBox_Remember_Me.isChecked()){
+    private void SaveRememberUser() {
+        if (checkBox_Remember_Me.isChecked()) {
             String username = String.valueOf(editTextUsernameInput.getText());
             sharedPref = getSharedPreferences(
                     getString(R.string.preference_file_key), Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putString("username", username);
+            editor.putString("usernameRemember", username);
             editor.apply();
-        }else{
+        } else {
             sharedPref = getSharedPreferences(
                     getString(R.string.preference_file_key), Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putString("username", "");
+            editor.putString("usernameRemember", "");
             editor.apply();
 
         }
@@ -75,59 +78,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void doLogin(View view) {
-        // TODO
-        SaveRememberUser();
-        // This method will check Username and Password and if they match...
-        // Update loggedUser and change the page.
-        if(!editTextUsernameInput.getText().toString().equals("wagner_pires@icloud.com") || !editTextPasswordInput.getText().toString().equals("w")){
-            //tv_LoginError.setText("Check Username/Password");
-            return;
+        SaveRememberUser(); // to save the username and remember it next time if checkbox is marked
+
+        Controller.loggedUser = LoginLocal.login( getApplicationContext(), editTextUsernameInput.getText().toString(), editTextPasswordInput.getText().toString());
+        //tryLoginLocal(editTextUsernameInput.getText().toString(), editTextPasswordInput.getText().toString());
+
+
+
+
+        if (Controller.loggedUser == null) {
+            editTextPasswordInput.setText("");
+            textViewErrorMessage.setVisibility(View.VISIBLE);
+            textViewErrorMessage.setText(getResources().getString(R.string.error_login));
+        } else {
+            goPortfolio(view);
         }
-
-
-        Cash myCash = new Cash();
-        myCash.balance = 1234.56;
-
-        Stock myStock = new Stock();
-        myStock.balance = 25;
-        myStock.symbol = "GOOG";
-        myStock.description = "Google Inc.";
-
-        Stock myStock1 = new Stock();
-        myStock1.balance = 12;
-        myStock1.symbol = "MSFT";
-        myStock1.description = "Microsoft Inc..";
-
-        Stock myStock2 = new Stock();
-        myStock2.balance = 1;
-        myStock2.symbol = "BTC-USD";
-        myStock2.description = "Bitcoin USD";
-
-        Stock myStock4 = new Stock();
-        myStock4.balance = 5;
-        myStock4.symbol = "GE";
-
-        Stock myStock3 = new Stock();
-        myStock3.symbol = "AAPL";
-        myStock3.description = "Apple Inc.";
-
-        List<Stock> myCustomerListStock = new ArrayList<>();
-        myCustomerListStock.add(myStock);
-        myCustomerListStock.add(myStock1);
-        myCustomerListStock.add(myStock2);
-        myCustomerListStock.add(myStock4);
-
-        List<Stock> myCustomerListMarket = new ArrayList<>();
-        myCustomerListMarket.add(myStock);
-        myCustomerListMarket.add(myStock1);
-        myCustomerListMarket.add(myStock2);
-        myCustomerListMarket.add(myStock3);
-
-        Controller.loggedUser = new Customer("Wagner", "w", "w", myCash, myCustomerListStock, myCustomerListMarket);
-
-        //loadStockSymbols();
-
-        goPortfolio(view);
     }
 
     public void goPortfolio(View view) {
@@ -142,8 +107,38 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+//        outState.putString("username", String.valueOf(editTextUsernameInput.getText()));
+//        outState.putString("password", String.valueOf(editTextPasswordInput.getText()));
+//        outState.putString("eye_password", String.valueOf(textView_eye_password.getText()));
+//        outState.putString("error_message", String.valueOf(textViewErrorMessage.getText()));
+//        outState.putInt("error_message_visibility", textViewErrorMessage.getVisibility());
+//        outState.putBoolean("check_box_remember_me", checkBox_Remember_Me.isChecked());
+    }
 
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+       super.onRestoreInstanceState(savedInstanceState);
 
+//        editTextUsernameInput.setText(savedInstanceState.getString("username", ""));
+//        editTextPasswordInput.setText(savedInstanceState.getString("password", ""));
+        editTextPasswordInput.setText("");
+//        textView_eye_password.setText(savedInstanceState.getString("eye_password", ""));
+//
+//        if (textView_eye_password.getText() == getApplicationContext().getResources().getString(R.string.icon_open_eye)) {
+//            editTextPasswordInput.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+//            editTextPasswordInput.setSelection(editTextPasswordInput.getText().length());
+//
+//        } else {
+//            editTextPasswordInput.setTransformationMethod(PasswordTransformationMethod.getInstance());
+//            editTextPasswordInput.setSelection(editTextPasswordInput.getText().length());
+//        }
+//        textViewErrorMessage.setText(savedInstanceState.getString("error_message", ""));
+//        textViewErrorMessage.setVisibility(savedInstanceState.getInt("error_message_visibility", View.INVISIBLE));
+//        checkBox_Remember_Me.setChecked(savedInstanceState.getBoolean("check_box_remember_me", true));
 
+    }
 }
 

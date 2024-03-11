@@ -91,13 +91,13 @@ public class TransactionActivity extends AppCompatActivity {
         } catch (Exception e) {
             qt = 0;
         }
-        textView_Total.setText(String.valueOf(c * qt));
+        textView_Total.setText(Controller.numberFormatCurrency.format(c * qt));
     }
 
 
     private void updateAllInfo() {
 
-        String typedText = editText_StockSymbol.getText().toString();
+        String typedText = editText_StockSymbol.getText().toString().toUpperCase();
         if (Controller.companies.contains(typedText)) {
 
             StockQuote stockQuote = new StockQuote();
@@ -121,23 +121,18 @@ public class TransactionActivity extends AppCompatActivity {
         }
     }
 
-    public void onChanngeEditText_StockSymbol(View view) {
-        String typedText = editText_StockSymbol.getText().toString();
-        if (Controller.companies.contains(typedText)) {
-            updateAllInfo();
-        }
-    }
+
 
 
     public void buy(View view) {
-        double totalOrder = Double.parseDouble(String.valueOf(textView_Total.getText()));
+        double totalOrder = Double.parseDouble(String.valueOf(textView_Total.getText()).replace("$",""));
         int qtdOrder = Integer.parseInt(String.valueOf(editText_Qt.getText()));
         String stockOrder = String.valueOf(editText_StockSymbol.getText());
 
         if (Controller.loggedUser.customerCash.balance >= totalOrder) {
             Controller.loggedUser.customerCash.balance -= totalOrder;
 
-            for (Stock stock : Controller.loggedUser.customerListStock) {
+            for (Stock stock : Controller.loggedUser.stocksInWallet) {
                 if (stock.symbol.equals(stockOrder)) {
                     stock.balance += qtdOrder;
                     goPortfolio(view);
@@ -145,7 +140,7 @@ public class TransactionActivity extends AppCompatActivity {
                 }
             }
             Stock myNewStock = new Stock(stockOrder, qtdOrder);
-            Controller.loggedUser.customerListStock.add(myNewStock);
+            Controller.loggedUser.stocksInWallet.add(myNewStock);
             goPortfolio(view);
             return;
         }
@@ -159,7 +154,7 @@ public class TransactionActivity extends AppCompatActivity {
 
         Stock customerStock = null;
 
-        for (Stock stock : Controller.loggedUser.customerListStock) {
+        for (Stock stock : Controller.loggedUser.stocksInWallet) {
             if (stock.symbol.equals(stockOrder)) {
                 if (stock.balance < qtdOrder) {
                     Toast.makeText(this, "Insufficient stocks", Toast.LENGTH_SHORT).show();
@@ -171,7 +166,7 @@ public class TransactionActivity extends AppCompatActivity {
                 }
 
                 if (stock.balance == 0) {
-                    Controller.loggedUser.customerListStock.remove(stock);
+                    Controller.loggedUser.stocksInWallet.remove(stock);
                 }
                 goPortfolio(view);
                 break;

@@ -1,9 +1,9 @@
 package com.example.myapplication;
 
 
-public class StockQuote {
+public class StockQuote extends Stock{
 
-    String symbol;
+    //String symbol;
     String name;
     String imageURL;
     int shares;
