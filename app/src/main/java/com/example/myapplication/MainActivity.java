@@ -15,7 +15,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.bumptech.glide.RequestBuilder;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,8 +22,6 @@ public class MainActivity extends AppCompatActivity {
     EditText editTextUsernameInput, editTextPasswordInput;
     CheckBox checkBox_Remember_Me;
     SharedPreferences sharedPref;
-
-    private RequestBuilder<PictureDrawable> requestBuilder;
 
 
     @Override
