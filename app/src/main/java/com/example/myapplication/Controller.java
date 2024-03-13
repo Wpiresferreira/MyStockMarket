@@ -2,19 +2,25 @@ package com.example.myapplication;
 
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+
+import androidx.annotation.NonNull;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.InputStream;
+import java.net.URL;
 import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -162,58 +168,41 @@ public class Controller {
         Volley.newRequestQueue(context).add(request);
     }
 
-    static Customer createTestUser(){
-
-        Cash myCash = new Cash( 1000, "USD");
-
-        Stock myStock = new Stock();
-        myStock.balance = 25;
-        myStock.symbol = "GOOG";
-
-        Stock myStock1 = new Stock();
-        myStock1.balance = 12;
-        myStock1.symbol = "MSFT";
-
-        Stock myStock2 = new Stock();
-        myStock2.balance = 1;
-        myStock2.symbol = "BTC-USD";
-
-        Stock myStock4 = new Stock();
-        myStock4.balance = 5;
-        myStock4.symbol = "GE";
-
-        Stock myStock3 = new Stock();
-        myStock3.symbol = "AAPL";
-
-        List<Stock> myCustomerListStock = new ArrayList<>();
-        myCustomerListStock.add(myStock);
-        myCustomerListStock.add(myStock1);
-        myCustomerListStock.add(myStock2);
-        myCustomerListStock.add(myStock4);
-
-        List<Stock> myCustomerListMarket = new ArrayList<>();
-        myCustomerListMarket.add(myStock);
-        myCustomerListMarket.add(myStock1);
-        myCustomerListMarket.add(myStock2);
-        myCustomerListMarket.add(myStock3);
-
-        return new Customer("Wagner", "w", "w", myCash, myCustomerListStock, myCustomerListMarket);
-    }
 
     public static boolean isValidUsername(String username) {
 
         // Check if username size is less than 8
-        if(username.length()<8){
+        if (username.length() < 8) {
             return false;
         }
         // Check if username contains "@"
-        if(!username.substring(2).contains("@")){
+        if (!username.substring(2).contains("@")) {
             return false;
         }
         // Check if username contains .xx or .xxx
-        if(username.charAt(username.length() - 4) != '.' && username.charAt(username.length() - 3) != '.'){
+        if (username.charAt(username.length() - 4) != '.' && username.charAt(username.length() - 3) != '.') {
             return false;
         }
         return true;
+    }
+
+    public static void updateLoggedUser(@NonNull Context context) {
+
+        SharedPreferences sharedPref;
+        sharedPref = context.getSharedPreferences(
+                "com.example.myapplication." + Controller.loggedUser.username, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("dataJSON", new Gson().toJson(Controller.loggedUser));
+        editor.apply();
+    }
+
+    public static Drawable LoadImageFromWebOperations(String url) {
+        try {
+            InputStream is = (InputStream) new URL(url).getContent();
+            Drawable d = Drawable.createFromStream(is, "src name");
+            return d;
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

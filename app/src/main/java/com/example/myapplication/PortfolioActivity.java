@@ -38,7 +38,7 @@ public class PortfolioActivity extends AppCompatActivity {
     HashMap<String, Integer> myTextBoxIds = new HashMap<>();
     NumberFormat numberFormatCurrency = NumberFormat.getCurrencyInstance();
     NumberFormat numberFormatInstance = NumberFormat.getNumberInstance();
-    static double totalBalance;
+    double totalBalance;
 
 
     @Override
@@ -53,15 +53,19 @@ public class PortfolioActivity extends AppCompatActivity {
 
     private void buildTheScreen() {
 
+        // First, try to load cash balance
         try {
             textView_Cash.setText(numberFormatCurrency.format(Controller.loggedUser.customerCash.balance));
             textView_TotalBalance.setText(numberFormatCurrency.format(Controller.loggedUser.customerCash.balance));
         } catch (Exception e) {
             textView_Cash.setText(R.string.unavailable);
             textView_TotalBalance.setText(R.string.unavailable);
-
         }
+
+        // Total balance initializes with cash balance
         totalBalance = Controller.loggedUser.customerCash.balance;
+
+
         if(Controller.loggedUser.stocksInWallet !=null) {
             for (Stock stock : Controller.loggedUser.stocksInWallet) {
                 StockQuote stockQuote = new StockQuote();
@@ -70,8 +74,10 @@ public class PortfolioActivity extends AppCompatActivity {
 
                 createBoxes(stockQuote);
                 updateQuotes(stockQuote);
-                update2s();
+                //update2s();
             }
+        }else{
+
         }
     }
 

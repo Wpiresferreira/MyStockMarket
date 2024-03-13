@@ -88,11 +88,23 @@ public class SignupActivity extends AppCompatActivity {
         }
 
         Customer newCustomer = new Customer();
+        newCustomer.username = username.toLowerCase();
+        newCustomer.password = password;
+        newCustomer.customerCash = new Cash(Double.parseDouble(initialCashBalance));
 
+        boolean signupSuccessful =  SignupLocal.signup(getApplicationContext(), newCustomer);
 
+        if (signupSuccessful){
+            sharedPref = getSharedPreferences(
+                    getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString("usernameRemember", newCustomer.username);
+            editor.apply();
 
-        goSignIn(view);
+            goSignIn(view);
+        }
+        else{
+            textView_ErrorMessage.setText(R.string.signup_failed);
+        }
     }
-
-
 }

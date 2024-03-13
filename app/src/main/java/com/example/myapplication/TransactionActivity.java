@@ -81,7 +81,7 @@ public class TransactionActivity extends AppCompatActivity {
 
     private void updateQtd() {
 
-        String quote = String.valueOf(textView_CurrentPrice.getText()).replace("$", "");
+        String quote = String.valueOf(textView_CurrentPrice.getText()).replace("$", "").replace(",","");
 
         double c = Double.parseDouble(quote);
         int qt;
@@ -125,22 +125,27 @@ public class TransactionActivity extends AppCompatActivity {
 
 
     public void buy(View view) {
-        double totalOrder = Double.parseDouble(String.valueOf(textView_Total.getText()).replace("$",""));
+        double totalOrder = Double.parseDouble(String.valueOf(textView_Total.getText()).replace("$","").replace(",",""));
         int qtdOrder = Integer.parseInt(String.valueOf(editText_Qt.getText()));
-        String stockOrder = String.valueOf(editText_StockSymbol.getText());
+        String stockOrder = String.valueOf(editText_StockSymbol.getText()).toUpperCase();
 
         if (Controller.loggedUser.customerCash.balance >= totalOrder) {
             Controller.loggedUser.customerCash.balance -= totalOrder;
 
+
             for (Stock stock : Controller.loggedUser.stocksInWallet) {
                 if (stock.symbol.equals(stockOrder)) {
                     stock.balance += qtdOrder;
+                    Controller.updateLoggedUser(getApplicationContext());
                     goPortfolio(view);
                     return;
                 }
             }
             Stock myNewStock = new Stock(stockOrder, qtdOrder);
             Controller.loggedUser.stocksInWallet.add(myNewStock);
+
+
+            Controller.updateLoggedUser(getApplicationContext());
             goPortfolio(view);
             return;
         }
@@ -148,9 +153,9 @@ public class TransactionActivity extends AppCompatActivity {
     }
 
     public void sell(View view) {
-        double totalOrder = Double.parseDouble(String.valueOf(textView_Total.getText()));
+        double totalOrder = Double.parseDouble(String.valueOf(textView_Total.getText()).replace("$","").replace(",",""));
         int qtdOrder = Integer.parseInt(String.valueOf(editText_Qt.getText()));
-        String stockOrder = String.valueOf(editText_StockSymbol.getText());
+        String stockOrder = String.valueOf(editText_StockSymbol.getText()).toUpperCase();
 
         Stock customerStock = null;
 
@@ -168,6 +173,7 @@ public class TransactionActivity extends AppCompatActivity {
                 if (stock.balance == 0) {
                     Controller.loggedUser.stocksInWallet.remove(stock);
                 }
+                Controller.updateLoggedUser(getApplicationContext());
                 goPortfolio(view);
                 break;
             }

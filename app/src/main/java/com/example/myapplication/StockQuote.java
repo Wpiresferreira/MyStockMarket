@@ -3,7 +3,6 @@ package com.example.myapplication;
 
 public class StockQuote extends Stock{
 
-    //String symbol;
     String name;
     String imageURL;
     int shares;

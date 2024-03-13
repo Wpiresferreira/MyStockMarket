@@ -4,10 +4,10 @@
     <string name="goToMarket">Go to market</string>
     <string name="myWallet">My Wallet</string>
     <string name="refreshQuotes">Refresh quotes</string>
-    <string name="icon_open_eye">&#xf06e;</string>
-    <string name="icon_watchlist">&#xf201;</string>
-    <string name="icon_closed_eye">&#xf070;</string>
-    <string name="portfolio">&#xf200;</string>
+    <string name="icon_open_eye" translatable="false">&#xf06e;</string>
+    <string name="icon_watchlist" translatable="false">&#xf201;</string>
+    <string name="icon_closed_eye" translatable="false">&#xf070;</string>
+    <string name="portfolio" translatable="false">&#xf200;</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="don_t_you_have_an_account_yet">Don\'t you have an account yet? \n<u>Click here to SIGN UP</u></string>
@@ -19,14 +19,17 @@
     <string name="sign_up">Sign Up</string>
     <string name="portfolioIcon">Portfolio</string>
     <string name="watchlist">Watchlist</string>
-    <string name="icon_transaction">&#xf0ec;</string>
+    <string name="icon_transaction" translatable="false">&#xf0ec;</string>
     <string name="transaction">Transaction</string>
-    <string name="iconProfile">&#xf2be;</string>
+    <string name="iconProfile" translatable="false">&#xf2be;</string>
     <string name="profile">Profile</string>
     <string name="preference_file_key">com.example.myapplication.PREFERENCE_FILE_KEY</string>
-    <string name="icon_trash">&#xf056;</string>
+    <string name="icon_trash" translatable="false">&#xf056;</string>
     <string name="error_login">Invalid Username/Password</string>
     <string name="user_not_found">User not found</string>
     <string name="unavailable">unavailable</string>
+    <string name="signup_failed">Signup failed</string>
+    <string name="remember_me">Remember me</string>
+    <string name="errorMessage">ErrorMessage</string>
 
 </resources>

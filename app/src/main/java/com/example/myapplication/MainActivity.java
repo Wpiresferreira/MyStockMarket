@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.PictureDrawable;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -14,6 +15,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.RequestBuilder;
+
 public class MainActivity extends AppCompatActivity {
 
     TextView textView_eye_password, textView_goSignup, textViewErrorMessage;
@@ -21,14 +24,15 @@ public class MainActivity extends AppCompatActivity {
     CheckBox checkBox_Remember_Me;
     SharedPreferences sharedPref;
 
+    private RequestBuilder<PictureDrawable> requestBuilder;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         initialize();
-
-        //Customer newCustomer = Controller.createTestUser();
 
     }
 
@@ -44,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         sharedPref = getSharedPreferences(
                 getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         editTextUsernameInput.setText(sharedPref.getString("usernameRemember", ""));
+
     }
 
     private void SaveRememberUser() {
@@ -80,11 +85,9 @@ public class MainActivity extends AppCompatActivity {
     public void doLogin(View view) {
         SaveRememberUser(); // to save the username and remember it next time if checkbox is marked
 
-        Controller.loggedUser = LoginLocal.login( getApplicationContext(), editTextUsernameInput.getText().toString(), editTextPasswordInput.getText().toString());
-        //tryLoginLocal(editTextUsernameInput.getText().toString(), editTextPasswordInput.getText().toString());
-
-
-
+        Controller.loggedUser = LoginLocal.login( getApplicationContext(),
+                editTextUsernameInput.getText().toString(),
+                editTextPasswordInput.getText().toString());
 
         if (Controller.loggedUser == null) {
             editTextPasswordInput.setText("");
