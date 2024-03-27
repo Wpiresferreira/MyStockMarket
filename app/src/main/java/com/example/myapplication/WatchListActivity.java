@@ -86,7 +86,7 @@ public class WatchListActivity extends AppCompatActivity {
         }
 
         // Insert the stock to list and create a box, and update the screen
-        Stock newStock = new Stock();
+        StockQuote newStock = new StockQuote();
         newStock.symbol = textInserted;
         Controller.loggedUser.stocksInWatchlist.add(newStock);
 

@@ -26,6 +26,7 @@ public class TransactionActivity extends AppCompatActivity {
 
         // Initialize Variables
         editText_StockSymbol = findViewById(R.id.editText_StockSymbol);
+        editText_StockSymbol.setText(Controller.lastTransactionSymbol);
         editText_StockSymbol.addTextChangedListener(new TextWatcher() {
 
 
@@ -42,6 +43,7 @@ public class TransactionActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 updateAllInfo();
+                Controller.lastTransactionSymbol = s.toString();
             }
         });
 //        editText_StockSymbol.setOnKeyListener((v, keyCode, event) -> {
@@ -141,10 +143,10 @@ public class TransactionActivity extends AppCompatActivity {
                     return;
                 }
             }
-            Stock myNewStock = new Stock(stockOrder, qtdOrder);
+            StockQuote myNewStock = new StockQuote(stockOrder, qtdOrder);
             Controller.loggedUser.stocksInWallet.add(myNewStock);
 
-
+            //Save information to file
             Controller.updateLoggedUser(getApplicationContext());
             goPortfolio(view);
             return;
@@ -182,6 +184,9 @@ public class TransactionActivity extends AppCompatActivity {
         if (customerStock == null) {
             Toast.makeText(this, "Insufficient stocks", Toast.LENGTH_SHORT).show();
         }
+        //Save information to file
+        Controller.updateLoggedUser(getApplicationContext());
+
     }
 
 

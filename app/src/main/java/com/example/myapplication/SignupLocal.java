@@ -2,7 +2,6 @@ package com.example.myapplication;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,7 +16,6 @@ public class SignupLocal extends AppCompatActivity implements SignupInterface {
                 "com.example.myapplication.users", Context.MODE_PRIVATE);
 
         String customerJSON = new Gson().toJson(customer);
-        Toast.makeText(context, customerJSON, Toast.LENGTH_LONG).show();
 
         try {
             SharedPreferences.Editor editor = sharedPref.edit();

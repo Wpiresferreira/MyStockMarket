@@ -6,9 +6,11 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.icu.text.DecimalFormat;
 import android.icu.text.NumberFormat;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -19,6 +21,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -29,10 +34,19 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class PortfolioActivity extends AppCompatActivity {
-    TextView textView_Cash, textView_TotalBalance, textView_StockName, textView_StockCurrent, textView_StockDeltaPercent, textView_StockValue;
+    TextView textView_Cash, textView_TotalBalance, textView_StockName, textView_StockCurrent, textView_StockDeltaPercent, textView_StockValue,
+    textView_justCounter;
+    RecyclerView recycler;
+    StockQuoteAdapter adapter;
+    List<StockQuote> stockQuoteList;
+    int justCounter = 0;
     LinearLayout containerPortfolio;
     int actualId;
     HashMap<String, Integer> myTextBoxIds = new HashMap<>();
@@ -48,8 +62,52 @@ public class PortfolioActivity extends AppCompatActivity {
         textView_Cash = findViewById(R.id.textView_Cash);
         textView_TotalBalance = findViewById(R.id.textView_TotalBalance);
         containerPortfolio = findViewById(R.id.containerPortfolio);
+        textView_justCounter = findViewById(R.id.justCounter);
+        textView_justCounter.setText(String.valueOf(justCounter));
+        recycler = findViewById(R.id.recycler);
         buildTheScreen();
+
+        loadList();
+        setAdapter();
+        updateDescription(new View(getApplicationContext()));
+        updateTotal();
+
+        long TEMPO = (1000 * 5);
+        Timer timer;
+        timer = new Timer();
+        TimerTask timerTask = new TimerTask() {
+
+            public void run() {
+                try {
+                    updateQuotes(new View(getApplicationContext()));
+                } catch (Exception e) {
+                    Log.wtf("WTF", "run TimerTask: " + e);
+                }
+            }
+        };
+        timer.scheduleAtFixedRate(timerTask, TEMPO, TEMPO);
+
+
     }
+
+    private void loadList() {
+
+        stockQuoteList = Controller.loggedUser.stocksInWallet;
+
+        if (stockQuoteList == null) {
+            stockQuoteList = new ArrayList<>();
+        }
+    }
+
+    private void setAdapter() {
+
+        adapter = new StockQuoteAdapter(stockQuoteList);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        recycler.setLayoutManager(layoutManager);
+        recycler.setItemAnimator(new DefaultItemAnimator());
+        recycler.setAdapter(adapter);
+    }
+
 
     private void buildTheScreen() {
 
@@ -63,23 +121,109 @@ public class PortfolioActivity extends AppCompatActivity {
         }
 
         // Total balance initializes with cash balance
-        totalBalance = Controller.loggedUser.customerCash.balance;
+//        totalBalance = Controller.loggedUser.customerCash.balance;
 
 
-        if(Controller.loggedUser.stocksInWallet !=null) {
-            for (Stock stock : Controller.loggedUser.stocksInWallet) {
-                StockQuote stockQuote = new StockQuote();
-                stockQuote.symbol = stock.symbol;
-                stockQuote.shares = stock.balance;
-
-                createBoxes(stockQuote);
-                updateQuotes(stockQuote);
-                //update2s();
-            }
-        }else{
-
-        }
+//        if(Controller.loggedUser.stocksInWallet !=null) {
+//            for (Stock stock : Controller.loggedUser.stocksInWallet) {
+//                StockQuote stockQuote = new StockQuote();
+//                stockQuote.symbol = stock.symbol;
+//                stockQuote.shares = stock.balance;
+//
+//                createBoxes(stockQuote);
+//                updateQuotes(stockQuote);
+//                //update2s();
+//            }
+//        }else{
+//
+//        }
     }
+
+    public void updateQuotes(View view) {
+
+        for (StockQuote s : Controller.loggedUser.stocksInWallet) {
+            String url = "https://finnhub.io/api/v1/quote?symbol=" +
+                    s.symbol +
+                    "&token=" +
+                    Controller.token;
+
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
+                try {
+                    s.currentPrice = response.getDouble("c");
+                    s.change = response.getDouble("d");
+                    s.percentChange = response.getDouble("dp");
+                    s.highPriceOfTheDay = response.getDouble("h");
+                    s.lowPriceOfTheDay = response.getDouble("l");
+                    s.openPriceOfTheDay = response.getDouble("o");
+                    s.previousClosePrice = response.getDouble("pc");
+
+                    //Save information to file
+                    Controller.updateLoggedUser(getApplicationContext());
+
+                    adapter.notifyDataSetChanged();
+                    updateTotal();
+                    justCounter++;
+                    textView_justCounter.setText(String.valueOf(justCounter));
+
+                } catch (Exception e) {
+                    Log.wtf("WTF", "updateQuotes: " + e);
+                    ;
+                }
+            }, error -> {
+                Log.wtf("WTF", "updateQuotes: Error response request.");
+            });
+            Volley.newRequestQueue(this).add(request);
+        }
+
+    }
+
+    private void updateTotal(){
+        Double total = 0.0;
+        total += Controller.loggedUser.customerCash.balance;
+        for(StockQuote s : Controller.loggedUser.stocksInWallet){
+            total += s.balance* s.currentPrice;
+        }
+
+        textView_TotalBalance.setText(new DecimalFormat("#,##0.00").format(total));
+
+    }
+
+    public void updateDescription(View view) {
+
+        for (StockQuote s : Controller.loggedUser.stocksInWallet) {
+
+            if(!s.name.isEmpty()) return;
+
+            String url = "https://finnhub.io/api/v1/stock/profile2?symbol=" +
+                    s.symbol +
+                    "&token=" +
+                    Controller.token;
+
+
+
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
+                try {
+                    s.name = response.getString("name");
+                    s.imageURL = response.getString("logo");
+
+                    //Save information to file
+                    Controller.updateLoggedUser(getApplicationContext());
+
+                    adapter.notifyDataSetChanged();
+                    updateTotal();
+
+                } catch (Exception e) {
+                    Log.wtf("WTF", "updateDescription: " + e);
+                    ;
+                }
+            }, error -> {
+                Log.wtf("WTF", "updateDescription: Error response request.");
+            });
+            Volley.newRequestQueue(this).add(request);
+        }
+
+    }
+
 
     private void updateQuotes(StockQuote stockQuote) {
 
@@ -88,45 +232,42 @@ public class PortfolioActivity extends AppCompatActivity {
                 stockQuote.symbol +
                 "&token=cmo6he1r01qj3mal97u0cmo6he1r01qj3mal97ug";
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
+            try {
+                int profitColor;
+                stockQuote.currentPrice = response.getDouble("c");
                 try {
-                    int profitColor;
-                    stockQuote.currentPrice = response.getDouble("c");
-                    try {
-                        stockQuote.percentChange = response.getDouble("dp");
-                    } catch (Exception e) {
-                        stockQuote.percentChange = 0;
-                    }
-
-                    textView_StockCurrent = findViewById(myTextBoxIds.get("current" + stockQuote.symbol));
-                    textView_StockCurrent.setText(String.valueOf(numberFormatCurrency.format(stockQuote.currentPrice)));
-
-                    textView_StockValue = findViewById(myTextBoxIds.get("value" + stockQuote.symbol));
-                    textView_StockValue.setText(String.valueOf(numberFormatCurrency.format(stockQuote.currentPrice * stockQuote.shares)));
-
-                    totalBalance += stockQuote.currentPrice * stockQuote.shares;
-                    textView_TotalBalance.setText(String.valueOf(numberFormatCurrency.format(totalBalance)));
-
-                    textView_StockDeltaPercent = findViewById((myTextBoxIds.get("change" + stockQuote.symbol)));
-                    textView_StockDeltaPercent.setText(numberFormatInstance.format(stockQuote.percentChange) + "%");
-
-                    if (stockQuote.percentChange > 0) {
-                        profitColor = Color.argb(255, 0, 128, 0);
-                    } else if (stockQuote.percentChange < 0) {
-                        profitColor = Color.argb(255, 255, 0, 0);
-                    } else {
-                        profitColor = Color.BLACK;
-                    }
-
-                    textView_StockDeltaPercent.setTextColor(profitColor);
-
-                    //stockQuote.imageURL = response.getString("logo");
-
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
+                    stockQuote.percentChange = response.getDouble("dp");
+                } catch (Exception e) {
+                    stockQuote.percentChange = 0;
                 }
+
+                textView_StockCurrent = findViewById(myTextBoxIds.get("current" + stockQuote.symbol));
+                textView_StockCurrent.setText(String.valueOf(numberFormatCurrency.format(stockQuote.currentPrice)));
+
+                textView_StockValue = findViewById(myTextBoxIds.get("value" + stockQuote.symbol));
+                textView_StockValue.setText(String.valueOf(numberFormatCurrency.format(stockQuote.currentPrice * stockQuote.balance)));
+
+                totalBalance += stockQuote.currentPrice * stockQuote.balance;
+                textView_TotalBalance.setText(String.valueOf(numberFormatCurrency.format(totalBalance)));
+
+                textView_StockDeltaPercent = findViewById((myTextBoxIds.get("change" + stockQuote.symbol)));
+                textView_StockDeltaPercent.setText(numberFormatInstance.format(stockQuote.percentChange) + "%");
+
+                if (stockQuote.percentChange > 0) {
+                    profitColor = Color.argb(255, 0, 128, 0);
+                } else if (stockQuote.percentChange < 0) {
+                    profitColor = Color.argb(255, 255, 0, 0);
+                } else {
+                    profitColor = Color.BLACK;
+                }
+
+                textView_StockDeltaPercent.setTextColor(profitColor);
+
+                //stockQuote.imageURL = response.getString("logo");
+
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -191,7 +332,7 @@ public class PortfolioActivity extends AppCompatActivity {
         params5.setMargins(getPx(170), getPx(26), 0, 0);
 
         textViewShare.setLayoutParams(params5);
-        textViewShare.setText(String.valueOf(stockQuote.shares));
+        textViewShare.setText(String.valueOf(stockQuote.balance));
 
 
         Typeface typeface5 = null;
@@ -539,80 +680,79 @@ public class PortfolioActivity extends AppCompatActivity {
 
                 for (Stock stock : Controller.loggedUser.stocksInWallet) {
 
-                        String url = "https://finnhub.io/api/v1/quote?symbol=" +
-                                stock.symbol +
-                                "&token=" +
-                                Controller.token;
+                    String url = "https://finnhub.io/api/v1/quote?symbol=" +
+                            stock.symbol +
+                            "&token=" +
+                            Controller.token;
 
-                        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                try {
+                    JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
 
-                                    textView_StockCurrent = findViewById(myTextBoxIds.get("current" + stock.symbol));
-                                    textView_StockCurrent.setText(numberFormatCurrency.format(response.getDouble("c")));
+                                textView_StockCurrent = findViewById(myTextBoxIds.get("current" + stock.symbol));
+                                textView_StockCurrent.setText(numberFormatCurrency.format(response.getDouble("c")));
 
-                                    textView_StockValue = findViewById(myTextBoxIds.get("value" + stock.symbol));
-                                    //textView_StockValue.setText(String.valueOf(numberFormatCurrency.format(stock.currentPrice * stockQuote.shares)));
+                                textView_StockValue = findViewById(myTextBoxIds.get("value" + stock.symbol));
+                                //textView_StockValue.setText(String.valueOf(numberFormatCurrency.format(stock.currentPrice * stockQuote.shares)));
 
-                                    //totalBalance += stockQuote.currentPrice * stockQuote.shares;
-                                    //textView_TotalBalance.setText(String.valueOf(numberFormatCurrency.format(totalBalance)));
+                                //totalBalance += stockQuote.currentPrice * stockQuote.shares;
+                                //textView_TotalBalance.setText(String.valueOf(numberFormatCurrency.format(totalBalance)));
 
-                                    double percentChange = response.getDouble("dp");
-                                    int profitColor;
+                                double percentChange = response.getDouble("dp");
+                                int profitColor;
 
-                                    if (percentChange > 0) {
-                                        profitColor = Color.argb(255, 0, 128, 0);
-                                    } else if (percentChange < 0) {
-                                        profitColor = Color.argb(255, 255, 0, 0);
-                                    } else {
-                                        profitColor = Color.BLACK;
-                                    }
-
-
-
-                                    textView_StockDeltaPercent = findViewById(myTextBoxIds.get("change" + stock.symbol));
-                                    textView_StockDeltaPercent.setText(numberFormatInstance.format(percentChange)+"!!!%");
-                                    textView_StockDeltaPercent.setTextColor(profitColor);
-
-                                } catch (JSONException e) {
-//                                    throw new RuntimeException(e);
+                                if (percentChange > 0) {
+                                    profitColor = Color.argb(255, 0, 128, 0);
+                                } else if (percentChange < 0) {
+                                    profitColor = Color.argb(255, 255, 0, 0);
+                                } else {
+                                    profitColor = Color.BLACK;
                                 }
+
+
+                                textView_StockDeltaPercent = findViewById(myTextBoxIds.get("change" + stock.symbol));
+                                textView_StockDeltaPercent.setText(numberFormatInstance.format(percentChange) + "!!!%");
+                                textView_StockDeltaPercent.setTextColor(profitColor);
+
+                            } catch (JSONException e) {
+//                                    throw new RuntimeException(e);
                             }
-                        }, new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
 
-                            }
-                        });
-                        Volley.newRequestQueue(MyApplication.getAppContext()).add(request);
+                        }
+                    });
+                    Volley.newRequestQueue(MyApplication.getAppContext()).add(request);
 
-
-                    }
 
                 }
 
-                @Override
-                public void onFinish () {
+            }
 
-                }
-            }.start();
+            @Override
+            public void onFinish() {
 
-        }
+            }
+        }.start();
 
-
-        public void goWatchList (View view){
-            Intent intent = new Intent(this, WatchListActivity.class);
-            startActivity(intent);
-        }
-
-        public void goTransactions (View view){
-            Intent intent = new Intent(this, TransactionActivity.class);
-            startActivity(intent);
-        }
-
-        public void goProfile (View view){
-            Intent intent = new Intent(this, ProfileActivity.class);
-            startActivity(intent);
-        }
     }
+
+
+    public void goWatchList(View view) {
+        Intent intent = new Intent(this, WatchListActivity.class);
+        startActivity(intent);
+    }
+
+    public void goTransactions(View view) {
+        Intent intent = new Intent(this, TransactionActivity.class);
+        startActivity(intent);
+    }
+
+    public void goProfile(View view) {
+        Intent intent = new Intent(this, ProfileActivity.class);
+        startActivity(intent);
+    }
+}

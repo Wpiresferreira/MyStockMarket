@@ -5,7 +5,6 @@ public class StockQuote extends Stock{
 
     String name;
     String imageURL;
-    int shares;
     double value;
     double currentPrice;
     double change;
@@ -14,4 +13,22 @@ public class StockQuote extends Stock{
     double lowPriceOfTheDay;
     double openPriceOfTheDay;
     double previousClosePrice;
+
+    public StockQuote(String newSymbol, int newBalance) {
+        super(newSymbol, newBalance);
+        this.name = "";
+        this.imageURL = "";
+        this.value = 0;
+        this.currentPrice = 0;
+        this.change = 0;
+        this.percentChange = 0;
+        this.highPriceOfTheDay = 0;
+        this.lowPriceOfTheDay = 0;
+        this.openPriceOfTheDay = 0;
+        this.previousClosePrice = 0;
+    }
+
+
+    public StockQuote() {
+    }
 }

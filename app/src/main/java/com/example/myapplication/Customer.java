@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Customer implements Parcelable {
@@ -14,12 +15,12 @@ public class Customer implements Parcelable {
     String username;
     String password;
     Cash customerCash;
-    List<Stock> stocksInWallet;
-    List<Stock> stocksInWatchlist;
+    List<StockQuote> stocksInWallet;
+    List<StockQuote> stocksInWatchlist;
 
     public Customer(){}
 
-    public Customer(String name, String username, String password, Cash customerCash, List<Stock> stocksInWallet, List<Stock> stocksInWatchlist) {
+    public Customer(String name, String username, String password, Cash customerCash, List<StockQuote> stocksInWallet, List<StockQuote> stocksInWatchlist) {
         this.name = name;
         this.password = password;
         this.username = username;
@@ -42,6 +43,10 @@ public class Customer implements Parcelable {
         int sizeStocksInWatchlist = in.readInt();
         for (int i = 0; i<sizeStocksInWatchlist; i++) {
             stocksInWatchlist.add(in.readParcelable(Stock.class.getClassLoader()));
+        }
+
+        if(stocksInWallet==null){
+            stocksInWallet = new ArrayList<>();
         }
     }
 

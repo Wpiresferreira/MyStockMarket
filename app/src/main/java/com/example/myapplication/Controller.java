@@ -31,6 +31,7 @@ public class Controller {
     static NumberFormat numberFormatCurrency = NumberFormat.getCurrencyInstance();
     static NumberFormat numberFormatInstance = NumberFormat.getNumberInstance();
     static String token = "cmo6he1r01qj3mal97u0cmo6he1r01qj3mal97ug";
+    static String lastTransactionSymbol;
 
     static List<String> companies = Arrays.asList("BTC-USD", "STNE", "MMM", "AOS", "ABT", "ABBV", "ACN", "ADBE", "AMD", "AES", "AFL",
             "A", "APD", "ABNB", "AKAM", "ALB", "ARE", "ALGN", "ALLE", "LNT", "ALL", "GOOGL", "GOOG", "MO", "AMZN",
@@ -190,9 +191,9 @@ public class Controller {
 
         SharedPreferences sharedPref;
         sharedPref = context.getSharedPreferences(
-                "com.example.myapplication." + Controller.loggedUser.username, Context.MODE_PRIVATE);
+                "com.example.myapplication.users", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString("dataJSON", new Gson().toJson(Controller.loggedUser));
+        editor.putString(Controller.loggedUser.username, new Gson().toJson(Controller.loggedUser));
         editor.apply();
     }
 
