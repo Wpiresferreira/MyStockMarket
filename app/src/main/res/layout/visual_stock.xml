@@ -10,11 +10,19 @@
     android:layout_marginBottom="5dp"
     android:background="@drawable/box_with_corner">
 
+        <ImageView
+            android:id="@+id/image_Logo"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            app:srcCompat="@drawable/b_investor_logo2" />
+
         <TextView
             android:id="@+id/textView_StockSymbol"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="50dp"
             android:fontFamily="@font/poppins_bold"
             android:maxWidth="180dp"
             android:text="--"
@@ -23,9 +31,9 @@
 
         <TextView
             android:id="@+id/textView_StockDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_width="130dp"
+            android:layout_height="18dp"
+            android:layout_marginLeft="50dp"
             android:layout_marginTop="25dp"
             android:text="--"
             android:textColor="@color/material_dynamic_primary20" />

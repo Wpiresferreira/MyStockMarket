@@ -24,6 +24,10 @@ public class TransactionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transactions);
 
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
+        if(getActionBar() !=null) getActionBar().hide();
+
+
         // Initialize Variables
         editText_StockSymbol = findViewById(R.id.editText_StockSymbol);
         editText_StockSymbol.setText(Controller.lastTransactionSymbol);

@@ -126,8 +126,8 @@
                     android:id="@+id/textView22"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="200dp"
+                    android:layout_gravity="right|center_vertical"
+                    android:layout_marginEnd="162dp"
                     android:fontFamily="@font/poppins_regular"
                     android:text="Value\nShare" />
 

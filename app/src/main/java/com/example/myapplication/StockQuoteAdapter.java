@@ -4,14 +4,18 @@ import static androidx.core.content.ContextCompat.startActivity;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -34,6 +38,7 @@ public class StockQuoteAdapter extends RecyclerView.Adapter<StockQuoteAdapter.Vi
         private final TextView text_Last;
         private final TextView text_Change;
         private final FrameLayout frame_Container;
+        private final ImageView imageView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -44,6 +49,7 @@ public class StockQuoteAdapter extends RecyclerView.Adapter<StockQuoteAdapter.Vi
             text_Last = itemView.findViewById(R.id.textView_StockLast);
             text_Change = itemView.findViewById(R.id.textView_StockChange);
             frame_Container = itemView.findViewById(R.id.frame_Container);
+            imageView = itemView.findViewById(R.id.image_Logo);
         }
     }
 
@@ -56,6 +62,11 @@ public class StockQuoteAdapter extends RecyclerView.Adapter<StockQuoteAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull StockQuoteAdapter.ViewHolder holder, int position) {
+        try {
+            Glide.with(holder.imageView).load(stockQuoteList.get(position).imageURL).into(holder.imageView);
+        }catch (Exception e){
+            Log.wtf("Glider", "onBindViewHolder: "+e);
+        }
         holder.text_Symbol.setText(stockQuoteList.get(position).symbol);
         holder.text_Description.setText(stockQuoteList.get(position).name);
         holder.text_Value.setText(new DecimalFormat("#,##0.00").format(stockQuoteList.get(position).balance * stockQuoteList.get(position).currentPrice));

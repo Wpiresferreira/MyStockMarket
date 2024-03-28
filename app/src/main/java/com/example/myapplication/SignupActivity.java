@@ -24,6 +24,10 @@ public class SignupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
+        if(getActionBar() !=null) getActionBar().hide();
+
+
         eyeNewPassword = findViewById(R.id.eyeNewPassword);
         eyeReTypeNewPassword = findViewById(R.id.eyeReTypeNewPassword);
         editTextNewPasswordInput = findViewById(R.id.editTextNewPasswordInput);
@@ -31,6 +35,8 @@ public class SignupActivity extends AppCompatActivity {
         editTextEmailUsernameInput = findViewById(R.id.editTextEmailUsernameInput);
         editTextInitialCashInput = findViewById(R.id.editTextInitialCashInput);
         textView_ErrorMessage = findViewById(R.id.textView_ErrorMessage);
+
+
     }
 
     public void toggleVisibilityReTypeNewPassword(View view) {
