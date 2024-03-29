@@ -124,7 +124,8 @@ public class PortfolioActivity extends AppCompatActivity {
                     //Save information to file
                     Controller.updateLoggedUser(getApplicationContext());
 
-                    adapter.notifyDataSetChanged();
+
+                    adapter.notifyItemChanged(Controller.loggedUser.stocksInWallet.indexOf(s));
                     updateTotal();
                     justCounter++;
                     textView_justCounter.setText(String.valueOf(justCounter));
@@ -171,7 +172,7 @@ public class PortfolioActivity extends AppCompatActivity {
                     //Save information to file
                     Controller.updateLoggedUser(getApplicationContext());
 
-                    adapter.notifyDataSetChanged();
+                    adapter.notifyItemChanged(Controller.loggedUser.stocksInWallet.indexOf(s));
                     updateTotal();
 
                 } catch (Exception e) {

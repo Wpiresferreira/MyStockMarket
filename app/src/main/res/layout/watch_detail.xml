@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/frame_Container"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:layout_marginStart="12dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginEnd="12dp"
+    android:layout_marginBottom="5dp"
+    android:background="@drawable/box_with_corner">
+
+        <ImageView
+            android:id="@+id/image_Logo"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            app:srcCompat="@drawable/b_investor_logo2" />
+
+        <TextView
+            android:id="@+id/textView_StockSymbol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:fontFamily="@font/poppins_bold"
+            android:maxWidth="180dp"
+            android:text="--"
+            android:textColor="@color/material_dynamic_primary20"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/textView_StockDescription"
+            android:layout_width="230dp"
+            android:layout_height="18dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="25dp"
+            android:text="--"
+            android:textColor="@color/material_dynamic_primary20" />
+
+        <TextView
+            android:id="@+id/textView_StockLast"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginRight="60dp"
+            android:fontFamily="@font/poppins_bold"
+            android:text="--"
+            android:textColor="@color/material_dynamic_primary20"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/textView_StockChange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginTop="25dp"
+            android:layout_marginRight="60dp"
+            android:text="--" />
+
+        <TextView
+            android:id="@+id/textView_Delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:fontFamily="@font/fontawesome"
+            android:padding="8dp"
+            android:text="@string/delete_symbol"
+            android:textColor="@color/design_default_color_error"
+            android:textSize="20sp" />
+
+</FrameLayout>

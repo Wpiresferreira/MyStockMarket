@@ -63,7 +63,10 @@ public class StockQuoteAdapter extends RecyclerView.Adapter<StockQuoteAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull StockQuoteAdapter.ViewHolder holder, int position) {
         try {
-            Glide.with(holder.imageView).load(stockQuoteList.get(position).imageURL).into(holder.imageView);
+            Glide.with(holder.imageView)
+                    .load(stockQuoteList.get(position).imageURL)
+                    .placeholder(R.drawable.b_investor_logo2)
+                    .into(holder.imageView);
         }catch (Exception e){
             Log.wtf("Glider", "onBindViewHolder: "+e);
         }
@@ -73,14 +76,11 @@ public class StockQuoteAdapter extends RecyclerView.Adapter<StockQuoteAdapter.Vi
         holder.text_Share.setText(String.valueOf(stockQuoteList.get(position).balance));
         holder.text_Last.setText(String.valueOf(stockQuoteList.get(position).currentPrice));
         holder.text_Change.setText(new DecimalFormat("0.00").format(stockQuoteList.get(position).percentChange) +"%");
-        holder.frame_Container.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TextView symbolView = (TextView)v.findViewById(R.id.textView_StockSymbol);
-                Controller.lastTransactionSymbol = symbolView.getText().toString();
-                Intent intent = new Intent(v.getContext(), TransactionActivity.class);
-                startActivity(v.getContext(), intent, null  );
-            }
+        holder.frame_Container.setOnClickListener(v -> {
+            TextView symbolView = (TextView)v.findViewById(R.id.textView_StockSymbol);
+            Controller.lastTransactionSymbol = symbolView.getText().toString();
+            Intent intent = new Intent(v.getContext(), TransactionActivity.class);
+            startActivity(v.getContext(), intent, null  );
         });
 
 

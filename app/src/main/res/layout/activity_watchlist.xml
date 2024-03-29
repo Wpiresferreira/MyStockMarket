@@ -29,26 +29,16 @@
             android:textSize="36sp" />
     </LinearLayout>
 
-    <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="400dp"
-        android:layout_height="447dp"
-        android:layout_marginTop="160dp"
-        android:fadeScrollbars="false"
-        android:verticalScrollbarPosition="right"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="0dp"
+        android:layout_height="396dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="176dp"
+        android:layout_marginEnd="1dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/linearLayout4">
-
-        <LinearLayout
-            android:id="@+id/containerWatchList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-        </LinearLayout>
-    </ScrollView>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -74,6 +64,7 @@
             android:text="Add"
             android:backgroundTint="@color/material_dynamic_primary40"
             app:cornerRadius="5dp" />
+
     </LinearLayout>
 
     <LinearLayout

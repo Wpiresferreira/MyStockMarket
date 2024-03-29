@@ -9,6 +9,7 @@
     <string name="icon_closed_eye" translatable="false">&#xf070;</string>
     <string name="portfolio" translatable="false">&#xf200;</string>
     <string name="delete_symbol">&#xf014;</string>
+    <string name="edit_symbol">&#xf044;</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="don_t_you_have_an_account_yet">Don\'t you have an account yet? \n<u>Click here to SIGN UP</u></string>
