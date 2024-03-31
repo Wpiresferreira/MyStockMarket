@@ -6,66 +6,73 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <LinearLayout
-        android:id="@+id/linearLayout4"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textView17"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:fontFamily="@font/poppins_bold"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
-            android:text="WatchList"
-            android:textColor="@color/material_dynamic_primary20"
-            android:textSize="36sp" />
-    </LinearLayout>
+            android:orientation="vertical" >
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler"
-        android:layout_width="0dp"
-        android:layout_height="396dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="176dp"
-        android:layout_marginEnd="1dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:fontFamily="@font/poppins_bold"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:text="WatchList"
+                android:textColor="@color/material_dynamic_primary20"
+                android:textSize="36sp" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="360dp"
-        android:layout_height="59dp"
-        android:layout_marginTop="80dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+            <FrameLayout
+                android:layout_width="360dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/box_with_corner"
+                android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/editText_StockToAdd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="symbol"
-            android:inputType="text" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:text="Add" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="addStock"
-            android:text="Add"
-            android:backgroundTint="@color/material_dynamic_primary40"
-            app:cornerRadius="5dp" />
+                <AutoCompleteTextView
+                    android:id="@+id/editText_StockToAdd"
+                    android:layout_width="320dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|center_horizontal"
+                    android:completionThreshold="1"
+                    android:fontFamily="@font/poppins_regular"
+                    android:hint="symbol"
+                    android:inputType="textAutoCorrect" />
 
-    </LinearLayout>
+            </FrameLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="1dp"
+                android:scrollbars="vertical"
+                android:verticalScrollbarPosition="defaultPosition">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="500dp" />
+        </LinearLayout>
+    </ScrollView>
 
     <LinearLayout
         android:layout_width="0dp"

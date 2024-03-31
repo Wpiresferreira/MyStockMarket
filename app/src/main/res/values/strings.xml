@@ -10,6 +10,8 @@
     <string name="portfolio" translatable="false">&#xf200;</string>
     <string name="delete_symbol">&#xf014;</string>
     <string name="edit_symbol">&#xf044;</string>
+    <string name="fa_chevron_up">&#xf077;</string>
+    <string name="fa_chevron_down">&#xf078;</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="don_t_you_have_an_account_yet">Don\'t you have an account yet? \n<u>Click here to SIGN UP</u></string>
@@ -33,5 +35,6 @@
     <string name="signup_failed">Signup failed</string>
     <string name="remember_me">Remember me</string>
     <string name="errorMessage">ErrorMessage</string>
+    <string name="logout">Logout</string>
 
 </resources>

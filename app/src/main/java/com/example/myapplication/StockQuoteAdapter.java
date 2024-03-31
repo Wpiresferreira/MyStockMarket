@@ -75,11 +75,21 @@ public class StockQuoteAdapter extends RecyclerView.Adapter<StockQuoteAdapter.Vi
         holder.text_Value.setText(new DecimalFormat("#,##0.00").format(stockQuoteList.get(position).balance * stockQuoteList.get(position).currentPrice));
         holder.text_Share.setText(String.valueOf(stockQuoteList.get(position).balance));
         holder.text_Last.setText(String.valueOf(stockQuoteList.get(position).currentPrice));
-        holder.text_Change.setText(new DecimalFormat("0.00").format(stockQuoteList.get(position).percentChange) +"%");
+
+        String formatedTextChanged = "";
+        formatedTextChanged += new DecimalFormat("0.00").format(stockQuoteList.get(position).percentChange) +"%";
+        if(stockQuoteList.get(position).percentChange >0) {
+            formatedTextChanged += "\uF139";
+        }else{
+            formatedTextChanged += "\uF13A";
+        }
+
+        holder.text_Change.setText(formatedTextChanged);
         holder.frame_Container.setOnClickListener(v -> {
             TextView symbolView = (TextView)v.findViewById(R.id.textView_StockSymbol);
             Controller.lastTransactionSymbol = symbolView.getText().toString();
             Intent intent = new Intent(v.getContext(), TransactionActivity.class);
+
             startActivity(v.getContext(), intent, null  );
         });
 

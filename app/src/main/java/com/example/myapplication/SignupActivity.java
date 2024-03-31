@@ -32,7 +32,7 @@ public class SignupActivity extends AppCompatActivity {
         eyeReTypeNewPassword = findViewById(R.id.eyeReTypeNewPassword);
         editTextNewPasswordInput = findViewById(R.id.editTextNewPasswordInput);
         editTextRetypeNewPasswordInput = findViewById(R.id.editTextRetypeNewPasswordInput);
-        editTextEmailUsernameInput = findViewById(R.id.editTextEmailUsernameInput);
+        editTextEmailUsernameInput = findViewById(R.id.textViewEmailUsername);
         editTextInitialCashInput = findViewById(R.id.editTextInitialCashInput);
         textView_ErrorMessage = findViewById(R.id.textView_ErrorMessage);
 

@@ -31,4 +31,5 @@ public class StockQuote extends Stock{
 
     public StockQuote() {
     }
+
 }

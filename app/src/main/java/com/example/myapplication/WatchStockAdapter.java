@@ -71,8 +71,18 @@ public class WatchStockAdapter extends RecyclerView.Adapter<WatchStockAdapter.Vi
         }
         holder.text_Symbol.setText(watchStockList.get(position).symbol);
         holder.text_Description.setText(watchStockList.get(position).name);
-        holder.text_Last.setText(String.valueOf(watchStockList.get(position).currentPrice));
-        holder.text_Change.setText(new DecimalFormat("0.00").format(watchStockList.get(position).percentChange) +"%");
+        holder.text_Last.setText(new DecimalFormat("#,##0.00").format(watchStockList.get(position).currentPrice));
+        String formatedTextChanged = "";
+
+
+        formatedTextChanged += new DecimalFormat("0.00").format(watchStockList.get(position).percentChange) +"%";
+
+        if(watchStockList.get(position).percentChange >0) {
+            formatedTextChanged += "\uF139";
+        }else{
+            formatedTextChanged += "\uF13A";
+        }
+        holder.text_Change.setText(formatedTextChanged);
         holder.frame_Container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

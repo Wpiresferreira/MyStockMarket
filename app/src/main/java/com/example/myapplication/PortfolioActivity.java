@@ -24,14 +24,11 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class PortfolioActivity extends AppCompatActivity {
-    TextView textView_Cash,
-            textView_TotalBalance,
-    textView_justCounter;
+    TextView textView_Cash, textView_TotalBalance;
     RecyclerView recycler;
     StockQuoteAdapter adapter;
     List<StockQuote> stockQuoteList;
     Timer timer;
-    int justCounter = 0;
     NumberFormat numberFormatCurrency = NumberFormat.getCurrencyInstance();
 
 
@@ -39,17 +36,16 @@ public class PortfolioActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_portfolio);
+
+        if (Controller.loggedUser == null) finish();
         textView_Cash = findViewById(R.id.textView_Cash);
         textView_TotalBalance = findViewById(R.id.textView_TotalBalance);
-        textView_justCounter = findViewById(R.id.justCounter);
-        textView_justCounter.setText(String.valueOf(justCounter));
         recycler = findViewById(R.id.recycler);
 
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
-        if(getActionBar() !=null) getActionBar().hide();
+        if (getActionBar() != null) getActionBar().hide();
 
         buildTheScreen();
-
 
 
         loadList();
@@ -106,10 +102,7 @@ public class PortfolioActivity extends AppCompatActivity {
     public void updateQuotes(View view) {
 
         for (StockQuote s : Controller.loggedUser.stocksInWallet) {
-            String url = "https://finnhub.io/api/v1/quote?symbol=" +
-                    s.symbol +
-                    "&token=" +
-                    Controller.token;
+            String url = "https://finnhub.io/api/v1/quote?symbol=" + s.symbol + "&token=" + Controller.token;
 
             JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
                 try {
@@ -127,8 +120,6 @@ public class PortfolioActivity extends AppCompatActivity {
 
                     adapter.notifyItemChanged(Controller.loggedUser.stocksInWallet.indexOf(s));
                     updateTotal();
-                    justCounter++;
-                    textView_justCounter.setText(String.valueOf(justCounter));
 
                 } catch (Exception e) {
                     Log.wtf("WTF", "updateQuotes: " + e);
@@ -140,11 +131,11 @@ public class PortfolioActivity extends AppCompatActivity {
 
     }
 
-    private void updateTotal(){
+    private void updateTotal() {
         Double total = 0.0;
         total += Controller.loggedUser.customerCash.balance;
-        for(StockQuote s : Controller.loggedUser.stocksInWallet){
-            total += s.balance* s.currentPrice;
+        for (StockQuote s : Controller.loggedUser.stocksInWallet) {
+            total += s.balance * s.currentPrice;
         }
 
         textView_TotalBalance.setText(new DecimalFormat("#,##0.00").format(total));
@@ -155,13 +146,9 @@ public class PortfolioActivity extends AppCompatActivity {
 
         for (StockQuote s : Controller.loggedUser.stocksInWallet) {
 
-            if(!s.name.isEmpty()) ;//return;
+            if (!s.name.isEmpty()) continue;
 
-            String url = "https://finnhub.io/api/v1/stock/profile2?symbol=" +
-                    s.symbol +
-                    "&token=" +
-                    Controller.token;
-
+            String url = "https://finnhub.io/api/v1/stock/profile2?symbol=" + s.symbol + "&token=" + Controller.token;
 
 
             JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
@@ -186,29 +173,31 @@ public class PortfolioActivity extends AppCompatActivity {
     }
 
 
-
     public void goWatchList(View view) {
         timer.cancel();
         Intent intent = new Intent(this, WatchListActivity.class);
+        finish();
         startActivity(intent);
     }
 
     public void goTransactions(View view) {
         timer.cancel();
         Intent intent = new Intent(this, TransactionActivity.class);
+        finish();
         startActivity(intent);
     }
 
     public void goProfile(View view) {
         timer.cancel();
         Intent intent = new Intent(this, ProfileActivity.class);
+        finish();
         startActivity(intent);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        if(timer != null) timer.cancel();
+        if (timer != null) timer.cancel();
     }
 
 

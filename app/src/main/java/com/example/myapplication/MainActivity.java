@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
        super.onRestoreInstanceState(savedInstanceState);
 
 //        editTextUsernameInput.setText(savedInstanceState.getString("username", ""));
-//        editTextPasswordInput.setText(savedInstanceState.getString("password", ""));
+        editTextPasswordInput.setText("");
         editTextPasswordInput.setText("");
 //        textView_eye_password.setText(savedInstanceState.getString("eye_password", ""));
 //

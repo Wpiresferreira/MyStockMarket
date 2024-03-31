@@ -4,7 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -23,7 +24,7 @@ import java.util.TimerTask;
 
 public class WatchListActivity extends AppCompatActivity {
 
-    EditText editText_StockToAdd;
+    AutoCompleteTextView editText_StockToAdd;
     WatchStockAdapter adapter;
     RecyclerView recycler;
     Timer timer;
@@ -32,12 +33,26 @@ public class WatchListActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_watchlist);
+
+        if (Controller.loggedUser == null) finish();
+
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
-        if(getActionBar() !=null) getActionBar().hide();
+        if (getActionBar() != null) getActionBar().hide();
 
         editText_StockToAdd = findViewById(R.id.editText_StockToAdd);
         recycler = findViewById(R.id.recycler);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, Controller.COMPANIES);
+        editText_StockToAdd.setAdapter(adapter);
 
+        editText_StockToAdd.setOnItemClickListener((parent, view, position, id) -> {
+            Controller.loggedUser.stocksInWatchlist.add(new StockQuote(editText_StockToAdd.getText().toString().toUpperCase(), 0));
+            Controller.updateLoggedUser(this);
+            adapter.notifyDataSetChanged();
+            updateDescription();
+            updateQuotes();
+            editText_StockToAdd.setText("");
+            editText_StockToAdd.clearFocus();
+        });
 
 
         setAdapter();
@@ -59,10 +74,7 @@ public class WatchListActivity extends AppCompatActivity {
 
     private void updateQuotes() {
         for (StockQuote s : Controller.loggedUser.stocksInWatchlist) {
-            String url = "https://finnhub.io/api/v1/quote?symbol=" +
-                    s.symbol +
-                    "&token=" +
-                    Controller.token;
+            String url = "https://finnhub.io/api/v1/quote?symbol=" + s.symbol + "&token=" + Controller.token;
 
             JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
                 try {
@@ -95,13 +107,9 @@ public class WatchListActivity extends AppCompatActivity {
 
         for (StockQuote s : Controller.loggedUser.stocksInWatchlist) {
 
-            //if(s.name != null) return;
+            if (!s.name.isEmpty()) continue;
 
-            String url = "https://finnhub.io/api/v1/stock/profile2?symbol=" +
-                    s.symbol +
-                    "&token=" +
-                    Controller.token;
-
+            String url = "https://finnhub.io/api/v1/stock/profile2?symbol=" + s.symbol + "&token=" + Controller.token;
 
 
             JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
@@ -182,6 +190,6 @@ public class WatchListActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        if(timer != null) timer.cancel();
+        if (timer != null) timer.cancel();
     }
 }

@@ -223,7 +223,7 @@
                     android:text="Email / Username" />
 
                 <EditText
-                    android:id="@+id/editTextEmailUsernameInput"
+                    android:id="@+id/textViewEmailUsername"
                     android:layout_width="220dp"
                     android:layout_height="48dp"
                     android:layout_marginStart="30dp"
