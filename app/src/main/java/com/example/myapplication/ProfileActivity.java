@@ -1,7 +1,6 @@
 package com.example.myapplication;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -14,7 +13,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class ProfileActivity extends AppCompatActivity {
-    SharedPreferences sharedPref;
     TextView textViewEmailUsername;
     TextView eyeNewPassword, eyeReTypeNewPassword, textView_ErrorMessage;
     EditText editTextNewPasswordInput, editTextRetypeNewPasswordInput;
@@ -25,14 +23,12 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        if (Controller.loggedUser == null) finish();
-
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
         if (getActionBar() != null) getActionBar().hide();
 
 
         textViewEmailUsername = findViewById(R.id.textViewEmailUsername);
-        textViewEmailUsername.setText(Controller.loggedUser.username);
+        textViewEmailUsername.setText(Controller.getLoggedUser().username);
         eyeNewPassword = findViewById(R.id.eyeNewPassword);
         eyeReTypeNewPassword = findViewById(R.id.eyeReTypeNewPassword);
         editTextNewPasswordInput = findViewById(R.id.editTextNewPasswordInput);
@@ -42,7 +38,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     public void logout(View view) {
-        Controller.loggedUser = null;
+        Controller.disconnectLoggedUser();
         Intent intent = new Intent(this, MainActivity.class);
         finish();
         startActivity(intent);
@@ -55,10 +51,9 @@ public class ProfileActivity extends AppCompatActivity {
 
         // Check Password and retype Password
         if(!password.equals(retypePassword)){
-            textView_ErrorMessage.setText("Those passwords didn’t match. Try again.");
+            textView_ErrorMessage.setText(R.string.password_didn_t_match_try_again);
         }else{
-            Controller.loggedUser.password = password;
-            Controller.updateLoggedUser(this);
+            Controller.updatePassword(this, password);
             textView_ErrorMessage.setText("");
             Toast.makeText(this, "Password changed", Toast.LENGTH_SHORT).show();
             editTextNewPasswordInput.setText("");

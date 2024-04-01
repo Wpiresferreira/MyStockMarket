@@ -4,7 +4,7 @@ import android.content.Context;
 
 public interface LoginInterface {
 
-    public static Customer login(Context applicationContext, String username, String password) {
+    static Customer login(Context applicationContext, String username, String password) {
         return null;
     }
 

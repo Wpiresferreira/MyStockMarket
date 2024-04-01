@@ -8,16 +8,13 @@ import androidx.annotation.NonNull;
 
 import com.google.gson.Gson;
 
-import java.sql.Time;
-import java.text.NumberFormat;
 import java.util.Arrays;
-import java.util.Deque;
 import java.util.List;
 
 
 public class Controller {
 
-    static Customer loggedUser;
+    private static Customer loggedUser;
     static String token = "cmo6he1r01qj3mal97u0cmo6he1r01qj3mal97ug";
     static String lastTransactionSymbol;
 
@@ -200,10 +197,7 @@ public class Controller {
             return false;
         }
         // Check if username contains .xx or .xxx
-        if (username.charAt(username.length() - 4) != '.' && username.charAt(username.length() - 3) != '.') {
-            return false;
-        }
-        return true;
+        return username.charAt(username.length() - 4) == '.' || username.charAt(username.length() - 3) == '.';
     }
 
     public static void updateLoggedUser(@NonNull Context context) {
@@ -216,4 +210,21 @@ public class Controller {
         editor.apply();
     }
 
+    public static void disconnectLoggedUser() {
+        loggedUser = null;
+    }
+
+    public static void updatePassword(Context context, String password) {
+        loggedUser.password = password;
+        updateLoggedUser(context);
+    }
+
+    public static void addStockInWatchList(Context context, StockQuote stockQuote) {
+        loggedUser.stocksInWatchlist.add(stockQuote);
+        updateLoggedUser(context);
+    }
+
+    public static void logUser(Customer loadedCustomerObj) {
+        loggedUser = loadedCustomerObj;
+    }
 }

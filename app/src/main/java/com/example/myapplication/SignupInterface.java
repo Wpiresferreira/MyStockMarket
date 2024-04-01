@@ -4,7 +4,7 @@ import android.content.Context;
 
 public interface SignupInterface {
 
-    public static boolean signup(Context context, Customer customer) {
+    static boolean signup(Context context, Customer customer) {
         return false;
     }
 }

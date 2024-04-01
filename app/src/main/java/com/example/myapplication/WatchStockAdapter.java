@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import static androidx.core.content.ContextCompat.startActivity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -60,6 +61,7 @@ public class WatchStockAdapter extends RecyclerView.Adapter<WatchStockAdapter.Vi
         return new ViewHolder(itemView);
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public void onBindViewHolder(@NonNull WatchStockAdapter.ViewHolder holder, int position) {
         try {
@@ -73,47 +75,40 @@ public class WatchStockAdapter extends RecyclerView.Adapter<WatchStockAdapter.Vi
         holder.text_Symbol.setText(watchStockList.get(position).symbol);
         holder.text_Description.setText(watchStockList.get(position).name);
         holder.text_Last.setText(new DecimalFormat("#,##0.00").format(watchStockList.get(position).currentPrice));
-        String formatedTextChanged = "";
+        String formattedTextChanged = "";
 
 
-        formatedTextChanged += new DecimalFormat("0.00").format(watchStockList.get(position).percentChange) +"%";
+        formattedTextChanged += new DecimalFormat("0.00").format(watchStockList.get(position).percentChange) +"%";
 
         if(watchStockList.get(position).percentChange >0) {
-            formatedTextChanged += "\uF139";
+            formattedTextChanged += "\uF139";
         }else{
-            formatedTextChanged += "\uF13A";
+            formattedTextChanged += "\uF13A";
         }
-        holder.text_Change.setText(formatedTextChanged);
-        holder.frame_Container.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TextView symbolView = (TextView)v.findViewById(R.id.textView_StockSymbol);
-                Controller.lastTransactionSymbol = symbolView.getText().toString();
-                Intent intent = new Intent(v.getContext(), TransactionActivity.class);
-                startActivity(v.getContext(), intent, null  );
-                ((Activity)v.getContext()).finish();
-            }
+        holder.text_Change.setText(formattedTextChanged);
+        holder.frame_Container.setOnClickListener(v -> {
+            TextView symbolView = (TextView)v.findViewById(R.id.textView_StockSymbol);
+            Controller.lastTransactionSymbol = symbolView.getText().toString();
+            Intent intent = new Intent(v.getContext(), TransactionActivity.class);
+            startActivity(v.getContext(), intent, null  );
+            ((Activity)v.getContext()).finish();
         });
 
-        holder.text_Delete.setOnClickListener(new View.OnClickListener(){
+        holder.text_Delete.setOnClickListener(v -> {
 
-            @Override
-            public void onClick(View v) {
-
-                View viewToRemove = (FrameLayout)v.getParent();
-                TextView text_Symbol = viewToRemove.findViewById(R.id.textView_StockSymbol);
-                String symbolToRemove = text_Symbol.getText().toString();
-                StockQuote stockQuoteToRemove = new StockQuote();
-                for(StockQuote s : Controller.loggedUser.stocksInWatchlist){
-                    if (s.symbol.equals(symbolToRemove)){
-                        stockQuoteToRemove = s;
-                    }
+            View viewToRemove = (FrameLayout)v.getParent();
+            TextView text_Symbol = viewToRemove.findViewById(R.id.textView_StockSymbol);
+            String symbolToRemove = text_Symbol.getText().toString();
+            StockQuote stockQuoteToRemove = new StockQuote();
+            for(StockQuote s : Controller.getLoggedUser().stocksInWatchlist){
+                if (s.symbol.equals(symbolToRemove)){
+                    stockQuoteToRemove = s;
                 }
-                Controller.loggedUser.stocksInWatchlist.remove(stockQuoteToRemove);
-                Controller.updateLoggedUser(v.getContext());
-
-                notifyDataSetChanged();
             }
+            Controller.getLoggedUser().stocksInWatchlist.remove(stockQuoteToRemove);
+            Controller.updateLoggedUser(v.getContext());
+
+            notifyDataSetChanged();
         });
 
 

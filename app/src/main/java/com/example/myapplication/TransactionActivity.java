@@ -6,7 +6,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
@@ -39,9 +38,6 @@ public class TransactionActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transactions);
 
-        if (Controller.loggedUser == null) finish();
-
-
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
         if (getActionBar() != null) getActionBar().hide();
 
@@ -67,19 +63,16 @@ public class TransactionActivity extends AppCompatActivity{
         updateAllInfo();
         //editText_StockSymbol.setText(Controller.lastTransactionSymbol);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_dropdown_item_1line, Controller.COMPANIES);
         editText_StockSymbol.setAdapter(adapter);
-        editText_StockSymbol.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        editText_StockSymbol.setOnItemClickListener((parent, view, position, id) -> {
 
-                selectedStockQuote = new StockQuote();
-                selectedStockQuote.symbol = editText_StockSymbol.getText().toString().toUpperCase();
-                updateAllInfo();
-                editText_StockSymbol.clearFocus();
+            selectedStockQuote = new StockQuote();
+            selectedStockQuote.symbol = editText_StockSymbol.getText().toString().toUpperCase();
+            updateAllInfo();
+            editText_StockSymbol.clearFocus();
 
-            }
         });
 //        editText_StockSymbol.addTextChangedListener(new TextWatcher() {
 //
@@ -200,7 +193,7 @@ public class TransactionActivity extends AppCompatActivity{
     }
 
     private void updateTotal() {
-        Double total = 0.0;
+        Double total;
         total = Double.parseDouble(textView_CurrentPrice.getText().toString()) *
                 Integer.parseInt(editText_Qt.getText().toString());
         textView_Total.setText(new DecimalFormat("#,##0.00").format(total));
@@ -220,7 +213,7 @@ public class TransactionActivity extends AppCompatActivity{
                 selectedStockQuote.imageURL = response.getString("logo");
 
 
-                if (selectedStockQuote.imageURL != null) {
+                if (!selectedStockQuote.imageURL.isEmpty()) {
 
                     Glide.with(this)
                             .load(selectedStockQuote.imageURL)
@@ -243,11 +236,11 @@ public class TransactionActivity extends AppCompatActivity{
         int qtdOrder = Integer.parseInt(String.valueOf(editText_Qt.getText()));
         String stockOrder = String.valueOf(editText_StockSymbol.getText()).toUpperCase();
 
-        if (Controller.loggedUser.customerCash.balance >= totalOrder) {
-            Controller.loggedUser.customerCash.balance -= totalOrder;
+        if (Controller.getLoggedUser().customerCash.balance >= totalOrder) {
+            Controller.getLoggedUser().customerCash.balance -= totalOrder;
 
 
-            for (Stock stock : Controller.loggedUser.stocksInWallet) {
+            for (Stock stock : Controller.getLoggedUser().stocksInWallet) {
                 if (stock.symbol.equals(stockOrder)) {
                     stock.balance += qtdOrder;
                     Controller.updateLoggedUser(getApplicationContext());
@@ -256,7 +249,7 @@ public class TransactionActivity extends AppCompatActivity{
                 }
             }
             StockQuote myNewStock = new StockQuote(stockOrder, qtdOrder);
-            Controller.loggedUser.stocksInWallet.add(myNewStock);
+            Controller.getLoggedUser().stocksInWallet.add(myNewStock);
 
             //Save information to file
             Controller.updateLoggedUser(getApplicationContext());
@@ -273,19 +266,19 @@ public class TransactionActivity extends AppCompatActivity{
 
         Stock customerStock = null;
 
-        for (Stock stock : Controller.loggedUser.stocksInWallet) {
+        for (Stock stock : Controller.getLoggedUser().stocksInWallet) {
             if (stock.symbol.equals(stockOrder)) {
                 if (stock.balance < qtdOrder) {
                     Toast.makeText(this, "Insufficient stocks", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
-                    Controller.loggedUser.customerCash.balance += totalOrder;
+                    Controller.getLoggedUser().customerCash.balance += totalOrder;
                     stock.balance -= qtdOrder;
                     customerStock = stock;
                 }
 
                 if (stock.balance == 0) {
-                    Controller.loggedUser.stocksInWallet.remove(stock);
+                    Controller.getLoggedUser().stocksInWallet.remove(stock);
                 }
                 Controller.updateLoggedUser(getApplicationContext());
                 goPortfolio(view);

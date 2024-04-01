@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:background="@color/white">
 
     <ScrollView
@@ -28,7 +26,7 @@
                 android:fontFamily="@font/poppins_bold"
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"
-                android:text="Transactions"
+                android:text="@string/transactions"
                 android:textColor="@color/material_dynamic_primary20"
                 android:textSize="36sp" />
 
@@ -49,7 +47,7 @@
                     android:fontFamily="@font/poppins_bold"
                     android:paddingStart="5dp"
                     android:paddingEnd="5dp"
-                    android:text="Symbol" />
+                    android:text="@string/symbol_capital_letter" />
 
                 <AutoCompleteTextView
                     android:id="@+id/editText_StockSymbol"
@@ -58,7 +56,7 @@
                     android:layout_gravity="bottom|center_horizontal"
                     android:completionThreshold="1"
                     android:fontFamily="@font/poppins_regular"
-                    android:hint="symbol"
+                    android:hint="@string/symbol"
                     android:inputType="textAutoCorrect" />
 
             </FrameLayout>
@@ -77,19 +75,20 @@
                 android:id="@+id/imageView_Logo"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
-                app:srcCompat="@drawable/b_investor_logo2" />
+                app:srcCompat="@drawable/b_investor_logo2"
+                android:contentDescription="@string/logo" />
 
                 <TextView
                     android:id="@+id/textView_Name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="50dp"
+                    android:layout_marginStart="50dp"
                     android:fontFamily="@font/poppins_bold"
                     android:maxWidth="180dp"
-                    android:text="--"
+                    android:text="@string/loading"
                     android:textColor="@color/material_dynamic_primary20"
                     android:textSize="18sp" />
 
@@ -110,13 +109,12 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
                         android:layout_span="2"
                         android:paddingLeft="10dp"
                         android:paddingTop="6dp"
                         android:paddingRight="10dp"
                         android:paddingBottom="6dp"
-                        android:text="Current Price"
+                        android:text="@string/current_price"
                         android:textAlignment="textEnd"
                         android:textSize="18sp" />
 
@@ -130,7 +128,7 @@
                         android:paddingTop="6dp"
                         android:paddingRight="10dp"
                         android:paddingBottom="6dp"
-                        android:text="$123.45"
+                        android:text=""
                         android:textSize="36sp"
                         android:textStyle="bold" />
 
@@ -145,7 +143,7 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="6dp"
                         android:paddingBottom="6dp"
-                        android:text="Change"
+                        android:text="@string/chang"
                         android:textAlignment="textEnd" />
 
                     <TextView
@@ -154,7 +152,7 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="6dp"
                         android:paddingBottom="6dp"
-                        android:text="TextView"
+                        android:text=""
                         android:textAlignment="center" />
 
                     <TextView
@@ -162,7 +160,7 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="6dp"
                         android:paddingBottom="6dp"
-                        android:text="High"
+                        android:text="@string/high"
                         android:textAlignment="textEnd" />
 
                     <TextView
@@ -171,7 +169,7 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="6dp"
                         android:paddingBottom="6dp"
-                        android:text="TextView"
+                        android:text=""
                         android:textAlignment="center" />
                 </TableRow>
 
@@ -184,7 +182,7 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="6dp"
                         android:paddingBottom="6dp"
-                        android:text="Change %"
+                        android:text="@string/change"
                         android:textAlignment="textEnd" />
 
                     <TextView
@@ -193,7 +191,7 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="6dp"
                         android:paddingBottom="6dp"
-                        android:text="TextView"
+                        android:text=""
                         android:textAlignment="center" />
 
                     <TextView
@@ -201,7 +199,7 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="6dp"
                         android:paddingBottom="6dp"
-                        android:text="Low"
+                        android:text="@string/low"
                         android:textAlignment="textEnd" />
 
                     <TextView
@@ -210,7 +208,7 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="6dp"
                         android:paddingBottom="6dp"
-                        android:text="TextView"
+                        android:text=""
                         android:textAlignment="center" />
                 </TableRow>
 
@@ -223,7 +221,7 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="6dp"
                         android:paddingBottom="6dp"
-                        android:text="Open"
+                        android:text="@string/open"
                         android:textAlignment="textEnd" />
 
                     <TextView
@@ -232,7 +230,7 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="6dp"
                         android:paddingBottom="6dp"
-                        android:text="TextView"
+                        android:text=""
                         android:textAlignment="center" />
 
                     <TextView
@@ -240,7 +238,7 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="6dp"
                         android:paddingBottom="6dp"
-                        android:text="Prev Close"
+                        android:text="@string/prev_close"
                         android:textAlignment="textEnd" />
 
                     <TextView
@@ -249,7 +247,7 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="6dp"
                         android:paddingBottom="6dp"
-                        android:text="TextView"
+                        android:text=""
                         android:textAlignment="center" />
                 </TableRow>
 
@@ -260,7 +258,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Qt"
+                        android:text="@string/qt"
                         android:textAlignment="textEnd" />
 
                     <EditText
@@ -269,8 +267,9 @@
                         android:layout_height="wrap_content"
                         android:layout_span="1"
                         android:inputType="number"
-                        android:text="1"
-                        android:textAlignment="center" />
+                        android:text="@string/_1"
+                        android:textAlignment="center"
+                        android:autofillHints="1" />
                 </TableRow>
 
                 <TableRow
@@ -283,7 +282,7 @@
                         android:layout_marginTop="6dp"
                         android:layout_marginBottom="6dp"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="Total"
+                        android:text="@string/total"
                         android:textAlignment="textEnd"
                         android:textSize="22sp"
                         android:textStyle="bold" />
@@ -292,12 +291,12 @@
                         android:id="@+id/textView_Total"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="6dp"
+                        android:layout_marginStart="6dp"
                         android:layout_marginTop="6dp"
                         android:layout_marginBottom="6dp"
                         android:layout_span="3"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="TextView"
+                        android:text=""
                         android:textSize="22sp" />
                 </TableRow>
 
@@ -316,7 +315,8 @@
                         android:backgroundTint="@color/material_dynamic_primary40"
                         android:textColor="@color/white"
                         app:cornerRadius="5dp"
-                        android:text="Buy" />
+                        android:text="@string/buy"
+                        style="?android:attr/buttonBarButtonStyle" />
 
                     <Button
                         android:id="@+id/button14"
@@ -329,7 +329,8 @@
                         android:backgroundTint="@color/material_dynamic_primary40"
                         app:cornerRadius="5dp"
                         android:textColor="@color/white"
-                        android:text="Sell" />
+                        android:text="@string/sell"
+                        style="?android:attr/buttonBarButtonStyle" />
                 </TableRow>
 
                 <TableRow
@@ -352,7 +353,8 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        android:baselineAligned="false">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -364,7 +366,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="2dp"
-                android:layout_weight="1"
                 android:backgroundTint="@color/white"
                 android:insetLeft="1dp"
                 android:insetTop="0dp"
@@ -402,7 +403,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="2dp"
-                android:layout_weight="1"
                 android:backgroundTint="@color/white"
                 android:insetLeft="1dp"
                 android:insetTop="0dp"
@@ -440,7 +440,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="2dp"
-                android:layout_weight="1"
                 android:backgroundTint="@color/white"
                 android:insetLeft="1dp"
                 android:insetTop="0dp"
@@ -476,7 +475,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="2dp"
-                android:layout_weight="1"
                 android:backgroundTint="@color/white"
                 android:insetLeft="1dp"
                 android:insetTop="0dp"

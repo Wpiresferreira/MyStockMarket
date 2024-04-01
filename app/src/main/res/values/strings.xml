@@ -36,5 +36,26 @@
     <string name="remember_me">Remember me</string>
     <string name="errorMessage">ErrorMessage</string>
     <string name="logout">Logout</string>
+    <string name="loading">--</string>
+    <string name="password_didn_t_match_try_again">Password didn’t match. Try again.</string>
+    <string name="those_passwords_didn_t_match_try_again">Those passwords didn’t match. Try again.</string>
+    <string name="user_already_registered">User already registered</string>
+    <string name="invalid_username_use_a_valid_email">Invalid username. Use a valid email</string>
+    <string name="transactions">Transactions</string>
+    <string name="symbol_capital_letter">Symbol</string>
+    <string name="symbol">symbol</string>
+    <string name="logo">logo</string>
+    <string name="current_price">Current Price</string>
+    <string name="sell">Sell</string>
+    <string name="buy">Buy</string>
+    <string name="total">Total</string>
+    <string name="_1">1</string>
+    <string name="qt">Qt</string>
+    <string name="prev_close">Prev Close</string>
+    <string name="open">Open</string>
+    <string name="low">Low</string>
+    <string name="change">Change %</string>
+    <string name="high">High</string>
+    <string name="chang">Change</string>
 
 </resources>

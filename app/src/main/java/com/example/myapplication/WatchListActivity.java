@@ -45,13 +45,13 @@ public class WatchListActivity extends AppCompatActivity {
         editText_StockToAdd.setOnItemClickListener((parent, view, position, id) -> {
 
             // Check the size of the list
-            if (Controller.loggedUser.stocksInWatchlist.size() >= 10) {
+            if (Controller.getLoggedUser().stocksInWatchlist.size() >= 10) {
                 Toast.makeText(this, "Max size Watchlist is 10 stocks", Toast.LENGTH_SHORT).show();
                 return;
             }
 
             //Check if the stock already exist in the list
-            for (Stock stock : Controller.loggedUser.stocksInWatchlist) {
+            for (Stock stock : Controller.getLoggedUser().stocksInWatchlist) {
                 if (Objects.equals(stock.symbol, editText_StockToAdd.getText().toString().toUpperCase())) {
                     Toast.makeText(this, "Symbol is already listed", Toast.LENGTH_SHORT).show();
                     return;
@@ -59,8 +59,7 @@ public class WatchListActivity extends AppCompatActivity {
             }
 
 
-            Controller.loggedUser.stocksInWatchlist.add(new StockQuote(editText_StockToAdd.getText().toString().toUpperCase(), 0));
-            Controller.updateLoggedUser(this);
+            Controller.addStockInWatchList(this, new StockQuote(editText_StockToAdd.getText().toString().toUpperCase(), 0));
             adapter.notifyDataSetChanged();
             updateDescription();
             updateQuotes();
@@ -87,7 +86,7 @@ public class WatchListActivity extends AppCompatActivity {
     }
 
     private void updateQuotes() {
-        for (StockQuote s : Controller.loggedUser.stocksInWatchlist) {
+        for (StockQuote s : Controller.getLoggedUser().stocksInWatchlist) {
             String url = "https://finnhub.io/api/v1/quote?symbol=" + s.symbol + "&token=" + Controller.token;
 
             JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
@@ -105,7 +104,7 @@ public class WatchListActivity extends AppCompatActivity {
 
                     //Toast.makeText(this, "Index of" + Controller.loggedUser.stocksInWallet.indexOf(s), Toast.LENGTH_SHORT).show();
 
-                    adapter.notifyItemChanged(Controller.loggedUser.stocksInWatchlist.indexOf(s));
+                    adapter.notifyItemChanged(Controller.getLoggedUser().stocksInWatchlist.indexOf(s));
 
                 } catch (Exception e) {
                     Log.wtf("WTF", "updateQuotes: " + e);
@@ -119,7 +118,7 @@ public class WatchListActivity extends AppCompatActivity {
 
     private void updateDescription() {
 
-        for (StockQuote s : Controller.loggedUser.stocksInWatchlist) {
+        for (StockQuote s : Controller.getLoggedUser().stocksInWatchlist) {
 
             if (!s.name.isEmpty()) continue;
 
@@ -133,7 +132,7 @@ public class WatchListActivity extends AppCompatActivity {
 
                     //Save information to file
                     Controller.updateLoggedUser(getApplicationContext());
-                    adapter.notifyItemChanged(Controller.loggedUser.stocksInWatchlist.indexOf(s));
+                    adapter.notifyItemChanged(Controller.getLoggedUser().stocksInWatchlist.indexOf(s));
 
                 } catch (Exception e) {
                     Log.wtf("WTF", "updateDescription: " + e);
@@ -147,43 +146,11 @@ public class WatchListActivity extends AppCompatActivity {
 
     private void setAdapter() {
 
-        adapter = new WatchStockAdapter(Controller.loggedUser.stocksInWatchlist);
+        adapter = new WatchStockAdapter(Controller.getLoggedUser().stocksInWatchlist);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recycler.setLayoutManager(layoutManager);
         recycler.setItemAnimator(new DefaultItemAnimator());
         recycler.setAdapter(adapter);
-    }
-
-    public void addStock(View view) {
-
-        String textInserted = editText_StockToAdd.getText().toString().toUpperCase();
-        //Check if the stock is in the S&P500
-        if (!Controller.companies.contains(textInserted)) {
-            Toast.makeText(this, "Symbol not found", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        //Check if the stock already exist in the list
-        for (Stock stock : Controller.loggedUser.stocksInWatchlist) {
-            if (Objects.equals(stock.symbol, textInserted)) {
-                Toast.makeText(this, "Symbol is already listed", Toast.LENGTH_SHORT).show();
-                return;
-            }
-        }
-
-        // Check the size of the list
-        if (Controller.loggedUser.stocksInWatchlist.size() >= 10) {
-            Toast.makeText(this, "Max size Watchlist is 10 stocks", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        // Insert the stock to list and create a box, and update the screen
-        StockQuote newStock = new StockQuote();
-        newStock.symbol = textInserted;
-        Controller.loggedUser.stocksInWatchlist.add(newStock);
-
-        updateDescription();
-
     }
 
     public void goPortfolio(View view) {

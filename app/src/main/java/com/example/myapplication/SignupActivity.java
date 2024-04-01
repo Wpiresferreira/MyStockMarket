@@ -78,18 +78,18 @@ public class SignupActivity extends AppCompatActivity {
 
         // Check Password and retype Password
         if(!password.equals(retypePassword)){
-            textView_ErrorMessage.setText("Those passwords didn’t match. Try again.");
+            textView_ErrorMessage.setText(R.string.those_passwords_didn_t_match_try_again);
             return;
         }
 
         // Check if User is already registered
-        if(!sharedPref.getString("username", "").equals("")){
-            textView_ErrorMessage.setText("User already registered");
+        if(!sharedPref.getString("username", "").isEmpty()){
+            textView_ErrorMessage.setText(R.string.user_already_registered);
             return;
         }
 
         if(!Controller.isValidUsername(username)){
-            textView_ErrorMessage.setText("Invalid username. Use a valid email");
+            textView_ErrorMessage.setText(R.string.invalid_username_use_a_valid_email);
             return;
         }
 

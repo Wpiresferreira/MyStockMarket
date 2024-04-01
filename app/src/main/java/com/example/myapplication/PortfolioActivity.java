@@ -37,7 +37,7 @@ public class PortfolioActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_portfolio);
 
-        if (Controller.loggedUser == null) finish();
+        if (Controller.getLoggedUser() == null) finish();
         textView_Cash = findViewById(R.id.textView_Cash);
         textView_TotalBalance = findViewById(R.id.textView_TotalBalance);
         recycler = findViewById(R.id.recycler);
@@ -69,7 +69,7 @@ public class PortfolioActivity extends AppCompatActivity {
 
     private void loadList() {
 
-        stockQuoteList = Controller.loggedUser.stocksInWallet;
+        stockQuoteList = Controller.getLoggedUser().stocksInWallet;
 
         if (stockQuoteList == null) {
             stockQuoteList = new ArrayList<>();
@@ -90,8 +90,8 @@ public class PortfolioActivity extends AppCompatActivity {
 
         // First, try to load cash balance
         try {
-            textView_Cash.setText(numberFormatCurrency.format(Controller.loggedUser.customerCash.balance));
-            textView_TotalBalance.setText(numberFormatCurrency.format(Controller.loggedUser.customerCash.balance));
+            textView_Cash.setText(numberFormatCurrency.format(Controller.getLoggedUser().customerCash.balance));
+            textView_TotalBalance.setText(numberFormatCurrency.format(Controller.getLoggedUser().customerCash.balance));
         } catch (Exception e) {
             textView_Cash.setText(R.string.unavailable);
             textView_TotalBalance.setText(R.string.unavailable);
@@ -101,7 +101,7 @@ public class PortfolioActivity extends AppCompatActivity {
 
     public void updateQuotes(View view) {
 
-        for (StockQuote s : Controller.loggedUser.stocksInWallet) {
+        for (StockQuote s : Controller.getLoggedUser().stocksInWallet) {
             String url = "https://finnhub.io/api/v1/quote?symbol=" + s.symbol + "&token=" + Controller.token;
 
             JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
@@ -118,7 +118,7 @@ public class PortfolioActivity extends AppCompatActivity {
                     Controller.updateLoggedUser(getApplicationContext());
 
 
-                    adapter.notifyItemChanged(Controller.loggedUser.stocksInWallet.indexOf(s));
+                    adapter.notifyItemChanged(Controller.getLoggedUser().stocksInWallet.indexOf(s));
                     updateTotal();
 
                 } catch (Exception e) {
@@ -133,8 +133,8 @@ public class PortfolioActivity extends AppCompatActivity {
 
     private void updateTotal() {
         Double total = 0.0;
-        total += Controller.loggedUser.customerCash.balance;
-        for (StockQuote s : Controller.loggedUser.stocksInWallet) {
+        total += Controller.getLoggedUser().customerCash.balance;
+        for (StockQuote s : Controller.getLoggedUser().stocksInWallet) {
             total += s.balance * s.currentPrice;
         }
 
@@ -144,7 +144,7 @@ public class PortfolioActivity extends AppCompatActivity {
 
     public void updateDescription(View view) {
 
-        for (StockQuote s : Controller.loggedUser.stocksInWallet) {
+        for (StockQuote s : Controller.getLoggedUser().stocksInWallet) {
 
             if (!s.name.isEmpty()) continue;
 
@@ -159,7 +159,7 @@ public class PortfolioActivity extends AppCompatActivity {
                     //Save information to file
                     Controller.updateLoggedUser(getApplicationContext());
 
-                    adapter.notifyItemChanged(Controller.loggedUser.stocksInWallet.indexOf(s));
+                    adapter.notifyItemChanged(Controller.getLoggedUser().stocksInWallet.indexOf(s));
                     updateTotal();
 
                 } catch (Exception e) {

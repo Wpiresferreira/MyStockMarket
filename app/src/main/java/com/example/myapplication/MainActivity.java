@@ -86,11 +86,11 @@ public class MainActivity extends AppCompatActivity {
     public void doLogin(View view) {
         SaveRememberUser(); // to save the username and remember it next time if checkbox is marked
 
-        Controller.loggedUser = LoginLocal.login( getApplicationContext(),
+        Controller.logUser(LoginLocal.login( getApplicationContext(),
                 editTextUsernameInput.getText().toString(),
-                editTextPasswordInput.getText().toString());
+                editTextPasswordInput.getText().toString()));
 
-        if (Controller.loggedUser == null) {
+        if (Controller.getLoggedUser() == null) {
             editTextPasswordInput.setText("");
             textViewErrorMessage.setVisibility(View.VISIBLE);
             textViewErrorMessage.setText(getResources().getString(R.string.error_login));

@@ -17,7 +17,7 @@ public class LoginLocal extends AppCompatActivity implements LoginInterface{
         sharedPref = context.getSharedPreferences(
                 "com.example.myapplication.users", Context.MODE_PRIVATE);
 
-        if (sharedPref.getString(username, "").equals("")) {
+        if (sharedPref.getString(username, "").isEmpty()) {
             return null;
         } else{
 
@@ -27,34 +27,16 @@ public class LoginLocal extends AppCompatActivity implements LoginInterface{
 
             if(loadedCustomerObj.username.equals(username) &&
                     loadedCustomerObj.password.equals(password)){
-                Controller.loggedUser = loadedCustomerObj;
-                if (Controller.loggedUser.stocksInWallet == null){
-                    Controller.loggedUser.stocksInWallet = new ArrayList<>();
+                Controller.logUser(loadedCustomerObj);
+                if (Controller.getLoggedUser().stocksInWallet == null){
+                    Controller.getLoggedUser().stocksInWallet = new ArrayList<>();
                 }
-                if (Controller.loggedUser.stocksInWatchlist == null){
-                    Controller.loggedUser.stocksInWatchlist = new ArrayList<>();
+                if (Controller.getLoggedUser().stocksInWatchlist == null){
+                    Controller.getLoggedUser().stocksInWatchlist = new ArrayList<>();
                 }
-                return Controller.loggedUser;
+                return Controller.getLoggedUser();
             }
         }
-
-//
-//
-//
-//
-//
-//        if (sharedPref.getString("username", "").equals("")) {
-//            return null;
-//        } else if (username.equalsIgnoreCase(sharedPref.getString("username", "")) &&
-//                password.equals(sharedPref.getString("password",""))){
-//            return new Customer("",
-//                    username,
-//                    "",
-//                    new Cash(Double.parseDouble(String.valueOf(sharedPref.getFloat("cash", 0)))),
-//                    new ArrayList<>(),
-//                    new ArrayList<>());
-//        }
-//
         return null;
     }
 }
