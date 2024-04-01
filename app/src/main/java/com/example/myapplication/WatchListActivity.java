@@ -34,8 +34,6 @@ public class WatchListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_watchlist);
 
-        if (Controller.loggedUser == null) finish();
-
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
         if (getActionBar() != null) getActionBar().hide();
 
@@ -45,6 +43,22 @@ public class WatchListActivity extends AppCompatActivity {
         editText_StockToAdd.setAdapter(adapter);
 
         editText_StockToAdd.setOnItemClickListener((parent, view, position, id) -> {
+
+            // Check the size of the list
+            if (Controller.loggedUser.stocksInWatchlist.size() >= 10) {
+                Toast.makeText(this, "Max size Watchlist is 10 stocks", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            //Check if the stock already exist in the list
+            for (Stock stock : Controller.loggedUser.stocksInWatchlist) {
+                if (Objects.equals(stock.symbol, editText_StockToAdd.getText().toString().toUpperCase())) {
+                    Toast.makeText(this, "Symbol is already listed", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+
+
             Controller.loggedUser.stocksInWatchlist.add(new StockQuote(editText_StockToAdd.getText().toString().toUpperCase(), 0));
             Controller.updateLoggedUser(this);
             adapter.notifyDataSetChanged();
@@ -175,16 +189,20 @@ public class WatchListActivity extends AppCompatActivity {
     public void goPortfolio(View view) {
         Intent intent = new Intent(this, PortfolioActivity.class);
         startActivity(intent);
+        finish();
     }
 
     public void goTransactions(View view) {
         Intent intent = new Intent(this, TransactionActivity.class);
         startActivity(intent);
+        finish();
     }
 
     public void goProfile(View view) {
         Intent intent = new Intent(this, ProfileActivity.class);
         startActivity(intent);
+        finish();
+
     }
 
     @Override

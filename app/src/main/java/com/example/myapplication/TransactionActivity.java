@@ -305,16 +305,19 @@ public class TransactionActivity extends AppCompatActivity{
     public void goWatchList(View view) {
         Intent intent = new Intent(this, WatchListActivity.class);
         startActivity(intent);
+        finish();
     }
 
     public void goPortfolio(View view) {
         Intent intent = new Intent(this, PortfolioActivity.class);
         startActivity(intent);
+        finish();
     }
 
     public void goProfile(View view) {
         Intent intent = new Intent(this, ProfileActivity.class);
         startActivity(intent);
+        finish();
     }
 
     @Override

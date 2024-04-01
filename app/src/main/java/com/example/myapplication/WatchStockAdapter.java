@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import static androidx.core.content.ContextCompat.startActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
@@ -90,6 +91,7 @@ public class WatchStockAdapter extends RecyclerView.Adapter<WatchStockAdapter.Vi
                 Controller.lastTransactionSymbol = symbolView.getText().toString();
                 Intent intent = new Intent(v.getContext(), TransactionActivity.class);
                 startActivity(v.getContext(), intent, null  );
+                ((Activity)v.getContext()).finish();
             }
         });
 

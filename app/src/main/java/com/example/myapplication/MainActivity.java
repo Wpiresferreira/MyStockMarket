@@ -102,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
     public void goPortfolio(View view) {
         Intent intent = new Intent(this, PortfolioActivity.class);
         startActivity(intent);
+        finish();
 
     }
 
@@ -109,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
     public void goSignup(View view) {
         Intent intent = new Intent(this, SignupActivity.class);
         startActivity(intent);
+        finish();
     }
 
     @Override
