@@ -36,10 +36,9 @@ public class WatchListActivity extends AppCompatActivity {
 
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
         if (getActionBar() != null) getActionBar().hide();
-
         editText_StockToAdd = findViewById(R.id.editText_StockToAdd);
         recycler = findViewById(R.id.recycler);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, Controller.COMPANIES);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, Controller.companies.toArray(new String[0]));
         editText_StockToAdd.setAdapter(adapter);
 
         editText_StockToAdd.setOnItemClickListener((parent, view, position, id) -> {
@@ -58,8 +57,9 @@ public class WatchListActivity extends AppCompatActivity {
                 }
             }
 
+            String[] itemClicked = editText_StockToAdd.getText().toString().toUpperCase().split(" ");
 
-            Controller.addStockInWatchList(this, new StockQuote(editText_StockToAdd.getText().toString().toUpperCase(), 0));
+            Controller.addStockInWatchList(this, new StockQuote(itemClicked[0], 0));
             adapter.notifyDataSetChanged();
             updateDescription();
             updateQuotes();
@@ -153,6 +153,9 @@ public class WatchListActivity extends AppCompatActivity {
         recycler.setAdapter(adapter);
     }
 
+
+
+
     public void goPortfolio(View view) {
         Intent intent = new Intent(this, PortfolioActivity.class);
         startActivity(intent);
@@ -177,4 +180,5 @@ public class WatchListActivity extends AppCompatActivity {
         super.onPause();
         if (timer != null) timer.cancel();
     }
+
 }

@@ -25,7 +25,7 @@ import java.text.DecimalFormat;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class TransactionActivity extends AppCompatActivity{
+public class TransactionActivity extends AppCompatActivity {
     EditText editText_Qt;
     AutoCompleteTextView editText_StockSymbol;
     StockQuote selectedStockQuote;
@@ -55,6 +55,7 @@ public class TransactionActivity extends AppCompatActivity{
         textView_PreviousClose = findViewById(R.id.textView_PreviousClose);
         textView_Total = findViewById(R.id.textView_Total);
 
+
         if (selectedStockQuote == null) {
             selectedStockQuote = new StockQuote(Controller.lastTransactionSymbol, 0);
         }
@@ -64,39 +65,19 @@ public class TransactionActivity extends AppCompatActivity{
         //editText_StockSymbol.setText(Controller.lastTransactionSymbol);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_dropdown_item_1line, Controller.COMPANIES);
+                android.R.layout.simple_dropdown_item_1line, Controller.companies.toArray(new String[0]));
         editText_StockSymbol.setAdapter(adapter);
         editText_StockSymbol.setOnItemClickListener((parent, view, position, id) -> {
 
             selectedStockQuote = new StockQuote();
-            selectedStockQuote.symbol = editText_StockSymbol.getText().toString().toUpperCase();
+
+            String[] itemClicked = editText_StockSymbol.getText().toString().toUpperCase().split(" ");
+            selectedStockQuote.symbol = itemClicked[0];
             updateAllInfo();
             editText_StockSymbol.clearFocus();
 
         });
-//        editText_StockSymbol.addTextChangedListener(new TextWatcher() {
-//
-//
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//                updateAllInfo();
-//                Controller.lastTransactionSymbol = s.toString();
-//            }
-//        });
-////        editText_StockSymbol.setOnKeyListener((v, keyCode, event) -> {
-//            updateAllInfo();
-//            return false;
-//        });
+
         editText_Qt = findViewById(R.id.editText_Qt);
         editText_Qt.addTextChangedListener(new TextWatcher() {
             @Override
@@ -128,7 +109,7 @@ public class TransactionActivity extends AppCompatActivity{
             }
         };
         timer.scheduleAtFixedRate(timerTask, 0, period);
-//        updateAllInfo();
+        updateAllInfo();
 
     }
 
@@ -149,7 +130,7 @@ public class TransactionActivity extends AppCompatActivity{
 
 
     private void updateAllInfo() {
-        if (selectedStockQuote != null && Controller.companies.contains(selectedStockQuote.symbol)) {
+        if (selectedStockQuote != null){ // && Controller.companies.contains(selectedStockQuote.symbol)) {
             updateDescription();
             updateQuotes();
         } else {
@@ -234,7 +215,7 @@ public class TransactionActivity extends AppCompatActivity{
     public void buy(View view) {
         double totalOrder = Double.parseDouble(String.valueOf(textView_Total.getText()).replace("$", "").replace(",", ""));
         int qtdOrder = Integer.parseInt(String.valueOf(editText_Qt.getText()));
-        String stockOrder = String.valueOf(editText_StockSymbol.getText()).toUpperCase();
+        String stockOrder = String.valueOf(selectedStockQuote.symbol);
 
         if (Controller.getLoggedUser().customerCash.balance >= totalOrder) {
             Controller.getLoggedUser().customerCash.balance -= totalOrder;
@@ -262,7 +243,7 @@ public class TransactionActivity extends AppCompatActivity{
     public void sell(View view) {
         double totalOrder = Double.parseDouble(String.valueOf(textView_Total.getText()).replace("$", "").replace(",", ""));
         int qtdOrder = Integer.parseInt(String.valueOf(editText_Qt.getText()));
-        String stockOrder = String.valueOf(editText_StockSymbol.getText()).toUpperCase();
+        String stockOrder = String.valueOf(selectedStockQuote.symbol);
 
         Stock customerStock = null;
 
@@ -316,7 +297,7 @@ public class TransactionActivity extends AppCompatActivity{
     @Override
     protected void onPause() {
         super.onPause();
-        if(timer != null) timer.cancel();
+        if (timer != null) timer.cancel();
     }
 
 }
