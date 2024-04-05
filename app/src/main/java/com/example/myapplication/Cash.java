@@ -1,6 +1,9 @@
 package com.example.myapplication;
 
 public class Cash {
+
+    // This class represents the Cash
+    // For default we are using USD Currency, but in the future we can implement more currencies.
     double balance;
     String currency;
     public Cash(){

@@ -1,11 +1,15 @@
 package com.example.myapplication;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
@@ -31,7 +35,8 @@ public class TransactionActivity extends AppCompatActivity {
     StockQuote selectedStockQuote;
     ImageView imageView_Logo;
     Timer timer;
-    TextView textView_Name, textView_CurrentPrice, textView_Change, textView_PercentChange, textView_Low, textView_High, textView_Open, textView_PreviousClose, textView_Total;
+    TextView textView_Name, textView_CurrentPrice, textView_Change, textView_PercentChange, textView_Low, textView_High, textView_Open, textView_PreviousClose,
+    textView_Total;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,7 +67,6 @@ public class TransactionActivity extends AppCompatActivity {
         editText_StockSymbol.setText(selectedStockQuote.symbol);
 
         updateAllInfo();
-        //editText_StockSymbol.setText(Controller.lastTransactionSymbol);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_dropdown_item_1line, Controller.companies.toArray(new String[0]));
@@ -75,6 +79,16 @@ public class TransactionActivity extends AppCompatActivity {
             selectedStockQuote.symbol = itemClicked[0];
             updateAllInfo();
             editText_StockSymbol.clearFocus();
+
+            // After choose a stock, hide the keyboard
+            InputMethodManager imm = (InputMethodManager) this.getSystemService(Activity.INPUT_METHOD_SERVICE);
+            //Find the currently focused view, so we can grab the correct window token from it.
+            View view1 = this.getCurrentFocus();
+            //If no view currently has focus, create a new one, just so we can grab a window token from it
+            if (view1 == null) {
+                view1 = new View(this);
+            }
+            imm.hideSoftInputFromWindow(view1.getWindowToken(), 0);
 
         });
 
@@ -116,16 +130,16 @@ public class TransactionActivity extends AppCompatActivity {
     private void updateQtd() {
 
         String quote = String.valueOf(textView_CurrentPrice.getText()).replace("$", "").replace(",", "");
-
         double c = Double.parseDouble(quote);
         int qt;
         try {
             qt = Integer.parseInt(String.valueOf(editText_Qt.getText()));
+            textView_Total.setText(new DecimalFormat("#,##0.00").format(qt * c));
 
         } catch (Exception e) {
-            qt = 0;
+            textView_Total.setText("--");
         }
-        textView_Total.setText(new DecimalFormat("#,##0.00").format(qt * c));
+
     }
 
 
@@ -152,15 +166,22 @@ public class TransactionActivity extends AppCompatActivity {
                 "&token=" +
                 Controller.token;
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
+        @SuppressLint("SetTextI18n") JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
             try {
-                textView_CurrentPrice.setText(String.valueOf(response.getDouble("c")));
-                textView_Change.setText(String.valueOf(response.getDouble("d")));
-                textView_PercentChange.setText(String.valueOf(response.getDouble("dp")));
-                textView_High.setText(String.valueOf(response.getDouble("h")));
-                textView_Low.setText(String.valueOf(response.getDouble("l")));
-                textView_Open.setText(String.valueOf(response.getDouble("o")));
-                textView_PreviousClose.setText(String.valueOf(response.getDouble("pc")));
+                textView_CurrentPrice.setText(new DecimalFormat("#,##0.00").format(response.getDouble("c")));
+                textView_Change.setText(new DecimalFormat("#,##0.00").format(response.getDouble("d")));
+                if(response.getDouble("dp")<0){
+                    textView_PercentChange.setText(new DecimalFormat("#,##0.00").format(response.getDouble("dp")) + "%" + "\uF13A");
+                    textView_PercentChange.setTextColor(Color.RED);
+                }else{
+
+                    textView_PercentChange.setText(new DecimalFormat("#,##0.00").format(response.getDouble("dp")) + "%" + "\uF139");
+                    textView_PercentChange.setTextColor(Color.rgb(0,128,0));
+                }
+                textView_High.setText(new DecimalFormat("#,##0.00").format(response.getDouble("h")));
+                textView_Low.setText(new DecimalFormat("#,##0.00").format(response.getDouble("l")));
+                textView_Open.setText(new DecimalFormat("#,##0.00").format(response.getDouble("o")));
+                textView_PreviousClose.setText(new DecimalFormat("#,##0.00").format(response.getDouble("pc")));
 
                 updateTotal();
 
@@ -175,7 +196,7 @@ public class TransactionActivity extends AppCompatActivity {
 
     private void updateTotal() {
         Double total;
-        total = Double.parseDouble(textView_CurrentPrice.getText().toString()) *
+    total = Double.parseDouble(textView_CurrentPrice.getText().toString().replace(",","")) *
                 Integer.parseInt(editText_Qt.getText().toString());
         textView_Total.setText(new DecimalFormat("#,##0.00").format(total));
     }

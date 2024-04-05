@@ -39,7 +39,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     public void logout(View view) {
         Controller.disconnectLoggedUser();
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, LoginActivity.class);
         finish();
         startActivity(intent);
     }

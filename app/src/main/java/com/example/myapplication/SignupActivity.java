@@ -65,7 +65,8 @@ public class SignupActivity extends AppCompatActivity {
         }
     }
     public void goSignIn(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, LoginActivity.class);
+        finish();
         startActivity(intent);    }
 
     public void doSignup(View view){
@@ -90,6 +91,11 @@ public class SignupActivity extends AppCompatActivity {
 
         if(!Controller.isValidUsername(username)){
             textView_ErrorMessage.setText(R.string.invalid_username_use_a_valid_email);
+            return;
+        }
+
+        if(!Controller.isValidInitialCash(initialCashBalance)){
+            textView_ErrorMessage.setText(R.string.please_insert_an_initial_balance_between_0_1_000_000);
             return;
         }
 

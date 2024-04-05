@@ -1,9 +1,11 @@
 package com.example.myapplication;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
@@ -36,6 +38,7 @@ public class WatchListActivity extends AppCompatActivity {
 
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
         if (getActionBar() != null) getActionBar().hide();
+
         editText_StockToAdd = findViewById(R.id.editText_StockToAdd);
         recycler = findViewById(R.id.recycler);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, Controller.companies.toArray(new String[0]));
@@ -56,6 +59,16 @@ public class WatchListActivity extends AppCompatActivity {
                     return;
                 }
             }
+            // After choose a stock, hide the keyboard
+            InputMethodManager imm = (InputMethodManager) this.getSystemService(Activity.INPUT_METHOD_SERVICE);
+            //Find the currently focused view, so we can grab the correct window token from it.
+            View view1 = this.getCurrentFocus();
+            //If no view currently has focus, create a new one, just so we can grab a window token from it
+            if (view1 == null) {
+                view1 = new View(this);
+            }
+            imm.hideSoftInputFromWindow(view1.getWindowToken(), 0);
+
 
             String[] itemClicked = editText_StockToAdd.getText().toString().toUpperCase().split(" ");
 
@@ -152,8 +165,6 @@ public class WatchListActivity extends AppCompatActivity {
         recycler.setItemAnimator(new DefaultItemAnimator());
         recycler.setAdapter(adapter);
     }
-
-
 
 
     public void goPortfolio(View view) {

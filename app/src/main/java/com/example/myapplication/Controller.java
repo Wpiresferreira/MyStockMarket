@@ -15,10 +15,16 @@ import java.util.List;
 
 public class Controller extends AppCompatActivity {
 
-    private static Customer loggedUser;
-    static String token = "cmo6he1r01qj3mal97u0cmo6he1r01qj3mal97ug";
-    static String lastTransactionSymbol;
+    // This class is responsible for static fields and methods.
+    // All other classes can access it.
+    // This is a helper class.
 
+    private static Customer loggedUser; // stores the logged user
+    static String token = "cmo6he1r01qj3mal97u0cmo6he1r01qj3mal97ug"; // API Key
+    static String lastTransactionSymbol; // To help when you leave and return to Transactions screen.
+
+
+    // This list has the 500's biggest US companies. The app will use only them for now.
     static List<String> companies = Arrays.asList("A AGILENT TECHNOLOGIES INC",
             "AAL AMERICAN AIRLINES GROUP INC",
             "AAPL APPLE INC",
@@ -272,6 +278,7 @@ public class Controller extends AppCompatActivity {
             "IRM IRON MOUNTAIN INC",
             "ISRG INTUITIVE SURGICAL INC",
             "IT GARTNER INC",
+            "ITUB ITAU UNIBANCO H-SPON PRF ADR",
             "ITW ILLINOIS TOOL WORKS",
             "IVZ INVESCO LTD",
             "J JACOBS SOLUTIONS INC",
@@ -529,100 +536,15 @@ public class Controller extends AppCompatActivity {
     );
 
 
+    // private constructor to prevent creating instances of a class.
     private Controller() {
 
     }
 
+    // This method returns the actual logged user.
     public static Customer getLoggedUser() {
         return loggedUser;
     }
-
-//    public static void getQuote(StockQuote stockQuote, Context context) {
-//
-//        String url = "https://finnhub.io/api/v1/quote?symbol=" +
-//                stockQuote.symbol +
-//                "&token=cmo6he1r01qj3mal97u0cmo6he1r01qj3mal97ug";
-//
-//        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-//            @Override
-//            public void onResponse(JSONObject response) {
-//                try {
-//                    stockQuote.currentPrice = (double) response.getDouble("c");
-//                    stockQuote.change = (double) response.getDouble("d");
-//                    stockQuote.percentChange = (double) response.getDouble("dp");
-//                    stockQuote.highPriceOfTheDay = (double) response.getDouble("h");
-//                    stockQuote.lowPriceOfTheDay = (double) response.getDouble("l");
-//                    stockQuote.openPriceOfTheDay = (double) response.getDouble("o");
-//                    stockQuote.previousClosePrice = (double) response.getDouble("pc");
-//
-//                    TransactionActivity.textView_CurrentPrice.setText(numberFormatCurrency.format(stockQuote.currentPrice));
-//                    TransactionActivity.textView_Change.setText(numberFormatCurrency.format(stockQuote.change));
-//                    if (stockQuote.change > 0) {
-//                        TransactionActivity.textView_Change.setTextColor(Color.GREEN);
-//                    } else if (stockQuote.change < 0) {
-//                        TransactionActivity.textView_Change.setTextColor(Color.RED);
-//                    } else {
-//                        TransactionActivity.textView_Change.setTextColor(Color.BLACK);
-//                    }
-//
-//
-//                    TransactionActivity.textView_PercentChange.setText(numberFormatInstance.format(stockQuote.percentChange));
-//                    if (stockQuote.percentChange > 0) {
-//                        TransactionActivity.textView_PercentChange.setTextColor(Color.GREEN);
-//                    } else if (stockQuote.change < 0) {
-//                        TransactionActivity.textView_PercentChange.setTextColor(Color.RED);
-//                    } else {
-//                        TransactionActivity.textView_PercentChange.setTextColor(Color.BLACK);
-//                    }
-//                    TransactionActivity.textView_Low.setText(numberFormatCurrency.format(stockQuote.lowPriceOfTheDay));
-//                    TransactionActivity.textView_High.setText(numberFormatCurrency.format(stockQuote.highPriceOfTheDay));
-//                    TransactionActivity.textView_Open.setText(numberFormatCurrency.format(stockQuote.openPriceOfTheDay));
-//                    TransactionActivity.textView_PreviousClose.setText(numberFormatCurrency.format(stockQuote.previousClosePrice));
-//                    int qt = Integer.parseInt(TransactionActivity.editText_Qt.getText().toString());
-//                    TransactionActivity.textView_Total.setText(String.valueOf(stockQuote.currentPrice * qt));
-//
-//                } catch (JSONException e) {
-//                    throw new RuntimeException(e);
-//                }
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//
-//            }
-//        });
-//        Volley.newRequestQueue(MyApplication.getAppContext()).add(request);
-//
-//
-//    }
-
-
-//    public static void getName(StockQuote stockQuote, Context context) {
-//
-//        String url = "https://finnhub.io/api/v1/stock/profile2?symbol=" +
-//                stockQuote.symbol +
-//                "&token=cmo6he1r01qj3mal97u0cmo6he1r01qj3mal97ug";
-//        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-//            @Override
-//            public void onResponse(JSONObject response) {
-//                try {
-//                    stockQuote.name = response.getString("name");
-//                    stockQuote.imageURL = response.getString("logo");
-//                    TransactionActivity.textView_Name.setText(stockQuote.name);
-//
-//                } catch (JSONException e) {
-////                    throw new RuntimeException(e);
-//                }
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//
-//            }
-//        });
-//        Volley.newRequestQueue(context).add(request);
-//    }
-
 
     public static boolean isValidUsername(String username) {
 
@@ -667,4 +589,14 @@ public class Controller extends AppCompatActivity {
     }
 
 
+    public static boolean isValidInitialCash(String initialCashBalance) {
+
+        try{
+            double input = Double.parseDouble(initialCashBalance);
+            return !(input < 0) && !(input > 1000000);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+
+    }
 }

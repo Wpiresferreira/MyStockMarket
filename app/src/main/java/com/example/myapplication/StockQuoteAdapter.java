@@ -75,7 +75,7 @@ public class StockQuoteAdapter extends RecyclerView.Adapter<StockQuoteAdapter.Vi
         holder.text_Description.setText(stockQuoteList.get(position).name);
         holder.text_Value.setText(new DecimalFormat("#,##0.00").format(stockQuoteList.get(position).balance * stockQuoteList.get(position).currentPrice));
         holder.text_Share.setText(String.valueOf(stockQuoteList.get(position).balance));
-        holder.text_Last.setText(String.valueOf(stockQuoteList.get(position).currentPrice));
+        holder.text_Last.setText(new DecimalFormat("#,##0.00").format(stockQuoteList.get(position).currentPrice));
 
         String formattedTextChanged = "";
         formattedTextChanged += new DecimalFormat("0.00").format(stockQuoteList.get(position).percentChange) +"%";
