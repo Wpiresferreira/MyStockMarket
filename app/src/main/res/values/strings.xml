@@ -70,5 +70,9 @@
     <string name="ex_email_email_com">ex. email@email.com</string>
     <string name="ex_password">*******</string>
     <string name="loadingValue">--</string>
+    <string name="cash">Cash</string>
+    <string name="stock_symbol">Stock Symbol</string>
+    <string name="value_nshare">Value\nShare</string>
+    <string name="last_nchange">Last\nChange%</string>
 
 </resources>

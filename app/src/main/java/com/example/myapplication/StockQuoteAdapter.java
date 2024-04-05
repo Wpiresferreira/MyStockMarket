@@ -57,7 +57,7 @@ public class StockQuoteAdapter extends RecyclerView.Adapter<StockQuoteAdapter.Vi
     @NonNull
     @Override
     public StockQuoteAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.visual_stock, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.stock_detail, parent, false);
         return new ViewHolder(itemView);
     }
 

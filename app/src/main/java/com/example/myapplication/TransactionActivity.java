@@ -283,6 +283,7 @@ public class TransactionActivity extends AppCompatActivity {
                 }
 
                 if (stock.balance == 0) {
+                    //noinspection SuspiciousMethodCalls
                     Controller.getLoggedUser().stocksInWallet.remove(stock);
                 }
                 Controller.updateLoggedUser(getApplicationContext());

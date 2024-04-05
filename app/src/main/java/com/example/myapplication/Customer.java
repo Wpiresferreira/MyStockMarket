@@ -11,7 +11,7 @@ import java.util.List;
 public class Customer implements Parcelable {
 
 
-    String name;
+    final String name;
     String username;
     String password;
     Cash customerCash;

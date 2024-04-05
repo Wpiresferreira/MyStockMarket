@@ -29,7 +29,7 @@ public class PortfolioActivity extends AppCompatActivity {
     StockQuoteAdapter adapter;
     List<StockQuote> stockQuoteList;
     Timer timer;
-    NumberFormat numberFormatCurrency = NumberFormat.getCurrencyInstance();
+    final NumberFormat numberFormatCurrency = NumberFormat.getCurrencyInstance();
 
 
     @Override

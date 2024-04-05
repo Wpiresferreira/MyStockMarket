@@ -20,12 +20,12 @@ public class Controller extends AppCompatActivity {
     // This is a helper class.
 
     private static Customer loggedUser; // stores the logged user
-    static String token = "cmo6he1r01qj3mal97u0cmo6he1r01qj3mal97ug"; // API Key
+    static final String token = "cmo6he1r01qj3mal97u0cmo6he1r01qj3mal97ug"; // API Key
     static String lastTransactionSymbol; // To help when you leave and return to Transactions screen.
 
 
     // This list has the 500's biggest US companies. The app will use only them for now.
-    static List<String> companies = Arrays.asList("A AGILENT TECHNOLOGIES INC",
+    static final List<String> companies = Arrays.asList("A AGILENT TECHNOLOGIES INC",
             "AAL AMERICAN AIRLINES GROUP INC",
             "AAPL APPLE INC",
             "ABBV ABBVIE INC",
