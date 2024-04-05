@@ -173,10 +173,13 @@ public class TransactionActivity extends AppCompatActivity {
                 if(response.getDouble("dp")<0){
                     textView_PercentChange.setText(new DecimalFormat("#,##0.00").format(response.getDouble("dp")) + "%" + "\uF13A");
                     textView_PercentChange.setTextColor(Color.RED);
-                }else{
-
+                }else if(response.getDouble("dp")>0) {
                     textView_PercentChange.setText(new DecimalFormat("#,##0.00").format(response.getDouble("dp")) + "%" + "\uF139");
                     textView_PercentChange.setTextColor(Color.rgb(0,128,0));
+                }else{
+                    textView_PercentChange.setText(new DecimalFormat("#,##0.00").format(response.getDouble("dp")) + "%" + " - ");
+                    textView_PercentChange.setTextColor(Color.BLACK);
+
                 }
                 textView_High.setText(new DecimalFormat("#,##0.00").format(response.getDouble("h")));
                 textView_Low.setText(new DecimalFormat("#,##0.00").format(response.getDouble("l")));
