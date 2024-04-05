@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
@@ -36,171 +35,9 @@
                 android:fontFamily="@font/poppins_bold"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
-                android:text="Profile"
+                android:text="@string/portfolio_"
                 android:textColor="@color/material_dynamic_primary10"
                 android:textSize="30sp" />
-            />
-
-            <!--            &lt;!&ndash;First Name&ndash;&gt;-->
-            <!--            <FrameLayout-->
-            <!--                android:layout_width="280dp"-->
-            <!--                android:layout_height="66dp"-->
-            <!--                android:layout_gravity="center"-->
-            <!--                android:layout_marginTop="10dp"-->
-            <!--                android:layout_marginBottom="10dp"-->
-            <!--                android:background="@drawable/box_with_corner">-->
-
-            <!--                <TextView-->
-            <!--                    android:layout_width="wrap_content"-->
-            <!--                    android:layout_height="wrap_content"-->
-            <!--                    android:layout_marginStart="12dp"-->
-            <!--                    android:background="@color/material_dynamic_neutral90"-->
-            <!--                    android:fontFamily="@font/poppins_bold"-->
-            <!--                    android:paddingLeft="5dp"-->
-            <!--                    android:paddingRight="5dp"-->
-            <!--                    android:text="First Name" />-->
-
-            <!--                <EditText-->
-            <!--                    android:id="@+id/editTextFirstNameInput"-->
-            <!--                    android:layout_width="220dp"-->
-            <!--                    android:layout_height="48dp"-->
-            <!--                    android:layout_marginStart="30dp"-->
-            <!--                    android:layout_marginTop="16dp"-->
-            <!--                    android:autofillHints="FirstName"-->
-            <!--                    android:background="@null"-->
-            <!--                    android:ems="10"-->
-            <!--                    android:fontFamily="@font/poppins_regular"-->
-            <!--                    android:gravity="bottom"-->
-            <!--                    android:hint="First Name"-->
-            <!--                    android:inputType="textAutoComplete"-->
-            <!--                    android:minHeight="48dp"-->
-            <!--                    android:paddingBottom="5dp"-->
-            <!--                    android:textColor="@color/material_dynamic_primary0"-->
-            <!--                    android:textColorHint="@color/material_dynamic_primary40"-->
-            <!--                    android:textSize="14sp" />-->
-            <!--            &lt;!&ndash;First Name&ndash;&gt;-->
-            <!--            </FrameLayout>-->
-
-            <!--            &lt;!&ndash;Last Name&ndash;&gt;-->
-            <!--            <FrameLayout-->
-            <!--                android:layout_width="280dp"-->
-            <!--                android:layout_height="66dp"-->
-            <!--                android:layout_gravity="center"-->
-            <!--                android:layout_marginTop="10dp"-->
-            <!--                android:layout_marginBottom="10dp"-->
-            <!--                android:background="@drawable/box_with_corner">-->
-
-            <!--                <TextView-->
-            <!--                    android:layout_width="wrap_content"-->
-            <!--                    android:layout_height="wrap_content"-->
-            <!--                    android:layout_marginStart="12dp"-->
-            <!--                    android:background="@color/material_dynamic_neutral90"-->
-            <!--                    android:fontFamily="@font/poppins_bold"-->
-            <!--                    android:paddingLeft="5dp"-->
-            <!--                    android:paddingRight="5dp"-->
-            <!--                    android:text="Last Name" />-->
-
-            <!--                <EditText-->
-            <!--                    android:id="@+id/editTextLastNameInput"-->
-            <!--                    android:layout_width="220dp"-->
-            <!--                    android:layout_height="48dp"-->
-            <!--                    android:layout_marginStart="30dp"-->
-            <!--                    android:layout_marginTop="16dp"-->
-            <!--                    android:autofillHints="LastName"-->
-            <!--                    android:background="@null"-->
-            <!--                    android:ems="10"-->
-            <!--                    android:fontFamily="@font/poppins_regular"-->
-            <!--                    android:gravity="bottom"-->
-            <!--                    android:hint="Last Name"-->
-            <!--                    android:inputType="textAutoComplete"-->
-            <!--                    android:minHeight="48dp"-->
-            <!--                    android:paddingBottom="5dp"-->
-            <!--                    android:textColor="@color/material_dynamic_primary10"-->
-            <!--                    android:textColorHint="@color/material_dynamic_primary40"-->
-            <!--                    android:textSize="14sp" />-->
-
-
-            <!--            </FrameLayout>-->
-
-            <!--            &lt;!&ndash;Birthday&ndash;&gt;-->
-            <!--            <FrameLayout-->
-            <!--                android:layout_width="280dp"-->
-            <!--                android:layout_height="66dp"-->
-            <!--                android:layout_gravity="center"-->
-            <!--                android:layout_marginTop="10dp"-->
-            <!--                android:layout_marginBottom="10dp"-->
-            <!--                android:background="@drawable/box_with_corner">-->
-
-            <!--                <TextView-->
-            <!--                    android:layout_width="wrap_content"-->
-            <!--                    android:layout_height="wrap_content"-->
-            <!--                    android:layout_marginStart="12dp"-->
-            <!--                    android:background="@color/material_dynamic_neutral90"-->
-            <!--                    android:fontFamily="@font/poppins_bold"-->
-            <!--                    android:paddingLeft="5dp"-->
-            <!--                    android:paddingRight="5dp"-->
-            <!--                    android:text="Birthday" />-->
-
-            <!--                <EditText-->
-            <!--                    android:id="@+id/editTextBirthdayInput"-->
-            <!--                    android:layout_width="220dp"-->
-            <!--                    android:layout_height="48dp"-->
-            <!--                    android:layout_marginStart="30dp"-->
-            <!--                    android:layout_marginTop="16dp"-->
-            <!--                    android:autofillHints="birthday"-->
-            <!--                    android:background="@null"-->
-            <!--                    android:ems="10"-->
-            <!--                    android:fontFamily="@font/poppins_regular"-->
-            <!--                    android:gravity="bottom"-->
-            <!--                    android:hint="date"-->
-            <!--                    android:inputType="text"-->
-            <!--                    android:minHeight="48dp"-->
-            <!--                    android:paddingBottom="5dp"-->
-            <!--                    android:textColor="@color/material_dynamic_primary0"-->
-            <!--                    android:textColorHint="@color/material_dynamic_primary40"-->
-            <!--                    android:textSize="14sp" />-->
-            <!--            </FrameLayout>-->
-
-            <!--            &lt;!&ndash;Phone Number&ndash;&gt;-->
-            <!--            <FrameLayout-->
-            <!--                android:layout_width="280dp"-->
-            <!--                android:layout_height="66dp"-->
-            <!--                android:layout_gravity="center"-->
-            <!--                android:layout_marginTop="10dp"-->
-            <!--                android:layout_marginBottom="10dp"-->
-            <!--                android:background="@drawable/box_with_corner">-->
-
-
-            <!--                <TextView-->
-            <!--                    android:layout_width="wrap_content"-->
-            <!--                    android:layout_height="wrap_content"-->
-            <!--                    android:layout_marginStart="12dp"-->
-            <!--                    android:background="@color/material_dynamic_neutral90"-->
-            <!--                    android:fontFamily="@font/poppins_bold"-->
-            <!--                    android:paddingLeft="5dp"-->
-            <!--                    android:paddingRight="5dp"-->
-            <!--                    android:text="Phone number" />-->
-
-            <!--                <EditText-->
-            <!--                    android:id="@+id/editTextPhoneNumberInput"-->
-            <!--                    android:layout_width="220dp"-->
-            <!--                    android:layout_height="48dp"-->
-            <!--                    android:layout_marginStart="30dp"-->
-            <!--                    android:layout_marginTop="16dp"-->
-            <!--                    android:autofillHints="phone"-->
-            <!--                    android:background="@null"-->
-            <!--                    android:ems="10"-->
-            <!--                    android:fontFamily="@font/poppins_regular"-->
-            <!--                    android:gravity="bottom"-->
-            <!--                    android:hint="phone number"-->
-            <!--                    android:inputType="phone"-->
-            <!--                    android:minHeight="48dp"-->
-            <!--                    android:paddingBottom="5dp"-->
-            <!--                    android:textColor="@color/material_dynamic_primary0"-->
-            <!--                    android:textColorHint="@color/material_dynamic_primary40"-->
-            <!--                    android:textSize="14sp" />-->
-            <!--            </FrameLayout>-->
-
 
             <!--Email / Username-->
             <FrameLayout
@@ -220,7 +57,7 @@
                     android:fontFamily="@font/poppins_bold"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
-                    android:text="Email / Username" />
+                    android:text="@string/email_username" />
 
                 <TextView
                     android:id="@+id/textViewEmailUsername"
@@ -323,7 +160,7 @@
                     android:fontFamily="@font/poppins_bold"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
-                    android:text="Re-type Password" />
+                    android:text="@string/re_type_password" />
 
                 <TextView
                     android:id="@+id/eyeReTypeNewPassword"
@@ -369,7 +206,7 @@
                 android:backgroundTint="@color/material_dynamic_primary40"
                 android:fontFamily="@font/poppins_bold"
                 android:onClick="changePassword"
-                android:text="Save Changes"
+                android:text="@string/change_password"
                 app:cornerRadius="6dp" />
 
             <Button
@@ -421,7 +258,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="2dp"
-                android:layout_weight="1"
                 android:backgroundTint="@color/white"
                 android:insetLeft="1dp"
                 android:insetTop="0dp"
@@ -459,7 +295,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="2dp"
-                android:layout_weight="1"
                 android:backgroundTint="@color/white"
                 android:insetLeft="1dp"
                 android:insetTop="0dp"
@@ -497,7 +332,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="2dp"
-                android:layout_weight="1"
                 android:backgroundTint="@color/white"
                 android:insetLeft="1dp"
                 android:insetTop="0dp"
@@ -535,7 +369,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="2dp"
-                android:layout_weight="1"
                 android:backgroundTint="@color/white"
                 android:insetLeft="1dp"
                 android:insetTop="0dp"

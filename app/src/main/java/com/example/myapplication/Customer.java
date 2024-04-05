@@ -18,17 +18,14 @@ public class Customer implements Parcelable {
     List<StockQuote> stocksInWallet;
     List<StockQuote> stocksInWatchlist;
 
-    public Customer(){}
-
-    public Customer(String name, String username, String password, Cash customerCash, List<StockQuote> stocksInWallet, List<StockQuote> stocksInWatchlist) {
-        this.name = name;
-        this.password = password;
-        this.username = username;
-        this.customerCash = customerCash;
-        this.stocksInWallet = stocksInWallet;
-        this.stocksInWatchlist = stocksInWatchlist;
+    public Customer(){
+        name = "";
+        username = "";
+        password = "";
+        customerCash = new Cash();
+        stocksInWallet = new ArrayList<>();
+        stocksInWatchlist = new ArrayList<>();
     }
-
 
     protected Customer(Parcel in) {
         name = in.readString();

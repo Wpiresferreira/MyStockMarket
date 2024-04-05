@@ -14,18 +14,19 @@
             android:id="@+id/image_Logo"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
-            app:srcCompat="@drawable/b_investor_logo2" />
+            app:srcCompat="@drawable/b_investor_logo2"
+            android:contentDescription="@string/company_logo" />
 
         <TextView
             android:id="@+id/textView_StockSymbol"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
+            android:layout_marginStart="50dp"
             android:fontFamily="@font/poppins_bold"
             android:maxWidth="180dp"
-            android:text="--"
+            android:text="@string/loadingValue"
             android:textColor="@color/material_dynamic_primary20"
             android:textSize="18sp" />
 
@@ -33,19 +34,19 @@
             android:id="@+id/textView_StockDescription"
             android:layout_width="200dp"
             android:layout_height="18dp"
-            android:layout_marginLeft="50dp"
+            android:layout_marginStart="50dp"
             android:layout_marginTop="25dp"
-            android:text="--"
+            android:text="@string/loadingValue"
             android:textColor="@color/material_dynamic_primary20" />
 
         <TextView
             android:id="@+id/textView_StockLast"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginRight="45dp"
+            android:layout_gravity="end"
+            android:layout_marginEnd="45dp"
             android:fontFamily="@font/poppins_bold"
-            android:text="--"
+            android:text="@string/loadingValue"
             android:textColor="@color/material_dynamic_primary20"
             android:textSize="18sp" />
 
@@ -53,17 +54,17 @@
             android:id="@+id/textView_StockChange"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
+            android:layout_gravity="end"
             android:layout_marginTop="25dp"
-            android:layout_marginRight="45dp"
+            android:layout_marginEnd="45dp"
             android:fontFamily="@font/fontawesome"
-            android:text="--" />
+            android:text="@string/loadingValue" />
 
         <TextView
             android:id="@+id/textView_Delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right|center_vertical"
+            android:layout_gravity="end|center_vertical"
             android:fontFamily="@font/fontawesome"
             android:padding="8dp"
             android:text="@string/delete_symbol"
