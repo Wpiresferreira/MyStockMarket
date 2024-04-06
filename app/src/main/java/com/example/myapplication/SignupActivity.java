@@ -79,7 +79,7 @@ public class SignupActivity extends AppCompatActivity {
 
         // Check Password and retype Password
         if(!password.equals(retypePassword)){
-            textView_ErrorMessage.setText(R.string.those_passwords_didn_t_match_try_again);
+            textView_ErrorMessage.setText(R.string.those_passwords_did_not_match_try_again);
             return;
         }
 

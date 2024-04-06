@@ -17,6 +17,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
+    //This Activity is the first screen when the app is accessed
+
     TextView textView_eye_password, textView_goSignup, textViewErrorMessage;
     EditText editTextUsernameInput, editTextPasswordInput;
     CheckBox checkBox_Remember_Me;
@@ -26,12 +28,11 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
 
+        //Remove purple bar
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
         if(getActionBar() !=null) getActionBar().hide();
-
-
 
         initialize();
 
@@ -116,34 +117,13 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-//        outState.putString("username", String.valueOf(editTextUsernameInput.getText()));
-//        outState.putString("password", String.valueOf(editTextPasswordInput.getText()));
-//        outState.putString("eye_password", String.valueOf(textView_eye_password.getText()));
-//        outState.putString("error_message", String.valueOf(textViewErrorMessage.getText()));
-//        outState.putInt("error_message_visibility", textViewErrorMessage.getVisibility());
-//        outState.putBoolean("check_box_remember_me", checkBox_Remember_Me.isChecked());
     }
 
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
        super.onRestoreInstanceState(savedInstanceState);
-
-//        editTextUsernameInput.setText(savedInstanceState.getString("username", ""));
+       //to avoid the password previously typed to be exposed.
         editTextPasswordInput.setText("");
-        editTextPasswordInput.setText("");
-//        textView_eye_password.setText(savedInstanceState.getString("eye_password", ""));
-//
-//        if (textView_eye_password.getText() == getApplicationContext().getResources().getString(R.string.icon_open_eye)) {
-//            editTextPasswordInput.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-//            editTextPasswordInput.setSelection(editTextPasswordInput.getText().length());
-//
-//        } else {
-//            editTextPasswordInput.setTransformationMethod(PasswordTransformationMethod.getInstance());
-//            editTextPasswordInput.setSelection(editTextPasswordInput.getText().length());
-//        }
-//        textViewErrorMessage.setText(savedInstanceState.getString("error_message", ""));
-//        textViewErrorMessage.setVisibility(savedInstanceState.getInt("error_message_visibility", View.INVISIBLE));
-//        checkBox_Remember_Me.setChecked(savedInstanceState.getBoolean("check_box_remember_me", true));
 
     }
 }

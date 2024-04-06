@@ -8,7 +8,6 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="64dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,25 +21,14 @@
 
             <ImageView
                 android:id="@+id/logo"
-                android:layout_width="290dp"
-                android:layout_height="40dp"
+                android:layout_width="240dp"
+                android:layout_height="240dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="40dp"
                 android:contentDescription="@string/logo_description"
-                android:src="@drawable/b_investor_logo2" />
+                android:src="@drawable/b_investor_logo" />
 
-            <TextView
-                android:layout_width="280dp"
-                android:layout_height="66dp"
-                android:layout_gravity="center"
-                android:fontFamily="@font/poppins_bold"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:text="@string/sign_up"
-                android:textColor="@color/material_dynamic_primary10"
-                android:textSize="30sp" />
 
-            <!--Email / Username-->
             <FrameLayout
                 android:layout_width="280dp"
                 android:layout_height="66dp"
@@ -48,6 +36,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/box_with_corner">
+
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -57,10 +46,10 @@
                     android:fontFamily="@font/poppins_bold"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
-                    android:text="@string/email_username" />
+                    android:text="@string/username" />
 
                 <EditText
-                    android:id="@+id/textViewEmailUsername"
+                    android:id="@+id/editTextUsernameInput"
                     android:layout_width="220dp"
                     android:layout_height="48dp"
                     android:layout_marginStart="30dp"
@@ -75,12 +64,11 @@
                     android:minHeight="48dp"
                     android:paddingBottom="5dp"
                     android:textColor="@color/material_dynamic_primary0"
-                    android:textColorHint="@color/material_dynamic_primary70"
+                    android:textColorHint="@color/material_dynamic_primary40"
                     android:textSize="14sp" />
 
             </FrameLayout>
 
-            <!--Initial Cash-->
             <FrameLayout
                 android:layout_width="280dp"
                 android:layout_height="66dp"
@@ -88,48 +76,6 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/box_with_corner">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:background="@color/material_dynamic_neutral90"
-                    android:fontFamily="@font/poppins_bold"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:text="@string/initial_cash" />
-
-                <EditText
-                    android:id="@+id/editTextInitialCashInput"
-                    android:layout_width="220dp"
-                    android:layout_height="48dp"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginTop="16dp"
-                    android:autofillHints="none"
-                    android:background="@null"
-                    android:ems="10"
-                    android:fontFamily="@font/poppins_regular"
-                    android:gravity="bottom"
-                    android:hint="@string/ex_initial_amount"
-                    android:inputType="numberDecimal"
-                    android:minHeight="48dp"
-                    android:paddingBottom="5dp"
-                    android:textColor="@color/material_dynamic_primary0"
-                    android:textColorHint="@color/material_dynamic_primary70"
-                    android:textSize="14sp" />
-
-            </FrameLayout>
-
-
-            <!--Password-->
-            <FrameLayout
-                android:layout_width="280dp"
-                android:layout_height="66dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/box_with_corner">
-
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -141,8 +87,9 @@
                     android:paddingRight="5dp"
                     android:text="@string/password" />
 
+
                 <TextView
-                    android:id="@+id/eyeNewPassword"
+                    android:id="@+id/eyePassword"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_marginStart="230dp"
@@ -152,11 +99,11 @@
                     android:focusable="true"
                     android:fontFamily="@font/fontawesome"
                     android:gravity="center"
-                    android:onClick="toggleVisibilityTypeNewPassword"
+                    android:onClick="toggleVisibilityPassword"
                     android:text="@string/icon_closed_eye" />
 
                 <EditText
-                    android:id="@+id/editTextNewPasswordInput"
+                    android:id="@+id/editTextPasswordInput"
                     android:layout_width="220dp"
                     android:layout_height="48dp"
                     android:layout_marginStart="30dp"
@@ -172,84 +119,40 @@
                     android:minHeight="48dp"
                     android:paddingBottom="5dp"
                     android:textColor="@color/material_dynamic_primary0"
-                    android:textColorHint="@color/material_dynamic_primary70"
+                    android:textColorHint="@color/material_dynamic_primary40"
                     android:textSize="14sp" />
 
             </FrameLayout>
 
-            <!--Re-type Password-->
-            <FrameLayout
+            <LinearLayout
                 android:layout_width="280dp"
-                android:layout_height="66dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/box_with_corner">
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="5dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
+                <CheckBox
+                    android:id="@+id/checkBox_Remember_Me"
+                    android:layout_width="140dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:background="@color/material_dynamic_neutral90"
-                    android:fontFamily="@font/poppins_bold"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:text="@string/re_type_password" />
-
-                <TextView
-                    android:id="@+id/eyeReTypeNewPassword"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_marginStart="230dp"
-                    android:layout_marginTop="16dp"
-                    android:background="@color/material_dynamic_neutral90"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:fontFamily="@font/fontawesome"
-                    android:gravity="center"
-                    android:onClick="toggleVisibilityReTypeNewPassword"
-                    android:text="@string/icon_closed_eye" />
-
-                <EditText
-                    android:id="@+id/editTextRetypeNewPasswordInput"
-                    android:layout_width="220dp"
-                    android:layout_height="48dp"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginTop="16dp"
-                    android:height="48dp"
-                    android:autofillHints="re-type password"
-                    android:background="@null"
-                    android:ems="10"
                     android:fontFamily="@font/poppins_regular"
-                    android:gravity="bottom"
-                    android:hint="@string/passwordHint"
-                    android:inputType="textPassword"
-                    android:minHeight="48dp"
-                    android:paddingBottom="5dp"
-                    android:textColor="@color/material_dynamic_primary0"
-                    android:textColorHint="@color/material_dynamic_primary70"
-                    android:textSize="14sp" />
-
-            </FrameLayout>
+                    android:text="@string/remember_me"
+                    android:textColor="@color/material_dynamic_primary20"
+                    android:textSize="13sp" />
+            </LinearLayout>
 
             <Button
-                android:id="@+id/button_signUp"
+                android:id="@+id/button_signIn"
                 android:layout_width="280dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:backgroundTint="@color/material_dynamic_primary40"
                 android:fontFamily="@font/poppins_bold"
-                android:onClick="doSignup"
-                android:text="@string/sign_up"
+                android:onClick="doLogin"
+                android:text="@string/sign_in"
                 app:cornerRadius="6dp" />
 
             <TextView
-                android:id="@+id/textView_goSignIn"
+                android:id="@+id/textView_goSignup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -258,8 +161,8 @@
                 android:fontFamily="@font/poppins_italic"
                 android:minWidth="280dp"
                 android:minHeight="48dp"
-                android:onClick="goSignIn"
-                android:text="@string/already_registered"
+                android:onClick="goSignup"
+                android:text="@string/don_t_you_have_an_account_yet"
                 android:textColor="@color/material_dynamic_primary10" />
 
             <TextView
@@ -268,7 +171,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:fontFamily="@font/poppins_semi_bold_italic"
-                android:text=""
+                android:text="@string/errorMessage"
                 android:textColor="@android:color/holo_red_dark"
                 android:textSize="18sp" />
 
@@ -278,6 +181,5 @@
 
         </LinearLayout>
     </ScrollView>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

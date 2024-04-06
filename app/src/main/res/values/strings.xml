@@ -38,8 +38,8 @@
     <string name="errorMessage">ErrorMessage</string>
     <string name="logout">Logout</string>
     <string name="loading">--</string>
-    <string name="password_didn_t_match_try_again">Password didn’t match. Try again.</string>
-    <string name="those_passwords_didn_t_match_try_again">Those passwords didn’t match. Try again.</string>
+    <string name="password_did_not_match_try_again">Password didn\'t match. Try again.</string>
+    <string name="those_passwords_did_not_match_try_again">Those passwords didn\'t match. Try again.</string>
     <string name="user_already_registered">User already registered</string>
     <string name="invalid_username_use_a_valid_email">Invalid username. Use a valid email</string>
     <string name="transactions">Transactions</string>
@@ -72,7 +72,7 @@
     <string name="loadingValue">--</string>
     <string name="cash">Cash</string>
     <string name="stock_symbol">Stock Symbol</string>
-    <string name="value_nshare">Value\nShare</string>
-    <string name="last_nchange">Last\nChange%</string>
+    <string name="value_NumberShare">Value\nShare</string>
+    <string name="last_NumberChange">Last\nChange%</string>
 
 </resources>

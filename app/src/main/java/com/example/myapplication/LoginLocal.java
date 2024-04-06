@@ -10,6 +10,8 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 
 public class LoginLocal extends AppCompatActivity implements LoginInterface{
+
+    //This class is responsible to make a login using a local file to check Username/Password
     static SharedPreferences sharedPref;
 
     public static Customer login(Context context, String username, String password) {

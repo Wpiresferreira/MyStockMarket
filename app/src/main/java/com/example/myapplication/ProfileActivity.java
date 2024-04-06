@@ -51,7 +51,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         // Check Password and retype Password
         if(!password.equals(retypePassword)){
-            textView_ErrorMessage.setText(R.string.password_didn_t_match_try_again);
+            textView_ErrorMessage.setText(R.string.password_did_not_match_try_again);
         }else{
             Controller.updatePassword(this, password);
             textView_ErrorMessage.setText("");

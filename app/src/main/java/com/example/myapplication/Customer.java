@@ -10,8 +10,8 @@ import java.util.List;
 
 public class Customer implements Parcelable {
 
+    // This class represents the Customer, their balance, their stocks, and their watchlist
 
-    final String name;
     String username;
     String password;
     Cash customerCash;
@@ -19,7 +19,6 @@ public class Customer implements Parcelable {
     List<StockQuote> stocksInWatchlist;
 
     public Customer(){
-        name = "";
         username = "";
         password = "";
         customerCash = new Cash();
@@ -28,7 +27,7 @@ public class Customer implements Parcelable {
     }
 
     protected Customer(Parcel in) {
-        name = in.readString();
+
         username = in.readString();
         customerCash = new Cash();
         customerCash.balance = in.readDouble();
@@ -66,7 +65,6 @@ public class Customer implements Parcelable {
 
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
-        dest.writeString(name);
         dest.writeString(username);
         dest.writeDouble(customerCash.balance);
         dest.writeString(customerCash.currency);

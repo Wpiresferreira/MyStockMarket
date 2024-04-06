@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
@@ -39,30 +40,30 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textView18"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="56dp"
+                    android:layout_weight="1.0"
                     android:layout_gravity="center_vertical"
                     android:background="@color/white"
-                    android:fontFamily="@font/poppins_semibold"
+                    android:fontFamily="@font/poppins_semi_bold"
                     android:gravity="start|center_vertical"
                     android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
                     android:text="@string/total"
                     android:textAlignment="textStart"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    tools:ignore="NestedWeights" />
 
                 <TextView
                     android:id="@+id/textView_TotalBalance"
                     android:layout_width="wrap_content"
                     android:layout_height="56dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1.0"
+                    android:layout_gravity="end|center_vertical"
                     android:background="@color/white"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:gravity="center_vertical"
+                    android:fontFamily="@font/poppins_semi_bold"
+                    android:paddingStart="20dp"
                     android:paddingEnd="20dp"
                     android:text="@string/loadingValue"
-                    android:textAlignment="textEnd"
                     android:textSize="20sp" />
 
             </LinearLayout>
@@ -75,24 +76,27 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="60dp"
                     android:layout_weight="1.0"
                     android:background="@color/white"
-                    android:fontFamily="@font/poppins_semibold"
+                    android:fontFamily="@font/poppins_semi_bold"
                     android:gravity="center_vertical"
-                    android:paddingLeft="20dp"
-                    android:text="@string/cash" />
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:text="@string/cash"
+                    tools:ignore="NestedWeights" />
 
                 <TextView
                     android:id="@+id/textView_Cash"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="60dp"
                     android:layout_weight="1.0"
                     android:background="@color/white"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:gravity="center_vertical"
+                    android:fontFamily="@font/poppins_semi_bold"
                     android:paddingEnd="20dp"
+                    android:paddingStart="20dp"
+                    android:gravity="end|center_vertical"
                     android:text="@string/loadingValue"
                     android:textAlignment="textEnd" />
 
@@ -108,7 +112,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="20dp"
                     android:fontFamily="@font/poppins_regular"
                     android:text="@string/stock_symbol" />
 
@@ -116,19 +120,19 @@
                     android:id="@+id/textView22"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="right|center_vertical"
+                    android:layout_gravity="end|center_vertical"
                     android:layout_marginEnd="162dp"
                     android:fontFamily="@font/poppins_regular"
-                    android:text="@string/value_nshare" />
+                    android:text="@string/value_NumberShare" />
 
                 <TextView
                     android:id="@+id/textView21"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="right|center_vertical"
-                    android:layout_marginRight="20dp"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginEnd="20dp"
                     android:fontFamily="@font/poppins_regular"
-                    android:text="@string/last_nchange" />
+                    android:text="@string/last_NumberChange" />
 
             </FrameLayout>
 
@@ -154,7 +158,8 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        android:baselineAligned="false">
 
         <FrameLayout
             android:layout_width="match_parent"

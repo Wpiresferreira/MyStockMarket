@@ -9,6 +9,8 @@ import com.google.gson.Gson;
 
 public class SignupLocal extends AppCompatActivity implements SignupInterface {
 
+    //This class is responsible to create a new account, and save information locally.
+
     static SharedPreferences sharedPref;
 
     public static boolean signup(Context context, Customer customer) {

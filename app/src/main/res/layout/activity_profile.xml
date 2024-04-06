@@ -35,7 +35,7 @@
                 android:fontFamily="@font/poppins_bold"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
-                android:text="@string/portfolio_"
+                android:text="@string/profile"
                 android:textColor="@color/material_dynamic_primary10"
                 android:textSize="30sp" />
 
@@ -225,7 +225,7 @@
                 android:layout_width="280dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:fontFamily="@font/poppins_semibolditalic"
+                android:fontFamily="@font/poppins_semi_bold_italic"
                 android:text=""
                 android:textColor="@android:color/holo_red_dark"
                 android:textSize="18sp" />

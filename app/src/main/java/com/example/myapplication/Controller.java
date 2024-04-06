@@ -561,6 +561,7 @@ public class Controller extends AppCompatActivity {
     }
 
     public static void updateLoggedUser(@NonNull Context context) {
+        //This method save the logged user to file
 
         SharedPreferences sharedPref;
         sharedPref = context.getSharedPreferences(
@@ -590,6 +591,7 @@ public class Controller extends AppCompatActivity {
 
 
     public static boolean isValidInitialCash(String initialCashBalance) {
+        // check if the initial amount is a valid number
 
         try{
             double input = Double.parseDouble(initialCashBalance);

@@ -2,7 +2,6 @@ package com.example.myapplication;
 
 import android.content.Intent;
 import android.icu.text.DecimalFormat;
-import android.icu.text.NumberFormat;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,8 +17,6 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -27,9 +24,7 @@ public class PortfolioActivity extends AppCompatActivity {
     TextView textView_Cash, textView_TotalBalance;
     RecyclerView recycler;
     StockQuoteAdapter adapter;
-    List<StockQuote> stockQuoteList;
     Timer timer;
-    final NumberFormat numberFormatCurrency = NumberFormat.getCurrencyInstance();
 
 
     @Override
@@ -45,14 +40,21 @@ public class PortfolioActivity extends AppCompatActivity {
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
         if (getActionBar() != null) getActionBar().hide();
 
-        buildTheScreen();
 
+        // Show Cash e Total at the first time
+        try {
+            textView_Cash.setText(new DecimalFormat("#,##0.00").format(Controller.getLoggedUser().customerCash.balance));
+            textView_TotalBalance.setText(new DecimalFormat("#,##0.00").format(Controller.getLoggedUser().customerCash.balance));
+        } catch (Exception e) {
+            textView_Cash.setText(R.string.unavailable);
+            textView_TotalBalance.setText(R.string.unavailable);
+        }
 
-        loadList();
-        setAdapter();
+        setAdapter(); // Set the RecyclerView adapter
         updateDescription(new View(getApplicationContext()));
         updateTotal();
 
+        // Update the quotes every 10 seconds using a timer
         long period = (1000 * 10);
         timer = new Timer();
         TimerTask timerTask = new TimerTask() {
@@ -67,18 +69,8 @@ public class PortfolioActivity extends AppCompatActivity {
         timer.scheduleAtFixedRate(timerTask, 0, period);
     }
 
-    private void loadList() {
-
-        stockQuoteList = Controller.getLoggedUser().stocksInWallet;
-
-        if (stockQuoteList == null) {
-            stockQuoteList = new ArrayList<>();
-        }
-    }
-
     private void setAdapter() {
-
-        adapter = new StockQuoteAdapter(stockQuoteList);
+        adapter = new StockQuoteAdapter(Controller.getLoggedUser().stocksInWallet);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recycler.setLayoutManager(layoutManager);
         recycler.setItemAnimator(new DefaultItemAnimator());
@@ -86,18 +78,6 @@ public class PortfolioActivity extends AppCompatActivity {
     }
 
 
-    private void buildTheScreen() {
-
-        // First, try to load cash balance
-        try {
-            textView_Cash.setText(numberFormatCurrency.format(Controller.getLoggedUser().customerCash.balance));
-            textView_TotalBalance.setText(numberFormatCurrency.format(Controller.getLoggedUser().customerCash.balance));
-        } catch (Exception e) {
-            textView_Cash.setText(R.string.unavailable);
-            textView_TotalBalance.setText(R.string.unavailable);
-        }
-
-    }
 
     public void updateQuotes(View view) {
 
@@ -148,7 +128,9 @@ public class PortfolioActivity extends AppCompatActivity {
 
             if (!s.name.isEmpty()) continue;
 
-            String url = "https://finnhub.io/api/v1/stock/profile2?symbol=" + s.symbol + "&token=" + Controller.token;
+            String url = "https://finnhub.io/api/v1/stock/profile2?symbol=" +
+                    s.symbol + "&token=" +
+                    Controller.token;
 
 
             JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
