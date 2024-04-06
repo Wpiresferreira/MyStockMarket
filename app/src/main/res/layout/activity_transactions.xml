@@ -311,7 +311,7 @@
                     android:layout_height="match_parent">
 
                     <Button
-                        android:id="@+id/button7"
+                        android:id="@+id/btn_buy"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_span="2"
@@ -325,7 +325,7 @@
                         style="?android:attr/buttonBarButtonStyle" />
 
                     <Button
-                        android:id="@+id/button14"
+                        android:id="@+id/btn_sell"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_span="2"
@@ -356,11 +356,11 @@
         android:layout_width="0dp"
         android:layout_height="120dp"
         android:background="@color/material_dynamic_primary40"
+        android:baselineAligned="false"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:baselineAligned="false">
+        app:layout_constraintStart_toStartOf="parent">
 
         <FrameLayout
             android:layout_width="match_parent"

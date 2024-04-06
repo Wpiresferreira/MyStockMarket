@@ -37,6 +37,7 @@ public class TransactionActivity extends AppCompatActivity {
     Timer timer;
     TextView textView_Name, textView_CurrentPrice, textView_Change, textView_PercentChange, textView_Low, textView_High, textView_Open, textView_PreviousClose,
     textView_Total;
+    boolean isCompleteLoaded;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,6 +60,7 @@ public class TransactionActivity extends AppCompatActivity {
         textView_Open = findViewById(R.id.textView_Open);
         textView_PreviousClose = findViewById(R.id.textView_PreviousClose);
         textView_Total = findViewById(R.id.textView_Total);
+        isCompleteLoaded = false;
 
 
         if (selectedStockQuote == null) {
@@ -135,7 +137,6 @@ public class TransactionActivity extends AppCompatActivity {
         try {
             qt = Integer.parseInt(String.valueOf(editText_Qt.getText()));
             textView_Total.setText(new DecimalFormat("#,##0.00").format(qt * c));
-
         } catch (Exception e) {
             textView_Total.setText("--");
         }
@@ -160,6 +161,7 @@ public class TransactionActivity extends AppCompatActivity {
     }
 
     public void updateQuotes() {
+        isCompleteLoaded = false;
 
         String url = "https://finnhub.io/api/v1/quote?symbol=" +
                 selectedStockQuote.symbol +
@@ -187,6 +189,7 @@ public class TransactionActivity extends AppCompatActivity {
                 textView_PreviousClose.setText(new DecimalFormat("#,##0.00").format(response.getDouble("pc")));
 
                 updateTotal();
+                isCompleteLoaded = true;
 
             } catch (Exception e) {
                 Log.wtf("WTF", "updateQuotes: " + e);
@@ -237,6 +240,11 @@ public class TransactionActivity extends AppCompatActivity {
 
 
     public void buy(View view) {
+
+        if(!isCompleteLoaded){
+            Toast.makeText(this, "Wait to load the quote", Toast.LENGTH_SHORT).show();
+        return;
+        }
         double totalOrder = Double.parseDouble(String.valueOf(textView_Total.getText()).replace("$", "").replace(",", ""));
         int qtdOrder = Integer.parseInt(String.valueOf(editText_Qt.getText()));
         String stockOrder = String.valueOf(selectedStockQuote.symbol);
@@ -265,6 +273,10 @@ public class TransactionActivity extends AppCompatActivity {
     }
 
     public void sell(View view) {
+        if(!isCompleteLoaded){
+            Toast.makeText(this, "Wait to load the quote", Toast.LENGTH_SHORT).show();
+            return;
+        }
         double totalOrder = Double.parseDouble(String.valueOf(textView_Total.getText()).replace("$", "").replace(",", ""));
         int qtdOrder = Integer.parseInt(String.valueOf(editText_Qt.getText()));
         String stockOrder = String.valueOf(selectedStockQuote.symbol);

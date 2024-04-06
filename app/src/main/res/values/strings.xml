@@ -74,5 +74,11 @@
     <string name="stock_symbol">Stock Symbol</string>
     <string name="value_NumberShare">Value\nShare</string>
     <string name="last_NumberChange">Last\nChange%</string>
+    <string name="add_remove_cash">Add / Remove Cash</string>
+    <string name="invalid_value">Invalid value</string>
+    <string name="insuficient_balance">Insuficient balance</string>
+    <string name="your_balance_cannot_be_greater_than_1_000_000_00">Your balance cannot be greater than 1,000,000.00</string>
+    <string name="deposit">Deposit</string>
+    <string name="withdraw">Withdraw</string>
 
 </resources>

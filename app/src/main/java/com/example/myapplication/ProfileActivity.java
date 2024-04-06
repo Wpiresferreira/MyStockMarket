@@ -15,7 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class ProfileActivity extends AppCompatActivity {
     TextView textViewEmailUsername;
     TextView eyeNewPassword, eyeReTypeNewPassword, textView_ErrorMessage;
-    EditText editTextNewPasswordInput, editTextRetypeNewPasswordInput;
+    EditText editTextNewPasswordInput, editTextRetypeNewPasswordInput, editDepositWithdrawCash;
 
 
     @Override
@@ -34,7 +34,7 @@ public class ProfileActivity extends AppCompatActivity {
         editTextNewPasswordInput = findViewById(R.id.editTextNewPasswordInput);
         editTextRetypeNewPasswordInput = findViewById(R.id.editTextRetypeNewPasswordInput);
         textView_ErrorMessage = findViewById(R.id.textView_ErrorMessage);
-
+        editDepositWithdrawCash = findViewById(R.id.editDepositWithdrawCash);
     }
 
     public void logout(View view) {
@@ -86,6 +86,44 @@ public class ProfileActivity extends AppCompatActivity {
             editTextNewPasswordInput.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
             editTextNewPasswordInput.setSelection(editTextNewPasswordInput.getText().length());
         }
+    }
+
+    public void depositCash(View view) {
+        if (!Controller.isValidCash(String.valueOf(editDepositWithdrawCash.getText()))) {
+            textView_ErrorMessage.setText(R.string.invalid_value);
+            editDepositWithdrawCash.requestFocus();
+            return;
+        }
+        double cashToDeposit = Double.parseDouble(String.valueOf(editDepositWithdrawCash.getText()));
+        if (Controller.getLoggedUser().customerCash.balance + cashToDeposit > 1000000) {
+            textView_ErrorMessage.setText(R.string.your_balance_cannot_be_greater_than_1_000_000_00);
+            editDepositWithdrawCash.requestFocus();
+            return;
+        }
+
+        Controller.depositCash(cashToDeposit);
+        goPortfolio(view);
+
+
+    }
+
+    public void withdrawCash(View view){
+        if(!Controller.isValidCash(String.valueOf(editDepositWithdrawCash.getText()))){
+            textView_ErrorMessage.setText(R.string.invalid_value);
+            editDepositWithdrawCash.requestFocus();
+            return;
+        }
+        double cashToWithdraw = Double.parseDouble(String.valueOf(editDepositWithdrawCash.getText()));
+        if (Controller.getLoggedUser().customerCash.balance - cashToWithdraw < 0) {
+            textView_ErrorMessage.setText(R.string.insuficient_balance);
+            editDepositWithdrawCash.requestFocus();
+            return;
+        }
+
+        Controller.withdrawCash(cashToWithdraw);
+        goPortfolio(view);
+
+
     }
 
 

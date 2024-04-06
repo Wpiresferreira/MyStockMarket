@@ -79,10 +79,82 @@
 
             </FrameLayout>
 
-            <!--Initial Cash-->
+            <!--Add / Remove Cash-->
+            <FrameLayout
+                android:layout_width="280dp"
+                android:layout_height="66dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/box_with_corner">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:background="@color/material_dynamic_neutral90"
+                    android:fontFamily="@font/poppins_bold"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="@string/add_remove_cash" />
+
+                <EditText
+                    android:id="@+id/editDepositWithdrawCash"
+                    android:layout_width="220dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="16dp"
+                    android:height="48dp"
+                    android:autofillHints="password"
+                    android:background="@null"
+                    android:ems="10"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="bottom"
+                    android:hint="@string/ex_initial_amount"
+                    android:inputType="numberDecimal"
+                    android:minHeight="48dp"
+                    android:paddingBottom="5dp"
+                    android:textColor="@color/material_dynamic_primary0"
+                    android:textColorHint="@color/material_dynamic_primary70"
+                    android:textSize="14sp" />
+
+            </FrameLayout>
+
 
 
             <!--Password-->
+            <LinearLayout
+                android:layout_width="280dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/button_Deposit"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/material_dynamic_primary40"
+                    android:insetRight="5dp"
+                    android:maxWidth="140dp"
+                    android:onClick="depositCash"
+                    android:text="@string/deposit"
+                    app:cornerRadius="6dp" />
+
+                <Button
+                    android:id="@+id/button_Withdraw"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/material_dynamic_primary40"
+                    android:insetLeft="5dp"
+                    android:maxWidth="140dp"
+                    android:onClick="withdrawCash"
+                    android:text="@string/withdraw"
+                    app:cornerRadius="6dp" />
+            </LinearLayout>
+
             <FrameLayout
                 android:layout_width="280dp"
                 android:layout_height="66dp"

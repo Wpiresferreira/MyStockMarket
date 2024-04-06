@@ -94,7 +94,7 @@ public class SignupActivity extends AppCompatActivity {
             return;
         }
 
-        if(!Controller.isValidInitialCash(initialCashBalance)){
+        if(!Controller.isValidCash(initialCashBalance)){
             textView_ErrorMessage.setText(R.string.please_insert_an_initial_balance_between_0_1_000_000);
             return;
         }

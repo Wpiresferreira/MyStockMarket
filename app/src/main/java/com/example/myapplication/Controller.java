@@ -590,7 +590,7 @@ public class Controller extends AppCompatActivity {
     }
 
 
-    public static boolean isValidInitialCash(String initialCashBalance) {
+    public static boolean isValidCash(String initialCashBalance) {
         // check if the initial amount is a valid number
 
         try{
@@ -600,5 +600,13 @@ public class Controller extends AppCompatActivity {
             return false;
         }
 
+    }
+
+    public static void depositCash(double value) {
+        loggedUser.customerCash.balance+=value;
+    }
+
+    public static void withdrawCash(double value) {
+        loggedUser.customerCash.balance-=value;
     }
 }
