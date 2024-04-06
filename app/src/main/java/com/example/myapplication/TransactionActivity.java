@@ -36,7 +36,7 @@ public class TransactionActivity extends AppCompatActivity {
     ImageView imageView_Logo;
     Timer timer;
     TextView textView_Name, textView_CurrentPrice, textView_Change, textView_PercentChange, textView_Low, textView_High, textView_Open, textView_PreviousClose,
-    textView_Total;
+            textView_Total;
     boolean isCompleteLoaded;
 
     @Override
@@ -132,7 +132,14 @@ public class TransactionActivity extends AppCompatActivity {
     private void updateQtd() {
 
         String quote = String.valueOf(textView_CurrentPrice.getText()).replace("$", "").replace(",", "");
-        double c = Double.parseDouble(quote);
+        double c;
+        try {
+            c = Double.parseDouble(quote);
+
+        } catch (Exception e) {
+            c = 1;
+        }
+
         int qt;
         try {
             qt = Integer.parseInt(String.valueOf(editText_Qt.getText()));
@@ -145,7 +152,7 @@ public class TransactionActivity extends AppCompatActivity {
 
 
     private void updateAllInfo() {
-        if (selectedStockQuote != null){ // && Controller.companies.contains(selectedStockQuote.symbol)) {
+        if (selectedStockQuote != null) { // && Controller.companies.contains(selectedStockQuote.symbol)) {
             updateDescription();
             updateQuotes();
         } else {
@@ -172,13 +179,13 @@ public class TransactionActivity extends AppCompatActivity {
             try {
                 textView_CurrentPrice.setText(new DecimalFormat("#,##0.00").format(response.getDouble("c")));
                 textView_Change.setText(new DecimalFormat("#,##0.00").format(response.getDouble("d")));
-                if(response.getDouble("dp")<0){
+                if (response.getDouble("dp") < 0) {
                     textView_PercentChange.setText(new DecimalFormat("#,##0.00").format(response.getDouble("dp")) + "%" + "\uF13A");
                     textView_PercentChange.setTextColor(Color.RED);
-                }else if(response.getDouble("dp")>0) {
+                } else if (response.getDouble("dp") > 0) {
                     textView_PercentChange.setText(new DecimalFormat("#,##0.00").format(response.getDouble("dp")) + "%" + "\uF139");
-                    textView_PercentChange.setTextColor(Color.rgb(0,128,0));
-                }else{
+                    textView_PercentChange.setTextColor(Color.rgb(0, 128, 0));
+                } else {
                     textView_PercentChange.setText(new DecimalFormat("#,##0.00").format(response.getDouble("dp")) + "%" + " - ");
                     textView_PercentChange.setTextColor(Color.BLACK);
 
@@ -202,7 +209,7 @@ public class TransactionActivity extends AppCompatActivity {
 
     private void updateTotal() {
         Double total;
-    total = Double.parseDouble(textView_CurrentPrice.getText().toString().replace(",","")) *
+        total = Double.parseDouble(textView_CurrentPrice.getText().toString().replace(",", "")) *
                 Integer.parseInt(editText_Qt.getText().toString());
         textView_Total.setText(new DecimalFormat("#,##0.00").format(total));
     }
@@ -241,9 +248,9 @@ public class TransactionActivity extends AppCompatActivity {
 
     public void buy(View view) {
 
-        if(!isCompleteLoaded){
+        if (!isCompleteLoaded) {
             Toast.makeText(this, "Wait to load the quote", Toast.LENGTH_SHORT).show();
-        return;
+            return;
         }
         double totalOrder = Double.parseDouble(String.valueOf(textView_Total.getText()).replace("$", "").replace(",", ""));
         int qtdOrder = Integer.parseInt(String.valueOf(editText_Qt.getText()));
@@ -273,7 +280,7 @@ public class TransactionActivity extends AppCompatActivity {
     }
 
     public void sell(View view) {
-        if(!isCompleteLoaded){
+        if (!isCompleteLoaded) {
             Toast.makeText(this, "Wait to load the quote", Toast.LENGTH_SHORT).show();
             return;
         }
