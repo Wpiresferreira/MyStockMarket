@@ -62,6 +62,16 @@ public class TransactionActivity extends AppCompatActivity {
         textView_Total = findViewById(R.id.textView_Total);
         isCompleteLoaded = false;
 
+        editText_StockSymbol.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                editText_StockSymbol.setSelection(0,editText_StockSymbol.getText().length()-1 );
+
+            }
+        });
+
+
+
 
         if (selectedStockQuote == null) {
             selectedStockQuote = new StockQuote(Controller.lastTransactionSymbol, 0);

@@ -4,8 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -13,11 +16,14 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.DecimalFormat;
+
 public class SignupActivity extends AppCompatActivity {
     SharedPreferences sharedPref;
     TextView eyeNewPassword, eyeReTypeNewPassword, textView_ErrorMessage;
     EditText editTextInitialCashInput, editTextEmailUsernameInput,
             editTextNewPasswordInput, editTextRetypeNewPasswordInput;
+    boolean flagPointPressed;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -25,7 +31,7 @@ public class SignupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_signup);
 
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
-        if(getActionBar() !=null) getActionBar().hide();
+        if (getActionBar() != null) getActionBar().hide();
 
 
         eyeNewPassword = findViewById(R.id.eyeNewPassword);
@@ -35,6 +41,29 @@ public class SignupActivity extends AppCompatActivity {
         editTextEmailUsernameInput = findViewById(R.id.textViewEmailUsername);
         editTextInitialCashInput = findViewById(R.id.editTextInitialCashInput);
         textView_ErrorMessage = findViewById(R.id.textView_ErrorMessage);
+        flagPointPressed = false;
+
+        editTextInitialCashInput.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus){
+                    try {
+                        String numbersFormatted = String
+                                .valueOf(editTextInitialCashInput.getText())
+                                .replace(",", "")
+                                .replace("$", "")
+                                .replace(" ", "");
+                        double numberDouble = Double.parseDouble(numbersFormatted);
+                        numbersFormatted = new DecimalFormat("$ #,##0.00").format(numberDouble);
+                        if (!numbersFormatted.equals(editTextInitialCashInput.getText().toString())) {
+                            editTextInitialCashInput.setText(numbersFormatted);
+                        }
+                    } catch (Exception e) {
+                        Log.wtf("Format number", "afterTextChanged: " + e);
+                    }
+                }
+            }
+        });
 
 
     }
@@ -64,37 +93,39 @@ public class SignupActivity extends AppCompatActivity {
             editTextNewPasswordInput.setSelection(editTextNewPasswordInput.getText().length());
         }
     }
+
     public void goSignIn(View view) {
         Intent intent = new Intent(this, LoginActivity.class);
         finish();
-        startActivity(intent);    }
+        startActivity(intent);
+    }
 
-    public void doSignup(View view){
+    public void doSignup(View view) {
         String username = String.valueOf(editTextEmailUsernameInput.getText());
         String password = String.valueOf(editTextNewPasswordInput.getText());
         String retypePassword = String.valueOf(editTextRetypeNewPasswordInput.getText());
         String initialCashBalance = String.valueOf(editTextInitialCashInput.getText());
         sharedPref = getSharedPreferences(
-                "com.example.myapplication."+username, Context.MODE_PRIVATE);
+                "com.example.myapplication." + username, Context.MODE_PRIVATE);
 
         // Check Password and retype Password
-        if(!password.equals(retypePassword)){
+        if (!password.equals(retypePassword)) {
             textView_ErrorMessage.setText(R.string.those_passwords_did_not_match_try_again);
             return;
         }
 
-        // Check if User is already registered
-        if(!sharedPref.getString("username", "").isEmpty()){
+        // Check if User is already registered and validate the fields
+        if (!sharedPref.getString("username", "").isEmpty()) {
             textView_ErrorMessage.setText(R.string.user_already_registered);
             return;
         }
 
-        if(!Controller.isValidUsername(username)){
+        if (!Controller.isValidUsername(username)) {
             textView_ErrorMessage.setText(R.string.invalid_username_use_a_valid_email);
             return;
         }
 
-        if(!Controller.isValidCash(initialCashBalance)){
+        if (!Controller.isValidCash(initialCashBalance)) {
             textView_ErrorMessage.setText(R.string.please_insert_an_initial_balance_between_0_1_000_000);
             return;
         }
@@ -102,11 +133,14 @@ public class SignupActivity extends AppCompatActivity {
         Customer newCustomer = new Customer();
         newCustomer.username = username.toLowerCase();
         newCustomer.password = password;
-        newCustomer.customerCash = new Cash(Double.parseDouble(initialCashBalance));
+        newCustomer.customerCash = new Cash(Double.parseDouble(initialCashBalance
+                .replace("$","")
+                .replace(",","")
+                .replace(" ", "")));
 
-        boolean signupSuccessful =  SignupLocal.signup(getApplicationContext(), newCustomer);
+        boolean signupSuccessful = SignupLocal.signup(getApplicationContext(), newCustomer);
 
-        if (signupSuccessful){
+        if (signupSuccessful) {
             sharedPref = getSharedPreferences(
                     getString(R.string.preference_file_key), Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPref.edit();
@@ -114,8 +148,7 @@ public class SignupActivity extends AppCompatActivity {
             editor.apply();
 
             goSignIn(view);
-        }
-        else{
+        } else {
             textView_ErrorMessage.setText(R.string.signup_failed);
         }
     }

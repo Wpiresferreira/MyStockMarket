@@ -594,7 +594,10 @@ public class Controller extends AppCompatActivity {
         // check if the initial amount is a valid number
 
         try{
-            double input = Double.parseDouble(initialCashBalance);
+            double input = Double.parseDouble(initialCashBalance
+                    .replace("$", "")
+                    .replace(",","")
+                    .replace(" ", ""));
             return !(input < 0) && !(input > 1000000);
         } catch (NumberFormatException e) {
             return false;

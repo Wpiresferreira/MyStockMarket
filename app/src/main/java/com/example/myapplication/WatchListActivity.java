@@ -80,7 +80,6 @@ public class WatchListActivity extends AppCompatActivity {
             editText_StockToAdd.clearFocus();
         });
 
-
         setAdapter();
         updateDescription();
 
