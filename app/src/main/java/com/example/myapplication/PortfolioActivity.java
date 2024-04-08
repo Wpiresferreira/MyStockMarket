@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.content.Intent;
 import android.icu.text.DecimalFormat;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -16,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+
+import org.json.JSONObject;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -106,7 +109,9 @@ public class PortfolioActivity extends AppCompatActivity {
 
                 }
             }, error -> Log.wtf("WTF", "updateQuotes: Error response request."));
-            Volley.newRequestQueue(this).add(request);
+            Request<JSONObject> myRequest = Volley.newRequestQueue(this).add(request);
+
+
         }
 
     }

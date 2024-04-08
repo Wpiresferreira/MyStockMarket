@@ -61,18 +61,7 @@ public class TransactionActivity extends AppCompatActivity {
         textView_PreviousClose = findViewById(R.id.textView_PreviousClose);
         textView_Total = findViewById(R.id.textView_Total);
         isCompleteLoaded = false;
-
-        editText_StockSymbol.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                editText_StockSymbol.setSelection(0,editText_StockSymbol.getText().length()-1 );
-
-            }
-        });
-
-
-
-
+        
         if (selectedStockQuote == null) {
             selectedStockQuote = new StockQuote(Controller.lastTransactionSymbol, 0);
         }
@@ -89,6 +78,7 @@ public class TransactionActivity extends AppCompatActivity {
 
             String[] itemClicked = editText_StockSymbol.getText().toString().toUpperCase().split(" ");
             selectedStockQuote.symbol = itemClicked[0];
+            Controller.lastTransactionSymbol = selectedStockQuote.symbol;
             updateAllInfo();
             editText_StockSymbol.clearFocus();
 
