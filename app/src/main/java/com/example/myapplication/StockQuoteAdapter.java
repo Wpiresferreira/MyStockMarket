@@ -24,10 +24,10 @@ import java.util.List;
 public class StockQuoteAdapter extends RecyclerView.Adapter<StockQuoteAdapter.ViewHolder> {
 
 
-    private final List<StockQuote> stockQuoteList;
+    private final List<Stock> stockList;
 
-    public StockQuoteAdapter(List<StockQuote> stockQuoteList) {
-        this.stockQuoteList = stockQuoteList;
+    public StockQuoteAdapter(List<Stock> stockQuoteList) {
+        this.stockList = stockQuoteList;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -65,21 +65,22 @@ public class StockQuoteAdapter extends RecyclerView.Adapter<StockQuoteAdapter.Vi
     public void onBindViewHolder(@NonNull StockQuoteAdapter.ViewHolder holder, int position) {
         try {
             Glide.with(holder.imageView)
-                    .load(stockQuoteList.get(position).imageURL)
+                    .load(stockList.get(position).imageURL)
                     .placeholder(R.drawable.b_investor_logo2)
                     .into(holder.imageView);
         }catch (Exception e){
             Log.wtf("Glider", "onBindViewHolder: "+e);
         }
-        holder.text_Symbol.setText(stockQuoteList.get(position).symbol);
-        holder.text_Description.setText(stockQuoteList.get(position).name);
-        holder.text_Value.setText(new DecimalFormat("#,##0.00").format(stockQuoteList.get(position).balance * stockQuoteList.get(position).currentPrice));
-        holder.text_Share.setText(String.valueOf(stockQuoteList.get(position).balance));
-        holder.text_Last.setText(new DecimalFormat("#,##0.00").format(stockQuoteList.get(position).currentPrice));
+        holder.text_Symbol.setText(stockList.get(position).symbol);
+        holder.text_Description.setText(stockList.get(position).name);
+        holder.text_Value.setText(new DecimalFormat("#,##0.00").format(stockList.get(position).balance
+                * stockList.get(position).currentPrice));
+        holder.text_Share.setText(String.valueOf(stockList.get(position).balance));
+        holder.text_Last.setText(new DecimalFormat("#,##0.00").format(stockList.get(position).currentPrice));
 
         String formattedTextChanged = "";
-        formattedTextChanged += new DecimalFormat("0.00").format(stockQuoteList.get(position).percentChange) +"%";
-        if(stockQuoteList.get(position).percentChange >0) {
+        formattedTextChanged += new DecimalFormat("0.00").format(stockList.get(position).percentChange) +"%";
+        if(stockList.get(position).percentChange >0) {
             formattedTextChanged += "\uF139";
         }else{
             formattedTextChanged += "\uF13A";
@@ -96,9 +97,9 @@ public class StockQuoteAdapter extends RecyclerView.Adapter<StockQuoteAdapter.Vi
         });
 
 
-        if(stockQuoteList.get(position).percentChange > 0 ){
+        if(stockList.get(position).percentChange > 0 ){
             holder.text_Change.setTextColor(Color.rgb(0,128,0));
-        } else if (stockQuoteList.get(position).percentChange < 0) {
+        } else if (stockList.get(position).percentChange < 0) {
             holder.text_Change.setTextColor(Color.rgb(255,0,0));
         }else{
             holder.text_Change.setTextColor(Color.BLACK);
@@ -108,6 +109,6 @@ public class StockQuoteAdapter extends RecyclerView.Adapter<StockQuoteAdapter.Vi
 
     @Override
     public int getItemCount() {
-        return stockQuoteList.size();
+        return stockList.size();
     }
 }

@@ -32,7 +32,7 @@ import java.util.TimerTask;
 public class TransactionActivity extends AppCompatActivity {
     EditText editText_Qt;
     AutoCompleteTextView editText_StockSymbol;
-    StockQuote selectedStockQuote;
+    Stock selectedStock;
     ImageView imageView_Logo;
     Timer timer;
     TextView textView_Name, textView_CurrentPrice, textView_Change, textView_PercentChange, textView_Low, textView_High, textView_Open, textView_PreviousClose,
@@ -62,10 +62,10 @@ public class TransactionActivity extends AppCompatActivity {
         textView_Total = findViewById(R.id.textView_Total);
         isCompleteLoaded = false;
         
-        if (selectedStockQuote == null) {
-            selectedStockQuote = new StockQuote(Controller.lastTransactionSymbol, 0);
+        if (selectedStock == null) {
+            selectedStock = new Stock(Controller.lastTransactionSymbol, 0);
         }
-        editText_StockSymbol.setText(selectedStockQuote.symbol);
+        editText_StockSymbol.setText(selectedStock.symbol);
 
         updateAllInfo();
 
@@ -74,11 +74,11 @@ public class TransactionActivity extends AppCompatActivity {
         editText_StockSymbol.setAdapter(adapter);
         editText_StockSymbol.setOnItemClickListener((parent, view, position, id) -> {
 
-            selectedStockQuote = new StockQuote();
+            selectedStock = new Stock();
 
             String[] itemClicked = editText_StockSymbol.getText().toString().toUpperCase().split(" ");
-            selectedStockQuote.symbol = itemClicked[0];
-            Controller.lastTransactionSymbol = selectedStockQuote.symbol;
+            selectedStock.symbol = itemClicked[0];
+            Controller.lastTransactionSymbol = selectedStock.symbol;
             updateAllInfo();
             editText_StockSymbol.clearFocus();
 
@@ -152,7 +152,7 @@ public class TransactionActivity extends AppCompatActivity {
 
 
     private void updateAllInfo() {
-        if (selectedStockQuote != null) { // && Controller.companies.contains(selectedStockQuote.symbol)) {
+        if (selectedStock != null) { // && Controller.companies.contains(selectedStockQuote.symbol)) {
             updateDescription();
             updateQuotes();
         } else {
@@ -171,7 +171,7 @@ public class TransactionActivity extends AppCompatActivity {
         isCompleteLoaded = false;
 
         String url = "https://finnhub.io/api/v1/quote?symbol=" +
-                selectedStockQuote.symbol +
+                selectedStock.symbol +
                 "&token=" +
                 Controller.token;
 
@@ -217,25 +217,25 @@ public class TransactionActivity extends AppCompatActivity {
     public void updateDescription() {
 
         String url = "https://finnhub.io/api/v1/stock/profile2?symbol=" +
-                selectedStockQuote.symbol +
+                selectedStock.symbol +
                 "&token=" +
                 Controller.token;
 
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
             try {
-                selectedStockQuote.name = response.getString("name");
-                selectedStockQuote.imageURL = response.getString("logo");
+                selectedStock.name = response.getString("name");
+                selectedStock.imageURL = response.getString("logo");
 
 
-                if (!selectedStockQuote.imageURL.isEmpty()) {
+                if (!selectedStock.imageURL.isEmpty()) {
 
                     Glide.with(this)
-                            .load(selectedStockQuote.imageURL)
+                            .load(selectedStock.imageURL)
                             .placeholder(R.drawable.b_investor_logo2)
                             .into(imageView_Logo);
                 }
-                textView_Name.setText(selectedStockQuote.name);
+                textView_Name.setText(selectedStock.name);
             } catch (Exception e) {
                 Log.wtf("WTF", "updateDescription: " + e);
 
@@ -254,7 +254,7 @@ public class TransactionActivity extends AppCompatActivity {
         }
         double totalOrder = Double.parseDouble(String.valueOf(textView_Total.getText()).replace("$", "").replace(",", ""));
         int qtdOrder = Integer.parseInt(String.valueOf(editText_Qt.getText()));
-        String stockOrder = String.valueOf(selectedStockQuote.symbol);
+        String stockOrder = String.valueOf(selectedStock.symbol);
 
         if (Controller.getLoggedUser().customerCash.balance >= totalOrder) {
             Controller.getLoggedUser().customerCash.balance -= totalOrder;
@@ -268,7 +268,7 @@ public class TransactionActivity extends AppCompatActivity {
                     return;
                 }
             }
-            StockQuote myNewStock = new StockQuote(stockOrder, qtdOrder);
+            Stock myNewStock = new Stock(stockOrder, qtdOrder);
             Controller.getLoggedUser().stocksInWallet.add(myNewStock);
 
             //Save information to file
@@ -286,7 +286,7 @@ public class TransactionActivity extends AppCompatActivity {
         }
         double totalOrder = Double.parseDouble(String.valueOf(textView_Total.getText()).replace("$", "").replace(",", ""));
         int qtdOrder = Integer.parseInt(String.valueOf(editText_Qt.getText()));
-        String stockOrder = String.valueOf(selectedStockQuote.symbol);
+        String stockOrder = String.valueOf(selectedStock.symbol);
 
         Stock customerStock = null;
 
@@ -302,7 +302,6 @@ public class TransactionActivity extends AppCompatActivity {
                 }
 
                 if (stock.balance == 0) {
-                    //noinspection SuspiciousMethodCalls
                     Controller.getLoggedUser().stocksInWallet.remove(stock);
                 }
                 Controller.updateLoggedUser(getApplicationContext());

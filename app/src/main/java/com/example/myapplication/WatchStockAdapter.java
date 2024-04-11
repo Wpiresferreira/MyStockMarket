@@ -25,9 +25,9 @@ import java.util.List;
 public class WatchStockAdapter extends RecyclerView.Adapter<WatchStockAdapter.ViewHolder> {
 
 
-    private final List<StockQuote> watchStockList;
+    private final List<Stock> watchStockList;
 
-    public WatchStockAdapter(List<StockQuote> stockQuoteList) {
+    public WatchStockAdapter(List<Stock> stockQuoteList) {
         this.watchStockList = stockQuoteList;
     }
 
@@ -99,13 +99,13 @@ public class WatchStockAdapter extends RecyclerView.Adapter<WatchStockAdapter.Vi
             View viewToRemove = (FrameLayout)v.getParent();
             TextView text_Symbol = viewToRemove.findViewById(R.id.textView_StockSymbol);
             String symbolToRemove = text_Symbol.getText().toString();
-            StockQuote stockQuoteToRemove = new StockQuote();
-            for(StockQuote s : Controller.getLoggedUser().stocksInWatchlist){
+            Stock stockToRemove = new Stock();
+            for(Stock s : Controller.getLoggedUser().stocksInWatchlist){
                 if (s.symbol.equals(symbolToRemove)){
-                    stockQuoteToRemove = s;
+                    stockToRemove = s;
                 }
             }
-            Controller.getLoggedUser().stocksInWatchlist.remove(stockQuoteToRemove);
+            Controller.getLoggedUser().stocksInWatchlist.remove(stockToRemove);
             Controller.updateLoggedUser(v.getContext());
 
             notifyDataSetChanged();

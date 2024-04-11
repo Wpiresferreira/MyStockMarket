@@ -580,7 +580,7 @@ public class Controller extends AppCompatActivity {
         updateLoggedUser(context);
     }
 
-    public static void addStockInWatchList(Context context, StockQuote stockQuote) {
+    public static void addStockInWatchList(Context context, Stock stockQuote) {
         loggedUser.stocksInWatchlist.add(stockQuote);
         updateLoggedUser(context);
     }

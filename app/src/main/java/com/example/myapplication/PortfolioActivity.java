@@ -84,7 +84,7 @@ public class PortfolioActivity extends AppCompatActivity {
 
     public void updateQuotes(View view) {
 
-        for (StockQuote s : Controller.getLoggedUser().stocksInWallet) {
+        for (Stock s : Controller.getLoggedUser().stocksInWallet) {
             String url = "https://finnhub.io/api/v1/quote?symbol=" + s.symbol + "&token=" + Controller.token;
 
             JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
@@ -119,7 +119,7 @@ public class PortfolioActivity extends AppCompatActivity {
     private void updateTotal() {
         Double total = 0.0;
         total += Controller.getLoggedUser().customerCash.balance;
-        for (StockQuote s : Controller.getLoggedUser().stocksInWallet) {
+        for (Stock s : Controller.getLoggedUser().stocksInWallet) {
             total += s.balance * s.currentPrice;
         }
 
@@ -129,7 +129,7 @@ public class PortfolioActivity extends AppCompatActivity {
 
     public void updateDescription(View view) {
 
-        for (StockQuote s : Controller.getLoggedUser().stocksInWallet) {
+        for (Stock s : Controller.getLoggedUser().stocksInWallet) {
 
             if (!s.name.isEmpty()) continue;
 

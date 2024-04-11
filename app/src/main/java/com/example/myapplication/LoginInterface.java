@@ -7,5 +7,4 @@ public interface LoginInterface {
     static Customer login(Context applicationContext, String username, String password) {
         return null;
     }
-
 }

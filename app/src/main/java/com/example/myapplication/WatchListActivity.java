@@ -72,7 +72,7 @@ public class WatchListActivity extends AppCompatActivity {
 
             String[] itemClicked = editText_StockToAdd.getText().toString().toUpperCase().split(" ");
 
-            Controller.addStockInWatchList(this, new StockQuote(itemClicked[0], 0));
+            Controller.addStockInWatchList(this, new Stock(itemClicked[0], 0));
             adapter.notifyDataSetChanged();
             updateDescription();
             updateQuotes();
@@ -98,7 +98,7 @@ public class WatchListActivity extends AppCompatActivity {
     }
 
     private void updateQuotes() {
-        for (StockQuote s : Controller.getLoggedUser().stocksInWatchlist) {
+        for (Stock s : Controller.getLoggedUser().stocksInWatchlist) {
             String url = "https://finnhub.io/api/v1/quote?symbol=" + s.symbol + "&token=" + Controller.token;
 
             JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
@@ -130,7 +130,7 @@ public class WatchListActivity extends AppCompatActivity {
 
     private void updateDescription() {
 
-        for (StockQuote s : Controller.getLoggedUser().stocksInWatchlist) {
+        for (Stock s : Controller.getLoggedUser().stocksInWatchlist) {
 
             if (!s.name.isEmpty()) continue;
 

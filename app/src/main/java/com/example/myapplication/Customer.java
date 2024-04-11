@@ -15,8 +15,8 @@ public class Customer implements Parcelable {
     String username;
     String password;
     Cash customerCash;
-    List<StockQuote> stocksInWallet;
-    List<StockQuote> stocksInWatchlist;
+    List<Stock> stocksInWallet;
+    List<Stock> stocksInWatchlist;
 
     public Customer(){
         username = "";
@@ -76,6 +76,5 @@ public class Customer implements Parcelable {
         for (Stock s : stocksInWatchlist) {
             dest.writeParcelable(s, 0);
         }
-
     }
 }
